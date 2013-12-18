@@ -1,0 +1,1 @@
+Librerie per la realizzazione di gestionali web-based in PHP. In italiano.
