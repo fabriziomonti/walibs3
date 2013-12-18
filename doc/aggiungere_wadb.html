@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title></title>
+		<link href="css/documentazione_walibs3.css" rel="stylesheet" />
+	</head>
+
+	<body>
+
+		<div class='titolo'>waLibs 3.x</div>
+		<div class='titolo'>Aggiungere waDB</div>
+
+		<div>
+			Prima di passare a vedere altri oggetti di UI come waTabella e 
+			waModulo, che per ovvi motivi fanno uso esteso dell'accesso alla
+			base dati, è necessario vedere come collegare la propria applicazione
+			a uno o più database. Lo strumento che permette questo collegamento
+			è waDB.
+		</div>
+		
+		<div>
+			Naturalmente occorre prima di tutto crearsi un database di test; se
+			non volete impazzire, in questa fase ne abbiamo preparato uno per
+			voi; è il dump di un DB MySql e lo troverete in 
+			<i>walibs3/waapplicazione/test/db</i>. Installatelo e dategli il nome e i 
+			privilegi di security che vi aggradano; in questo esempio assumeremo
+			che il DB sia raggiungibile presso <i>localhost</i>, si chiami 
+			<i>testwalibs</i>
+			e che sia editabile mediante lo user <i>watest</i> con password 
+			<i>watest</i> (questa configurazione è anche quella utilizzata dai
+			diversi programmini di test forniti a corredo della presente
+			documentazione; si consiglia quindi di replicarla esattamente).
+		</div>
+		
+		<div>
+			Copiate nella root della vostra applicazione (non è un obbligo, ma 
+			una linea guida questo si) il file di configurazione di default del
+			package waDB, dandogli un nome che lo renda riconoscibile; quindi 
+			aprite il file copiato col vostro editor e valorizzate i parametri
+			di accesso:
+		</div>
+		
+		<div>
+			<pre class='shell-code'>
+$ cd /var/www/testwalibs
+$ cp walibs3/wadb/config.inc.php dbconfig.inc.php
+$ pico dbconfig.inc.php
+			</pre>
+		</div>
+		
+		<div>
+			<pre class='php-code'>
+&lt;?php
+<span class="php-comment">
+//****************** dbconfig.inc.php ****************************************
+
+/**
+* 
+* Tipo database; si vedano le defines WADB_TIPODB_* in {@link wadb.inc.php}
+*/</span>
+$WADB_TIPODB = <span style="color: red">WADB_TIPODB_MYSQL</span>;
+<span class="php-comment">
+/**
+* 
+* Nome o indirizzo IP host di residenza del db
+*/</span>
+$WADB_HOST = '<span style="color: red">localhost</span>';
+<span class="php-comment">
+/**
+* Nome utente per l'accesso al db
+*/</span>
+$WADB_NOMEUTENTE = '<span style="color: red">watest</span>';
+<span class="php-comment">
+/**
+* 
+* Password utente per l'accesso al db
+*/</span>
+$WADB_PASSWORD = '<span style="color: red">watest</span>';
+<span class="php-comment">
+/**
+* 
+* Nome del db
+*/</span>
+$WADB_NOMEDB = '<span style="color: red">testwalibs</span>';
+<span class="php-comment">
+/**
+* 
+* Porta sui cui viene condiviso il db
+*/</span>
+$WADB_PORTA = '';
+
+<span class="php-comment">
+/**
+* 
+* Nome di un file sequenziale dove vengono loggati tutti gli acessi in scrittura al db 
+* (anonimi, salvo l'ip di provenienza)
+*/</span>
+$WADB_NOMELOG = '';
+<span class="php-comment">
+/**
+* 
+* Nome di una funzione callback invocata ad ogni accesso al db in scrittura.
+* Alla funzione, se esistente, viene passato come parametro la stringa sql in esecuzione. E' cosi'
+* possibile per una applicazione definire un proprio logging, che riporti eventuali dati dell'utente
+* che ha invocato la scrittura su db. La variabile puo' anche contenere un metodo: in questo caso sara'
+* un array di tre elementi:
+* o nome della classe che contiene il metodo
+* o nome di una proprieta' statica della classe che restituisce un' istanza della classe
+* o nome del metodo da invocare
+*/</span>
+$WADB_LOG_CALLBACK_FNC = '';
+
+?&gt;
+			</pre>
+		</div>
+
+		<div>
+			A questo punto dovete far sapere alla vostra applicazione che ogni 
+			volta che dovrà accedere alla base dati dovrà usare quel file di
+			configurazione. Vi consigliamo quindi di creare e valorizzare una
+			nuova proprietà dell'applicazione, destinata a contenere appunto
+			il nome del file di configurazione per l'accesso al DB. Naturalmente,
+			qualora la vostra applicazione dovesse accedere a più database, anche
+			di tipo diverso, non dovrete fare altro che creare un altro file di 
+			configurazione e individuarlo con un'altra proprietà dell'applicazione.
+		</div>
+		
+		<div>
+			<pre class='php-code'>
+&lt;?php
+<span class="php-comment">
+//****************** testwalibs.inc.php ***************************************
+</span>
+include dirname(__FILE__) . "/walibs3/waapplicazione/waapplicazione.inc.php";
+
+class testwalibs extends waApplicazione
+	{
+	<span style="color: red">var $fileConfigurazioneDB;</span>
+
+	function __construct()
+		{			
+		$this->nome = "testwalibs";
+		$this->titolo = "Voglio testare le waLibs";
+		$this->xslt = dirname(__FILE__) . "/ui/xslt/testwalibs.xsl";
+		<span style="color: red">$this->fileConfigurazioneDB = dirname(__FILE__) . "/dbconfig.inc.php";</span>
+		$this->inizializza();
+		}
+
+	function dammiMenu()
+		{
+		$m = new waMenu();
+		$m->apri();
+		
+		$m->apriSezione("Pagina 1", "pagina1.php");
+		$m->chiudiSezione();
+		$m->apriSezione("Pagina 2", "pagina2.php.php");
+		$m->chiudiSezione();
+		$m->apriSezione("Pagina N", "paginaN.php.php");
+		$m->chiudiSezione();
+
+		$m->chiudi();
+		return $m;
+		}
+	}
+?&gt;
+			</pre>
+		</div>
+
+		<div>
+			Volendo, a questo punto, potreste ridefinire il metodo
+			<i>dammiConnessioneDB</i> della classe waApplicazione: poichè la
+			vostra applicazione sa già quale file di configurazione per l'accesso
+			al DB utilizzare, è abbastanza inutile (e quindi dannoso!) dover
+			specificare ad ogni chiamata quale file di configurazione utilizzare.
+			Ma non vogliamo rovinarvi la gioia euristica della programmazione OO.
+		</div>
+		
+		<div>
+			<table class="navbar">
+				<tr>
+					<td align="left"><a href="personalizzare_ui_2.html"><< Personalizzare la UI - 2</a></td>
+					<td align="right"><a href="aggiungere_watabella.html">Aggiungere una waTabella >></a></td>
+				</tr>
+			</table>
+		</div>
+
+	</body>
+</html>

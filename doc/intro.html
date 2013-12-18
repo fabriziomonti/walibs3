@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title></title>
+		<link href="css/documentazione_walibs3.css" rel="stylesheet" />
+	</head>
+
+	<body>
+
+		<div class='titolo'>waLibs 3.x</div>
+		<div class='titolo'>Introduzione</div>
+
+		<div>
+			Le <b>waLibs</b> sono un insieme di librerie di classi PHP. Prese singolarmente 
+			servono, come tutte le librerie, a ricondurre a fattore comune codice 
+			destinato a risolvere uno specifico problema. 		
+		</div>
+
+		<div>
+			Se usate in modo integrato e coerente, formano un vero e proprio 
+			<u><i>framework per la realizzazione di gestionali web-based in PHP</i></u>.
+		</div>
+
+		<div>
+			Analizzando l'interfaccia utente (UI) di un qualsiasi programma 
+			gestionale, troveremo che questo e' composto, nella stragrande 
+			maggioranza delle sue parti, da:
+		</div>
+
+		<div>
+			<ul>
+				<li> un numero <i>n</i> di pagine organizzate sotto forma di tabelle, 
+					contenenti un insieme omogeneo di righe
+				<li> un numero <i>n</i> di pagine organizzate sotto forma di moduli 
+					(forms), contenenti il dettaglio di una riga della tabella di 
+					cui al punto precedente
+				<li> uno o più menu che consentano di navigare tra una sezione e 
+					l'altra del programma.
+			</ul>
+		</div>
+
+		<div>
+			Inoltre, ovviamente, ogni programma gestionale alimenta i dati 
+			presentati nella UI prelevandoli a propria volta da una base dati (DB).
+		</div>
+
+		<div>
+			Proprio partendo da questa analisi sono state realizzate le classi che 
+			compongono le <b>waLibs</b>:
+		</div>
+
+		<div>
+			<ul>
+				<li> <b><a href="../wadb/doc/index.html">waDB</a></b>: è la classe che gestisce l'accesso ai dati contenuti nel 
+					DB e che fornisce al programmatore una interfaccia programmatica 
+					(API) identica indipendentemente dal tipo di DBMS utilizzato
+				<li> <b><a href="../wamodulo/doc/index.html">waModulo</a></b>: è la classe che gestisce la costruzione e 
+					l'interazione con un modulo (form) utente, il quale a suo volta 
+					può integrarsi organicamente con i dati prelevati tramite 
+					oggetti di classe waDB
+				<li> <b><a href="../watabella/doc/index.html">waTabella</a></b>: è la classe che gestisce la costruzione e 
+					l'interazione con una tabella (insieme di righe omogenee) 
+					utente, la quale a suo volta può integrarsi organicamente con i 
+					dati prelevati tramite oggetti di classe waDB
+				<li> <b><a href="../wamenu/doc/index.html">waMenu</a></b>: è la classe che gestisce la costruzione e l'interazione 
+					con un menu dell'applicazione, che permette la navigazione tra 
+					le varie sezioni della stessa
+				<li> <b><a href="../waapplicazione/doc/index.html">waApplicazione</a></b>: è la classe scheletro dell'applicazione, classe 
+					la cui estensione conterrà tutte le pagine che compongono 
+					l'applicazione stessa e di conseguenza le regole applicative (BR 
+					– business-rules) che il programmatore è chiamato a 
+					implementare e le modalità di navigazione/accesso ad ogni 
+					sezione dell'applicazione
+				<li> <b><a href="../wadocumentazione/doc/index.html">waDocumentazione</a></b>: è la classe che provvederà a creare 
+					l'impalcatura ordinata della documentazione che il programmatore
+					dovrà compilare al termine della stesura dell'applicazione.
+			</ul>
+		</div>
+
+		<div>
+			<table class="navbar">
+				<tr>
+					<td align="left"></td>
+					<td align="right"><a href="db_br_ui.html">DB/BR/UI >></a></td>
+				</tr>
+			</table>
+		</div>
+		
+	</body>
+</html>

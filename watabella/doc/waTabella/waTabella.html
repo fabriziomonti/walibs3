@@ -1,0 +1,973 @@
+<html>
+	<head>
+		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+		<title>Docs For Class waTabella</title>
+		<link rel="stylesheet" type="text/css" href="../media/style.css">
+	</head>
+	<body>
+
+		<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+			<tr>
+				<td class="header_top">waTabella</td>
+			</tr>
+			<tr><td class="header_line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+			<tr>
+				<td class="header_menu">
+					
+																		
+																						[ <a href="../classtrees_waTabella.html" class="menu">albero delle classi</a> ]
+						[ <a href="../elementindex_waTabella.html" class="menu">indice degli elementi</a> ]
+										<!-- [ <a href="../elementindex.html" class="menu">all elements</a> ] -->
+				</td>
+			</tr>
+			<tr><td class="header_line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+		</table>
+
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr valign="top">
+				<td width="200" class="menu">
+															<!-- <b>Packages:</b><br />-->
+											<a href="../li_waTabella.html">Introduzione</a><br />
+										<br />
+													
+											<b><a href="../waTabella/_watabella.inc.php.html">Defines applicative
+</a><br>
+<br /></b>
+					
+											<b>Classi:</b><br />
+								    		<a href="../waTabella/waAzioneTabella.html">waAzioneTabella</a><br />
+	    		<a href="../waTabella/waColonna.html">waColonna</a><br />
+	    		<a href="../waTabella/waTabella.html">waTabella</a><br />
+	
+						<br />
+					
+											<b>Files:</b><br />
+						<a href="../waTabella/_waazionetabella.class.php.html">waazionetabella.class.php
+</a><br>
+<a href="../waTabella/_wacolonna.class.php.html">wacolonna.class.php
+</a><br>
+<a href="../waTabella/_watabella.class.php.html">watabella.class.php
+</a><br>
+<a href="../waTabella/_watabella.inc.php.html">watabella.inc.php
+</a><br>
+<a href="../waTabella/_ya_wam_pdf.php.html">ya_wam_pdf.php
+</a><br>
+<br />
+						<br />
+					
+					
+							</td>
+			<td>
+				<table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
+
+																			<h1>Classe waTabella</h1>
+							(/watabella.class.php)<br /><br />
+						
+
+<table width="100%" border="0">
+<tr><td valign="top">
+
+<h3><a href="#class_details"> Panoramica</a></h3>
+<pre></pre><br />
+<div class="description">waTabella</div><br /><br />
+
+
+
+
+        
+          
+      
+
+        
+</td>
+
+<td valign="top">
+<h3><a href="#class_vars">Proprietà</a></h3>
+<ul>
+    <li><a href="../waTabella/waTabella.html#var$applicazione">$applicazione</a></li>
+    <li><a href="../waTabella/waTabella.html#var$azioni">$azioni</a></li>
+    <li><a href="../waTabella/waTabella.html#var$colonne">$colonne</a></li>
+    <li><a href="../waTabella/waTabella.html#var$filtroAttivo">$filtroAttivo</a></li>
+    <li><a href="../waTabella/waTabella.html#var$funzioneDopoDiRiga">$funzioneDopoDiRiga</a></li>
+    <li><a href="../waTabella/waTabella.html#var$funzionePrimaDiRiga">$funzionePrimaDiRiga</a></li>
+    <li><a href="../waTabella/waTabella.html#var$input">$input</a></li>
+    <li><a href="../waTabella/waTabella.html#var$listaMaxRec">$listaMaxRec</a></li>
+    <li><a href="../waTabella/waTabella.html#var$nome">$nome</a></li>
+    <li><a href="../waTabella/waTabella.html#var$paginaModulo">$paginaModulo</a></li>
+    <li><a href="../waTabella/waTabella.html#var$pdf_file_classe">$pdf_file_classe</a></li>
+    <li><a href="../waTabella/waTabella.html#var$pdf_nome_classe">$pdf_nome_classe</a></li>
+    <li><a href="../waTabella/waTabella.html#var$pdf_orientazione">$pdf_orientazione</a></li>
+    <li><a href="../waTabella/waTabella.html#var$record">$record</a></li>
+    <li><a href="../waTabella/waTabella.html#var$righeDB">$righeDB</a></li>
+    <li><a href="../waTabella/waTabella.html#var$selezioneEsclusiva">$selezioneEsclusiva</a></li>
+    <li><a href="../waTabella/waTabella.html#var$titolo">$titolo</a></li>
+    <li><a href="../waTabella/waTabella.html#var$xslt">$xslt</a></li>
+  </ul>
+</td>
+
+
+<td valign="top">
+<h3><a href="#class_methods">Metodi</a></h3>
+<ul>
+    <li><a href="../waTabella/waTabella.html#method__construct">__construct</a></li>
+    <li><a href="../waTabella/waTabella.html#methodaggiungiAzione">aggiungiAzione</a></li>
+    <li><a href="../waTabella/waTabella.html#methodaggiungiColonna">aggiungiColonna</a></li>
+    <li><a href="../waTabella/waTabella.html#methodcaricaRighe">caricaRighe</a></li>
+    <li><a href="../waTabella/waTabella.html#methoddaAggiornare">daAggiornare</a></li>
+    <li><a href="../waTabella/waTabella.html#methodeliminaAzione">eliminaAzione</a></li>
+    <li><a href="../waTabella/waTabella.html#methodleggiValoriIngresso">leggiValoriIngresso</a></li>
+    <li><a href="../waTabella/waTabella.html#methodmostra">mostra</a></li>
+    <li><a href="../waTabella/waTabella.html#methodmostraXML">mostraXML</a></li>
+    <li><a href="../waTabella/waTabella.html#methodsalva">salva</a></li>
+  </ul>
+</td>
+
+</tr></table>
+
+
+
+
+
+
+<hr />
+
+<a name="class_details"></a>
+<h3>Dettaglio</h3>
+<div class="tags">
+<!-- [line 33]<br />-->
+<div><p style="margin-top: -4px"><b>waTabella</b></p></div><div><p>classe per la gestione di una tabella standard con alimentazione  proveniente da una query SQL o da una matrice in memoria.</p></div>	<div class="tags">
+		<table border="0" cellspacing="0" cellpadding="0">
+							<tr>
+					<td><b>
+																																																	</td>
+				</tr>
+							<tr>
+					<td><b>
+																																																	</td>
+				</tr>
+							<tr>
+					<td><b>
+																																																	</td>
+				</tr>
+							<tr>
+					<td><b>
+																																																	</td>
+				</tr>
+					</table>
+	</div>
+</div><br /><br />
+<div class="top">[ <a href="#top">Top</a> ]</div><br />
+
+<hr />
+<a name="class_vars"></a>
+<h3>Proprietà</h3>
+<div class="tags">
+																								<p></p>
+			<a name="var$applicazione"></a>
+				<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+					<table width="100%" border="0" cellspacing="0" cellpadding="2">
+						<tr>
+							<td class="code">
+								<code>
+									$applicazione = <span class="value">&nbsp;null</span>										
+								</code>
+							</td>
+						</tr>
+					</table>
+			</td></tr></table><br />
+
+			<!--<p>[line 260]</p>-->
+			<div><p style="margin-top: -4px"><b>istanza applicazione a cui la tabella appartiene</b></p></div><div><p>eventuale istanza di una applicazione (waApplicazione o sua estensione o  simili) all'interno della quale la tabella è stata generata.  <br /><br />  La valorizzazione di questa proprietà ha senso solo quando si intende  effettuare una chiamata RPC ad un metodo che appartiene all'applicazione</p></div>			<div class="tags">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td><b>Tipo:</b>&nbsp;&nbsp;</td>
+						<td>object</td>
+					</tr>
+									</table>
+			</div><br />
+			<div class="top" style="margin-left: 4px;">[ <a href="#top">Top</a> ]</div>
+									<p></p>
+			<a name="var$azioni"></a>
+				<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+					<table width="100%" border="0" cellspacing="0" cellpadding="2">
+						<tr>
+							<td class="code">
+								<code>
+									$azioni = <span class="value">array()</span>										
+								</code>
+							</td>
+						</tr>
+					</table>
+			</td></tr></table><br />
+
+			<!--<p>[line 211]</p>-->
+			<div><p style="margin-top: -4px"><b>array delle azioni</b></p></div><div><p>array associativo che contiene tutte le azioni  applicabili alla tabella, siano esse su un insieme di record o su un  singolo record. Ogni azione corrispondera'  ad un bottone (o a qualsiasi altro meccanismo deinito nel foglio <a href="../waTabella/waTabella.html#var$xslt">$xslt</a>,  il quale inneschera', secondo le modalita' definite nalla UI,   la funzionalita' ad esso associata.</p><p>Ogni azione e' contenuta in  un oggetto di classe <a href="../waTabella/waAzioneTabella.html">waAzioneTabella</a>. Puo' essere indifferentente creato  invocando il metodo <a href="../waTabella/waTabella.html#methodaggiungiAzione">aggiungiAzione</a>, oppure inizializzando direttamente  l'elemento dell'array.</p><p>L'array e' composto di un nr. di elementi a piacere, in cui la  chiave dell'elemento e' il nome dell'azione.</p><p>La classe fornisce di default le azioni standard: <ul><li>Nuovo</li><li>Vedi</li><li>Modifica</li><li>Elimina</li></ul> dove <strong>Nuovo</strong> e' un'azione non suRecord, mentre le altre lo sono.</p><p>Inoltre, a fronte di determinate condizioni: <ul><li>Filtro // se almeno una delle colonne e' ordinabile/filtrabile</li><li>noFiltro // se il filtro e' correntemente attivo</li></ul>  E' possibile non mostrare uno qualsiasi dei bottoni di azione predefiniti  semplicemente eliminando l'elemento corrispondente. Ad esempio:</p><p><ol><li><div class="src-line">&nbsp;<span class="src-var">$table&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id"><a href="../waTabella/waTabella.html">waTabella</a></span><span class="src-sym">(</span><span class="src-str">&quot;SELECT&nbsp;*&nbsp;FROM&nbsp;Fornitori&quot;</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$table</span><span class="src-sym">-&gt;</span><a href="../waTabella/waTabella.html#methodeliminaAzione">eliminaAzione</a><span class="src-sym">(</span><span class="src-str">'Nuovo'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+</ol></p><p>elimina dalla pagina la possibilita' di inserire un nuovo record.</p><p>Analogamente e' possibile ridefinire la caption delle azioni standard.  Ad esempio:</p><p><ol><li><div class="src-line">&nbsp;<span class="src-var">$table</span><span class="src-sym">-&gt;</span><span class="src-id"><a href="../waTabella/waTabella.html#var$azioni">azioni</a></span><span class="src-sym">[</span><span class="src-str">'Nuovo'</span><span class="src-sym">]</span><span class="src-sym">-&gt;</span><span class="src-id">etichetta&nbsp;</span>=&nbsp;<span class="src-str">'Inserisci'</span><span class="src-sym">;</span></div></li>
+</ol></p><p>cambia la caption (etichetta)  del bottone che per default del metodo <a href="../waTabella/waTabella.html#methodaggiungiAzione">aggiungiAzione</a>  e' uguale al nome.</p></div>			<div class="tags">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td><b>Tipo:</b>&nbsp;&nbsp;</td>
+						<td>array</td>
+					</tr>
+									</table>
+			</div><br />
+			<div class="top" style="margin-left: 4px;">[ <a href="#top">Top</a> ]</div>
+									<p></p>
+			<a name="var$colonne"></a>
+				<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+					<table width="100%" border="0" cellspacing="0" cellpadding="2">
+						<tr>
+							<td class="code">
+								<code>
+									$colonne = <span class="value">array()</span>										
+								</code>
+							</td>
+						</tr>
+					</table>
+			</td></tr></table><br />
+
+			<!--<p>[line 231]</p>-->
+			<div><p style="margin-top: -4px"><b>array delle colonne</b></p></div><div><p>array associativo che contiene tutte le colonne sotto forma di oggetti  <a href="../waTabella/waColonna.html">waColonna</a>.</p><p>Ogni colonna (elemento dell'array), puo' essere indifferentente creato  invocando il metodo <a href="../waTabella/waTabella.html#methodaggiungiColonna">aggiungiColonna</a>, oppure inizializzando direttamente  l'elemento dell'array; si tenga pero' presente che essendo un array associativo,  l'ordine delle colonne sara' quello di creazione degli elementi,  e che la prima colonna della tabella (non necessariamente il primo campo  del record e non necessariamente visibile) DEVE sempre essere l'identificativo  univoco della riga.</p><p>La chiave dell'array sara' corrispondente alla prorieta' <a href="../waTabella/waColonna.html#var$nome">nome</a> della  classe <a href="../waTabella/waColonna.html">waColonna</a></p></div>			<div class="tags">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td><b>Tipo:</b>&nbsp;&nbsp;</td>
+						<td>array</td>
+					</tr>
+									</table>
+			</div><br />
+			<div class="top" style="margin-left: 4px;">[ <a href="#top">Top</a> ]</div>
+									<p></p>
+			<a name="var$filtroAttivo"></a>
+				<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+					<table width="100%" border="0" cellspacing="0" cellpadding="2">
+						<tr>
+							<td class="code">
+								<code>
+									$filtroAttivo = <span class="value">&nbsp;false</span>										
+								</code>
+							</td>
+						</tr>
+					</table>
+			</td></tr></table><br />
+
+			<!--<p>[line 240]</p>-->
+			<div><p style="margin-top: -4px"><b>flag di filtro attivo sulla vista</b></p></div><div><p>readOnly; indica se c'e' un filtro attivo sulla vista (la tabella e' frutto di  una selezione effettuata col bottone &quot;Filtro&quot;)</p></div>			<div class="tags">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td><b>Tipo:</b>&nbsp;&nbsp;</td>
+						<td>boolean</td>
+					</tr>
+									</table>
+			</div><br />
+			<div class="top" style="margin-left: 4px;">[ <a href="#top">Top</a> ]</div>
+									<p></p>
+			<a name="var$funzioneDopoDiRiga"></a>
+				<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+					<table width="100%" border="0" cellspacing="0" cellpadding="2">
+						<tr>
+							<td class="code">
+								<code>
+									$funzioneDopoDiRiga = <span class="value">&nbsp;''</span>										
+								</code>
+							</td>
+						</tr>
+					</table>
+			</td></tr></table><br />
+
+			<!--<p>[line 139]</p>-->
+			<div><p style="margin-top: -4px"><b>eventuale funzione PHP da invocare dopo la costruzione di ogni riga</b></p></div><div><p>Alla funzione verra' passata l'intera tabella ($this).</p><p>E' possibile anche richiamare il metodo di un oggetto, anzichè una  funzione procedurale; in questo caso la proprietà assumerà il valore  di un array, in cui il primo elemento è l'oggetto che contiene il metodo  e il secondo elemento il nome del metodo.</p></div>	<div class="tags">
+		<table border="0" cellspacing="0" cellpadding="0">
+							<tr>
+					<td><b>
+																																																	</td>
+				</tr>
+					</table>
+	</div>
+			<div class="tags">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td><b>Tipo:</b>&nbsp;&nbsp;</td>
+						<td>mixed</td>
+					</tr>
+									</table>
+			</div><br />
+			<div class="top" style="margin-left: 4px;">[ <a href="#top">Top</a> ]</div>
+									<p></p>
+			<a name="var$funzionePrimaDiRiga"></a>
+				<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+					<table width="100%" border="0" cellspacing="0" cellpadding="2">
+						<tr>
+							<td class="code">
+								<code>
+									$funzionePrimaDiRiga = <span class="value">&nbsp;''</span>										
+								</code>
+							</td>
+						</tr>
+					</table>
+			</td></tr></table><br />
+
+			<!--<p>[line 125]</p>-->
+			<div><p style="margin-top: -4px"><b>eventuale funzione PHP da invocare prima della costruzione di ogni riga</b></p></div><div><p>Alla funzione verra' passata l'intera tabella ($this).  se la funzione ritorna FALSE, allora la riga verra' omessa dalla lista.</p><p>E' possibile anche richiamare il metodo di un oggetto, anzichè una  funzione procedurale; in questo caso la proprietà assumerà il valore  di un array, in cui il primo elemento è l'oggetto che contiene il metodo  e il secondo elemento il nome del metodo.</p></div>	<div class="tags">
+		<table border="0" cellspacing="0" cellpadding="0">
+							<tr>
+					<td><b>
+																																																	</td>
+				</tr>
+					</table>
+	</div>
+			<div class="tags">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td><b>Tipo:</b>&nbsp;&nbsp;</td>
+						<td>mixed</td>
+					</tr>
+									</table>
+			</div><br />
+			<div class="top" style="margin-left: 4px;">[ <a href="#top">Top</a> ]</div>
+									<p></p>
+			<a name="var$input"></a>
+				<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+					<table width="100%" border="0" cellspacing="0" cellpadding="2">
+						<tr>
+							<td class="code">
+								<code>
+									$input = <span class="value">array()</span>										
+								</code>
+							</td>
+						</tr>
+					</table>
+			</td></tr></table><br />
+
+			<!--<p>[line 247]</p>-->
+			<div><p style="margin-top: -4px"><b>matrice dei campi modificati da un'eventuale azione di input</b></p></div>			<div class="tags">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td><b>Tipo:</b>&nbsp;&nbsp;</td>
+						<td>array</td>
+					</tr>
+									</table>
+			</div><br />
+			<div class="top" style="margin-left: 4px;">[ <a href="#top">Top</a> ]</div>
+									<p></p>
+			<a name="var$listaMaxRec"></a>
+				<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+					<table width="100%" border="0" cellspacing="0" cellpadding="2">
+						<tr>
+							<td class="code">
+								<code>
+									$listaMaxRec = <span class="value">&nbsp;WATBL_LISTA_MAX_REC</span>										
+								</code>
+							</td>
+						</tr>
+					</table>
+			</td></tr></table><br />
+
+			<!--<p>[line 68]</p>-->
+			<div><p style="margin-top: -4px"><b>nr. massimo di righe da mostrare all'interno di una pagina</b></p></div><div><p>se posto a 0, allora non viene gestita la paginazione e vengono  mostrati tutti i record che soddisfano le condizioni impostate nella  query</p></div>			<div class="tags">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td><b>Tipo:</b>&nbsp;&nbsp;</td>
+						<td>integer</td>
+					</tr>
+									</table>
+			</div><br />
+			<div class="top" style="margin-left: 4px;">[ <a href="#top">Top</a> ]</div>
+									<p></p>
+			<a name="var$nome"></a>
+				<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+					<table width="100%" border="0" cellspacing="0" cellpadding="2">
+						<tr>
+							<td class="code">
+								<code>
+									$nome = <span class="value">&nbsp;'watabella'</span>										
+								</code>
+							</td>
+						</tr>
+					</table>
+			</td></tr></table><br />
+
+			<!--<p>[line 58]</p>-->
+			<div><p style="margin-top: -4px"><b>nome della tabella</b></p></div><div><p>E' buona norma che il nome  segua le regole di naming della programmazione (no spazi, punteggiatura,  ecc.), perche' e' verosimile che lato client questa proprieta' venga  utilizzata per accedere ad un oggetto di programmazione.</p></div>			<div class="tags">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td><b>Tipo:</b>&nbsp;&nbsp;</td>
+						<td>string</td>
+					</tr>
+									</table>
+			</div><br />
+			<div class="top" style="margin-left: 4px;">[ <a href="#top">Top</a> ]</div>
+									<p></p>
+			<a name="var$paginaModulo"></a>
+				<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+					<table width="100%" border="0" cellspacing="0" cellpadding="2">
+						<tr>
+							<td class="code">
+								<code>
+									$paginaModulo = <span class="value">&nbsp;''</span>										
+								</code>
+							</td>
+						</tr>
+					</table>
+			</td></tr></table><br />
+
+			<!--<p>[line 110]</p>-->
+			<div><p style="margin-top: -4px"><b>modulo per azioni sui record</b></p></div><div><p>Nome della pagina da invocare a fronte della pressione dei tasti  delle azioni standard sui record (vedi/modifica/Elimina) nonche' sull'azione,  sempre standard, &quot;Nuovo&quot;.</p><p>Quando alla tabella viene richiesta una azione standard su un record  (Vedi, Nuovo, Modifica, Elimina),  tipicamente questa azione viene svolta da una pagina contenente  un modulo, ossia un oggetto di classe waModulo.</p><p>Come venga gestita l'apertura della pagina in questione e' completamente  a carico della UI.</p></div>			<div class="tags">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td><b>Tipo:</b>&nbsp;&nbsp;</td>
+						<td>string</td>
+					</tr>
+									</table>
+			</div><br />
+			<div class="top" style="margin-left: 4px;">[ <a href="#top">Top</a> ]</div>
+									<p></p>
+			<a name="var$pdf_file_classe"></a>
+				<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+					<table width="100%" border="0" cellspacing="0" cellpadding="2">
+						<tr>
+							<td class="code">
+								<code>
+									$pdf_file_classe = <span class="value">&nbsp;''</span>										
+								</code>
+							</td>
+						</tr>
+					</table>
+			</td></tr></table><br />
+
+			<!--<p>[line 286]</p>-->
+			<div><p style="margin-top: -4px"><b>path completa del file che contiene la classe personalizzata per  l'esportazione in pdf</b></p></div>			<div class="tags">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td><b>Tipo:</b>&nbsp;&nbsp;</td>
+						<td>string</td>
+					</tr>
+									</table>
+			</div><br />
+			<div class="top" style="margin-left: 4px;">[ <a href="#top">Top</a> ]</div>
+									<p></p>
+			<a name="var$pdf_nome_classe"></a>
+				<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+					<table width="100%" border="0" cellspacing="0" cellpadding="2">
+						<tr>
+							<td class="code">
+								<code>
+									$pdf_nome_classe = <span class="value">&nbsp;'watbl_pdf'</span>										
+								</code>
+							</td>
+						</tr>
+					</table>
+			</td></tr></table><br />
+
+			<!--<p>[line 278]</p>-->
+			<div><p style="margin-top: -4px"><b>classe personalizzata per la gestione del pdf (e' cosi' possibile  personalizzare hdr, ftr, font, ecc.).</b></p></div><div><p>La classe deve mostrare la medesima interfaccia di watbl_pdf (se derivate  andate sicuri...)</p></div>			<div class="tags">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td><b>Tipo:</b>&nbsp;&nbsp;</td>
+						<td>string</td>
+					</tr>
+									</table>
+			</div><br />
+			<div class="top" style="margin-left: 4px;">[ <a href="#top">Top</a> ]</div>
+									<p></p>
+			<a name="var$pdf_orientazione"></a>
+				<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+					<table width="100%" border="0" cellspacing="0" cellpadding="2">
+						<tr>
+							<td class="code">
+								<code>
+									$pdf_orientazione = <span class="value">&nbsp;'P'</span>										
+								</code>
+							</td>
+						</tr>
+					</table>
+			</td></tr></table><br />
+
+			<!--<p>[line 267]</p>-->
+			<div><p style="margin-top: -4px"><b>orientazione di eventuale esportazione in pdf (P/L)</b></p></div>			<div class="tags">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td><b>Tipo:</b>&nbsp;&nbsp;</td>
+						<td>string</td>
+					</tr>
+									</table>
+			</div><br />
+			<div class="top" style="margin-left: 4px;">[ <a href="#top">Top</a> ]</div>
+									<p></p>
+			<a name="var$record"></a>
+				<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+					<table width="100%" border="0" cellspacing="0" cellpadding="2">
+						<tr>
+							<td class="code">
+								<code>
+									$record = <span class="value"></span>										
+								</code>
+							</td>
+						</tr>
+					</table>
+			</td></tr></table><br />
+
+			<!--<p>[line 157]</p>-->
+			<div><p style="margin-top: -4px"><b>record</b></p></div><div><p>oggetto di classe waRecord contente il record corrente durante il  ciclo di generazione del buffer di output</p></div>			<div class="tags">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td><b>Tipo:</b>&nbsp;&nbsp;</td>
+						<td>waRecord</td>
+					</tr>
+									</table>
+			</div><br />
+			<div class="top" style="margin-left: 4px;">[ <a href="#top">Top</a> ]</div>
+									<p></p>
+			<a name="var$righeDB"></a>
+				<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+					<table width="100%" border="0" cellspacing="0" cellpadding="2">
+						<tr>
+							<td class="code">
+								<code>
+									$righeDB = <span class="value"></span>										
+								</code>
+							</td>
+						</tr>
+					</table>
+			</td></tr></table><br />
+
+			<!--<p>[line 148]</p>-->
+			<div><p style="margin-top: -4px"><b>recordset</b></p></div><div><p>oggetto di classe waRigheDB generato dalla query sql opportunamente  limitato per la corretta paginazione e filtrato dai filtri utente</p></div>			<div class="tags">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td><b>Tipo:</b>&nbsp;&nbsp;</td>
+						<td>waRigheDB</td>
+					</tr>
+									</table>
+			</div><br />
+			<div class="top" style="margin-left: 4px;">[ <a href="#top">Top</a> ]</div>
+									<p></p>
+			<a name="var$selezioneEsclusiva"></a>
+				<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+					<table width="100%" border="0" cellspacing="0" cellpadding="2">
+						<tr>
+							<td class="code">
+								<code>
+									$selezioneEsclusiva = <span class="value">&nbsp;true</span>										
+								</code>
+							</td>
+						</tr>
+					</table>
+			</td></tr></table><br />
+
+			<!--<p>[line 83]</p>-->
+			<div><p style="margin-top: -4px"><b>flag di selezione mutuamente esclusiva</b></p></div><div><p>indica, dal solo punto di vista della logica di programmazione,  se la selezione dei record e' mutuamente esclusiva, oppure se e'  possibile selezionare piu' di un record alla volta, evidentemente ai fini  di azioni da compiere su piu' record contemporaneamente.</p><p>L'implementazione di <em>come</em> cio' avviene e' completamente a carico  del foglio di stile XSLT</p></div>			<div class="tags">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td><b>Tipo:</b>&nbsp;&nbsp;</td>
+						<td>boolean</td>
+					</tr>
+									</table>
+			</div><br />
+			<div class="top" style="margin-left: 4px;">[ <a href="#top">Top</a> ]</div>
+									<p></p>
+			<a name="var$titolo"></a>
+				<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+					<table width="100%" border="0" cellspacing="0" cellpadding="2">
+						<tr>
+							<td class="code">
+								<code>
+									$titolo = <span class="value"></span>										
+								</code>
+							</td>
+						</tr>
+					</table>
+			</td></tr></table><br />
+
+			<!--<p>[line 90]</p>-->
+			<div><p style="margin-top: -4px"><b>titolo della tabella che puo' essere utilizzato come si vuole nell'XSLT</b></p></div>			<div class="tags">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td><b>Tipo:</b>&nbsp;&nbsp;</td>
+						<td>string</td>
+					</tr>
+									</table>
+			</div><br />
+			<div class="top" style="margin-left: 4px;">[ <a href="#top">Top</a> ]</div>
+									<p></p>
+			<a name="var$xslt"></a>
+				<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+					<table width="100%" border="0" cellspacing="0" cellpadding="2">
+						<tr>
+							<td class="code">
+								<code>
+									$xslt = <span class="value">&nbsp;''</span>										
+								</code>
+							</td>
+						</tr>
+					</table>
+			</td></tr></table><br />
+
+			<!--<p>[line 46]</p>-->
+			<div><p style="margin-top: -4px"><b>foglio XSLT</b></p></div><div><p>e' il nome completo di path del file XSLT che deve essere applicato  all'XML generato dalla classe.</p><p>Se non valorizzato viene utilizzato il foglio XSLT di default della  classe (azioni su record in linea con bottoni a sinistra e uso di javascript)</p></div>			<div class="tags">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td><b>Tipo:</b>&nbsp;&nbsp;</td>
+						<td>string</td>
+					</tr>
+									</table>
+			</div><br />
+			<div class="top" style="margin-left: 4px;">[ <a href="#top">Top</a> ]</div>
+			</div><br />
+
+<hr />
+<a name="class_methods"></a>
+<h3>Metodi</h3>
+<div class="tags">
+										
+						<hr />
+			<a name="method__construct"></a>
+			<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+							<table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+										<code>waTabella __construct(
+																																														mixed
+										$sqlOArray																					, 											[string
+										$fileConfigurazioneDB = null]																	)</code>
+						</td></tr></table>
+			</td></tr></table><br />
+
+	<div><p style="margin-top: -4px"><b>waTabella (costruttore)</b></p></div><div><p>inizializza la tabella.</p></div>
+		
+    <h4>Parametri:</h4>
+    <div class="tags">
+		<table border="0" cellspacing="0" cellpadding="0">
+							<tr>
+					<td class="type">mixed&nbsp;&nbsp;</td>
+					<td><b>$sqlOArray</b>&nbsp;&nbsp;</td>
+					<td>: se stringa e' la query sql che sara' passata al database; se e' un array, e' la matrice che verra' utilizzata per popolare la tabella; l'array potra' essere associativo o semplice, salvo che ci sia la corrispondenza tra la chiave/indice della colonna ed il nome del campo passato al metodo <a href="../waTabella/waTabella.html#methodaggiungiColonna">aggiungiColonna</a>. In caso di array, la tabella non sara' paginata e non sara' possibile utilizzare le funzionalita' relative all'ordinamento e filtro.</td>
+				</tr>
+							<tr>
+					<td class="type">string&nbsp;&nbsp;</td>
+					<td><b>$fileConfigurazioneDB</b>&nbsp;&nbsp;</td>
+					<td>nome del file di configurazione della classe waDB da utilizzare per la connessione al DB</td>
+				</tr>
+					</table>
+    </div><br />
+<div class="top" style="margin-left: 16px; margin-bottom: 10px;">[ <a href="#top">Top</a> ]</div>
+						<hr />
+			<a name="methodaggiungiAzione"></a>
+			<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+							<table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+										<code><a href="../waTabella/waAzioneTabella.html">waAzioneTabella</a> aggiungiAzione(
+																																														string
+										$nome																					, 											[boolean
+										$suRecord = false]																					, 											[string
+										$etichetta = '']																					, 											[mixed
+										$funzioneAbilitazione = '']																	)</code>
+						</td></tr></table>
+			</td></tr></table><br />
+
+	<div><p style="margin-top: -4px"><b>aggiunge una azione</b></p></div><div><p>aggiunge una azione all'array <a href="../waTabella/waTabella.html#var$azioni">azioni</a>.</p></div>	<div class="tags">
+		<table border="0" cellspacing="0" cellpadding="0">
+							<tr>
+					<td><b>
+																																			ritorna:</b>&nbsp;&nbsp;</td><td>oggetto <a href="../waTabella/waAzioneTabella.html">waAzioneTabella</a> che contiene i parametri dell'azione														</td>
+				</tr>
+					</table>
+	</div>
+
+		
+    <h4>Parametri:</h4>
+    <div class="tags">
+		<table border="0" cellspacing="0" cellpadding="0">
+							<tr>
+					<td class="type">string&nbsp;&nbsp;</td>
+					<td><b>$nome</b>&nbsp;&nbsp;</td>
+					<td>nome dell'azione (<a href="../waTabella/waAzioneTabella.html#var$nome">waAzioneTabella::$nome</a>)</td>
+				</tr>
+							<tr>
+					<td class="type">boolean&nbsp;&nbsp;</td>
+					<td><b>$suRecord</b>&nbsp;&nbsp;</td>
+					<td>definisce se l'azione e' suRecord o meno (<a href="../waTabella/waAzioneTabella.html#var$suRecord">waAzioneTabella::$suRecord</a>)</td>
+				</tr>
+							<tr>
+					<td class="type">string&nbsp;&nbsp;</td>
+					<td><b>$etichetta</b>&nbsp;&nbsp;</td>
+					<td>caption del bottone; per default uguale al nome (<a href="../waTabella/waAzioneTabella.html#var$etichetta">waAzioneTabella::$etichetta</a>)</td>
+				</tr>
+							<tr>
+					<td class="type">mixed&nbsp;&nbsp;</td>
+					<td><b>$funzioneAbilitazione</b>&nbsp;&nbsp;</td>
+					<td>callback function di verifica dell'abilitazione dell'azione  per la riga corrente (<a href="../waTabella/waAzioneTabella.html#var$funzioneAbilitazione">waAzioneTabella::$funzioneAbilitazione</a>)</td>
+				</tr>
+					</table>
+    </div><br />
+<div class="top" style="margin-left: 16px; margin-bottom: 10px;">[ <a href="#top">Top</a> ]</div>
+						<hr />
+			<a name="methodaggiungiColonna"></a>
+			<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+							<table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+										<code><a href="../waTabella/waColonna.html">waColonna</a> aggiungiColonna(
+																																														string
+										$nome																					, 											string
+										$etichetta																					, 											[boolean
+										$mostra = true]																					, 											[boolean
+										$ordina = true]																					, 											[boolean
+										$filtra = true]																					, 											[integer
+										$allineamento = WATBL_ALLINEA_SX]																					, 											[integer
+										$formattazione = '']																					, 											[integer
+										$nrDecimali = 2]																					, 											[integer
+										$maxCaratteri = WATBL_CELLA_MAX_CARATTERI]																					, 											[boolean
+										$link = false]																					, 											[string
+										$funzioneCalcolo = '']																					, 											[boolean
+										$totalizza = false]																					, 											[string
+										$aliasDi = '']																					, 											[boolean
+										$noACapo = false]																					, 											[boolean
+										$convertiHTML = true]																	)</code>
+						</td></tr></table>
+			</td></tr></table><br />
+
+	<div><p style="margin-top: -4px"><b>Aggiunge una colonna alla tabella</b></p></div><div><p>per la spiegazione approfondita dei parametri si veda le proprieta'  della classe <a href="../waTabella/waColonna.html">waColonna</a>.</p></div>	<div class="tags">
+		<table border="0" cellspacing="0" cellpadding="0">
+							<tr>
+					<td><b>
+																																			ritorna:</b>&nbsp;&nbsp;</td><td>istanza dell'oggetto <a href="../waTabella/waColonna.html">waColonna</a> che viene aggiunta  all'array <a href="../waTabella/waTabella.html#var$colonne">colonne</a>; e' naturalmente possibile modificare gli attributi  di questa istanza a piacimento.														</td>
+				</tr>
+					</table>
+	</div>
+
+		
+    <h4>Parametri:</h4>
+    <div class="tags">
+		<table border="0" cellspacing="0" cellpadding="0">
+							<tr>
+					<td class="type">string&nbsp;&nbsp;</td>
+					<td><b>$nome</b>&nbsp;&nbsp;</td>
+					<td>nome colonna</td>
+				</tr>
+							<tr>
+					<td class="type">string&nbsp;&nbsp;</td>
+					<td><b>$etichetta</b>&nbsp;&nbsp;</td>
+					<td>intestazione colonna</td>
+				</tr>
+							<tr>
+					<td class="type">boolean&nbsp;&nbsp;</td>
+					<td><b>$mostra</b>&nbsp;&nbsp;</td>
+					<td>flag di visualizzazione</td>
+				</tr>
+							<tr>
+					<td class="type">boolean&nbsp;&nbsp;</td>
+					<td><b>$ordina</b>&nbsp;&nbsp;</td>
+					<td>flag di ordinamento</td>
+				</tr>
+							<tr>
+					<td class="type">boolean&nbsp;&nbsp;</td>
+					<td><b>$filtra</b>&nbsp;&nbsp;</td>
+					<td>flag di filtro</td>
+				</tr>
+							<tr>
+					<td class="type">integer&nbsp;&nbsp;</td>
+					<td><b>$allineamento</b>&nbsp;&nbsp;</td>
+					<td>allineamento colonna</td>
+				</tr>
+							<tr>
+					<td class="type">integer&nbsp;&nbsp;</td>
+					<td><b>$formattazione</b>&nbsp;&nbsp;</td>
+					<td>formattazione contenuto cella</td>
+				</tr>
+							<tr>
+					<td class="type">integer&nbsp;&nbsp;</td>
+					<td><b>$maxCaratteri</b>&nbsp;&nbsp;</td>
+					<td>nr.massimo caratteri visualizzabili dalla cella</td>
+				</tr>
+							<tr>
+					<td class="type">integer&nbsp;&nbsp;</td>
+					<td><b>$nrDecimali</b>&nbsp;&nbsp;</td>
+					<td>nr. decimali da mostrare in caso di formattazione float</td>
+				</tr>
+							<tr>
+					<td class="type">boolean&nbsp;&nbsp;</td>
+					<td><b>$link</b>&nbsp;&nbsp;</td>
+					<td>indica che il contenuto della cella e' destinato a contenere un link</td>
+				</tr>
+							<tr>
+					<td class="type">string&nbsp;&nbsp;</td>
+					<td><b>$funzioneCalcolo</b>&nbsp;&nbsp;</td>
+					<td>funzione personalizzata di calcolo del valore da mostrare nella cella</td>
+				</tr>
+							<tr>
+					<td class="type">boolean&nbsp;&nbsp;</td>
+					<td><b>$totalizza</b>&nbsp;&nbsp;</td>
+					<td>flag di totalizzazione colonna</td>
+				</tr>
+							<tr>
+					<td class="type">string&nbsp;&nbsp;</td>
+					<td><b>$aliasDi</b>&nbsp;&nbsp;</td>
+					<td>eventuale nome campo di cui la colonna e' alias</td>
+				</tr>
+							<tr>
+					<td class="type">boolean&nbsp;&nbsp;</td>
+					<td><b>$noACapo</b>&nbsp;&nbsp;</td>
+					<td>indica se usare o meno il wrap all'interno delle celle della colonna</td>
+				</tr>
+							<tr>
+					<td class="type">boolean&nbsp;&nbsp;</td>
+					<td><b>$convertiHTML</b>&nbsp;&nbsp;</td>
+					<td>indica se convertire o meno il valore trovato in corrispondenza del campo affinche' venga mostrato, di eventuali sequenze HTML significative, il codice oppure il rendering</td>
+				</tr>
+					</table>
+    </div><br />
+<div class="top" style="margin-left: 16px; margin-bottom: 10px;">[ <a href="#top">Top</a> ]</div>
+						<hr />
+			<a name="methodcaricaRighe"></a>
+			<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+							<table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+										<code>boolean caricaRighe(
+											)</code>
+						</td></tr></table>
+			</td></tr></table><br />
+
+	<div><p style="margin-top: -4px"><b>crea il recordset $righeDB che verra' utilizzato per alimentare la tabella</b></p></div><div><p>Il recordset sara' creato partendo dalle condizioni impostate dalla query  sql passata al costruttore successivamente raffinato/modificato mediante  le selezioni effettuate dall'utente in fase di ordinamento/filtro.</p></div>	<div class="tags">
+		<table border="0" cellspacing="0" cellpadding="0">
+							<tr>
+					<td><b>
+																																			ritorna:</b>&nbsp;&nbsp;</td><td>false nel caso si sia verificato un errore nell'esecuzione  della query														</td>
+				</tr>
+					</table>
+	</div>
+
+		
+<div class="top" style="margin-left: 16px; margin-bottom: 10px;">[ <a href="#top">Top</a> ]</div>
+						<hr />
+			<a name="methoddaAggiornare"></a>
+			<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+							<table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+										<code>void daAggiornare(
+											)</code>
+						</td></tr></table>
+			</td></tr></table><br />
+
+	<div><p style="margin-top: -4px"><b>-</b></p></div><div><p>restituisce true se il recordset della tabella e' da aggiornare a fronte  di eventuale input</p></div>
+		
+<div class="top" style="margin-left: 16px; margin-bottom: 10px;">[ <a href="#top">Top</a> ]</div>
+						<hr />
+			<a name="methodeliminaAzione"></a>
+			<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+							<table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+										<code>void eliminaAzione(
+																																														string
+										$nome																	)</code>
+						</td></tr></table>
+			</td></tr></table><br />
+
+	<div><p style="margin-top: -4px"><b>elimina una azione</b></p></div><div><p>elimina una azione dall'array <a href="../waTabella/waTabella.html#var$azioni">azioni</a>. Ha senso chiamare questo  metodo solo per le azioni di default (Nuovo/Vedi/Modifica/Elimina)</p></div>
+		
+    <h4>Parametri:</h4>
+    <div class="tags">
+		<table border="0" cellspacing="0" cellpadding="0">
+							<tr>
+					<td class="type">string&nbsp;&nbsp;</td>
+					<td><b>$nome</b>&nbsp;&nbsp;</td>
+					<td>nome dell'azione (<a href="../waTabella/waAzioneTabella.html#var$nome">waAzioneTabella::$nome</a>)</td>
+				</tr>
+					</table>
+    </div><br />
+<div class="top" style="margin-left: 16px; margin-bottom: 10px;">[ <a href="#top">Top</a> ]</div>
+						<hr />
+			<a name="methodleggiValoriIngresso"></a>
+			<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+							<table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+										<code>void leggiValoriIngresso(
+											)</code>
+						</td></tr></table>
+			</td></tr></table><br />
+
+	<div><p style="margin-top: -4px"><b>legge eventuali valori in input quando la tabella e' usata come modulo</b></p></div>
+		
+<div class="top" style="margin-left: 16px; margin-bottom: 10px;">[ <a href="#top">Top</a> ]</div>
+						<hr />
+			<a name="methodmostra"></a>
+			<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+							<table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+										<code>void|string mostra(
+																																														[boolean
+										$bufferizza = false]																	)</code>
+						</td></tr></table>
+			</td></tr></table><br />
+
+	<div><p style="margin-top: -4px"><b>Effettua la visualizzazione della tabella</b></p></div><div><p>In pratica, e' l'ultimo metodo da invocare. Una volta chiamato questo metodo  la tabella viene visualizzata e il compito della classe e' terminato</p></div>
+		
+    <h4>Parametri:</h4>
+    <div class="tags">
+		<table border="0" cellspacing="0" cellpadding="0">
+							<tr>
+					<td class="type">boolean&nbsp;&nbsp;</td>
+					<td><b>$bufferizza</b>&nbsp;&nbsp;</td>
+					<td>se false, allora viene immediatamente effettuato  l'output della tabella; altrimenti la funzione ritorna il buffer di output  della tabella stessa</td>
+				</tr>
+					</table>
+    </div><br />
+<div class="top" style="margin-left: 16px; margin-bottom: 10px;">[ <a href="#top">Top</a> ]</div>
+						<hr />
+			<a name="methodmostraXML"></a>
+			<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+							<table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+										<code>void|string mostraXML(
+																																														[boolean
+										$bufferizza = false]																	)</code>
+						</td></tr></table>
+			</td></tr></table><br />
+
+	<div><p style="margin-top: -4px"><b>mostraXML</b></p></div><div><p>da usare in fase di debug per mostrare l'output XML anziche' l'HTML generato  dall'XSLT.</p></div>
+		
+    <h4>Parametri:</h4>
+    <div class="tags">
+		<table border="0" cellspacing="0" cellpadding="0">
+							<tr>
+					<td class="type">boolean&nbsp;&nbsp;</td>
+					<td><b>$bufferizza</b>&nbsp;&nbsp;</td>
+					<td>se false, allora viene immediatamente effettuato  l'output del menu; altrimenti la funzione ritorna il buffer di output  del menu stesso</td>
+				</tr>
+					</table>
+    </div><br />
+<div class="top" style="margin-left: 16px; margin-bottom: 10px;">[ <a href="#top">Top</a> ]</div>
+						<hr />
+			<a name="methodsalva"></a>
+			<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+							<table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+										<code>boolean salva(
+																																														[boolean
+										$consolida = false]																	)</code>
+						</td></tr></table>
+			</td></tr></table><br />
+
+	<div><p style="margin-top: -4px"><b>salva nel recordset inuovi valori derivanti da eventuale input</b></p></div><div><p>I campi che che vengono valorizzati  sono unicamente quelli che appartengono alla tabella a cui appartiene  il campo chiave primaria</p></div>	<div class="tags">
+		<table border="0" cellspacing="0" cellpadding="0">
+							<tr>
+					<td><b>
+																																			ritorna:</b>&nbsp;&nbsp;</td><td>: false = errore; true = ok														</td>
+				</tr>
+					</table>
+	</div>
+
+		
+    <h4>Parametri:</h4>
+    <div class="tags">
+		<table border="0" cellspacing="0" cellpadding="0">
+							<tr>
+					<td class="type">boolean&nbsp;&nbsp;</td>
+					<td><b>$consolida</b>&nbsp;&nbsp;</td>
+					<td>: se true effettua anche il consolidamento  sulla base dati; altrimenti si limita a valorizzare i waRecord</td>
+				</tr>
+					</table>
+    </div><br />
+<div class="top" style="margin-left: 16px; margin-bottom: 10px;">[ <a href="#top">Top</a> ]</div>
+</div><br />
+
+
+        <div class="credit">
+		    <hr />
+		    Documentation generated on Fri, 08 Mar 2013 12:10:29 +0100 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.4</a>
+	      </div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

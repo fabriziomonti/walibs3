@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+Esempio di flusso XML che la classe waModulo costruisce a fronte delle istruzioni
+programmatiche ricevute; il flusso viene dato in pasto al template XSLT di output
+per la trasformazione; cosa salta fuori dipende da cosa è scritto nel template XSLT
+
+La descrizione degli elementi di questo flusso è in "wamodulo.output.xsd"
+(XSD output).
+-->
+<wamodulo>
+	<nome>modulo0</nome>
+	<titolo/>
+	<uri>/wamodulo/test/index.php?wamodulo_operazione=3&amp;id_corso=85</uri>
+	<wamodulo_path>/wamodulo</wamodulo_path>
+	<pagina_destinazione>/wamodulo/test/index.php?wamodulo_operazione=3&amp;id_corso=85</pagina_destinazione>
+	<sinistra>center</sinistra>
+	<alto>0</alto>
+	<larghezza>800</larghezza>
+	<altezza>506</altezza>
+	<rec_id>
+		<nome>id_corso</nome>
+		<valore>85</valore>
+	</rec_id>
+	<mod_id>
+		<nome/>
+		<valore/>
+	</mod_id>
+	<wamodulo_controlli>
+		<etichetta id="id_organismo">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>0</larghezza>
+			<altezza>0</altezza>
+			<sinistra>10</sinistra>
+			<alto>6</alto>
+			<valore>Organismo</valore>
+			<help>1</help>
+			<caratteri_max>10</caratteri_max>
+		</etichetta>
+		<selezione id="id_organismo">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>0</larghezza>
+			<altezza>0</altezza>
+			<sinistra>220</sinistra>
+			<alto>6</alto>
+			<valore>1</valore>
+			<riga_vuota>1</riga_vuota>
+			<seleziona_primo>0</seleziona_primo>
+			<lista>
+				<elemento id="2">ENAIP</elemento>
+				<elemento id="1">FormArt</elemento>
+				<elemento id="3">WebAppls SpA</elemento>
+			</lista>
+		</selezione>
+		<etichetta id="id_amministrazione">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>0</larghezza>
+			<altezza>0</altezza>
+			<sinistra>10</sinistra>
+			<alto>32</alto>
+			<valore>Sigla</valore>
+			<help>1</help>
+			<caratteri_max>10</caratteri_max>
+		</etichetta>
+		<selezione id="id_amministrazione">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>0</larghezza>
+			<altezza>0</altezza>
+			<sinistra>220</sinistra>
+			<alto>32</alto>
+			<valore>1</valore>
+			<riga_vuota>1</riga_vuota>
+			<seleziona_primo>0</seleziona_primo>
+			<lista>
+				<elemento id="2">BO</elemento>
+				<elemento id="3">RA</elemento>
+				<elemento id="1">RER</elemento>
+			</lista>
+		</selezione>
+		<etichetta id="rifpa">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>1</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>0</larghezza>
+			<altezza>0</altezza>
+			<sinistra>10</sinistra>
+			<alto>58</alto>
+			<valore>Rif. P.A.</valore>
+			<help>1</help>
+			<caratteri_max>20</caratteri_max>
+		</etichetta>
+		<testo id="rifpa">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>1</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>0</larghezza>
+			<altezza>0</altezza>
+			<sinistra>220</sinistra>
+			<alto>58</alto>
+			<valore>2012-698/RER</valore>
+			<caratteri_max>20</caratteri_max>
+		</testo>
+		<etichetta id="nome">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>0</larghezza>
+			<altezza>0</altezza>
+			<sinistra>10</sinistra>
+			<alto>84</alto>
+			<valore>Titolo corso</valore>
+			<help>1</help>
+			<caratteri_max>100</caratteri_max>
+		</etichetta>
+		<testo id="nome">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>560</larghezza>
+			<altezza>0</altezza>
+			<sinistra>220</sinistra>
+			<alto>84</alto>
+			<valore>fare e disfare</valore>
+			<caratteri_max>100</caratteri_max>
+		</testo>
+		<etichetta id="nr_ore">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>0</larghezza>
+			<altezza>0</altezza>
+			<sinistra>10</sinistra>
+			<alto>110</alto>
+			<valore>Monte ore complessivo</valore>
+			<help>1</help>
+			<caratteri_max>5</caratteri_max>
+		</etichetta>
+		<intero id="nr_ore">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>0</larghezza>
+			<altezza>0</altezza>
+			<sinistra>220</sinistra>
+			<alto>110</alto>
+			<valore>345</valore>
+			<caratteri_max>5</caratteri_max>
+		</intero>
+		<etichetta id="data_inizio">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>0</larghezza>
+			<altezza>0</altezza>
+			<sinistra>10</sinistra>
+			<alto>136</alto>
+			<valore>Data inizio</valore>
+			<help>1</help>
+			<caratteri_max>10</caratteri_max>
+		</etichetta>
+		<data id="data_inizio">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>0</larghezza>
+			<altezza>0</altezza>
+			<sinistra>220</sinistra>
+			<alto>136</alto>
+			<valore>2012-05-30</valore>
+			<anno_decrescente>1</anno_decrescente>
+			<anno_partenza>2003</anno_partenza>
+			<anno_termine>2014</anno_termine>
+		</data>
+		<etichetta id="data_fine">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>0</larghezza>
+			<altezza>0</altezza>
+			<sinistra>10</sinistra>
+			<alto>162</alto>
+			<valore>Data fine</valore>
+			<help>1</help>
+			<caratteri_max>19</caratteri_max>
+		</etichetta>
+		<dataora id="data_fine">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>0</larghezza>
+			<altezza>0</altezza>
+			<sinistra>220</sinistra>
+			<alto>162</alto>
+			<valore>2013-03-04 00:00:00</valore>
+			<anno_decrescente>1</anno_decrescente>
+			<anno_partenza>2003</anno_partenza>
+			<anno_termine>2014</anno_termine>
+			<intervallo_minuti>1</intervallo_minuti>
+			<mostra_secondi>0</mostra_secondi>
+			<intervallo_secondi>1</intervallo_secondi>
+		</dataora>
+		<etichetta id="importo">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>0</larghezza>
+			<altezza>0</altezza>
+			<sinistra>10</sinistra>
+			<alto>188</alto>
+			<valore>Importo complessivo</valore>
+			<help>1</help>
+			<caratteri_max>15</caratteri_max>
+		</etichetta>
+		<valuta id="importo">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>0</larghezza>
+			<altezza>0</altezza>
+			<sinistra>220</sinistra>
+			<alto>188</alto>
+			<valore>2500.56</valore>
+			<nr_decimali>2</nr_decimali>
+			<nr_interi>5</nr_interi>
+			<vuoto_se_zero>1</vuoto_se_zero>
+		</valuta>
+		<etichetta id="area">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>0</larghezza>
+			<altezza>0</altezza>
+			<sinistra>10</sinistra>
+			<alto>214</alto>
+			<valore>area</valore>
+			<help>1</help>
+			<caratteri_max/>
+		</etichetta>
+		<areatesto id="area">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>560</larghezza>
+			<altezza>60</altezza>
+			<sinistra>220</sinistra>
+			<alto>214</alto>
+			<valore>prova area</valore>
+			<colonne>50</colonne>
+			<righe>10</righe>
+		</areatesto>
+		<etichetta id="check">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>0</larghezza>
+			<altezza>0</altezza>
+			<sinistra>10</sinistra>
+			<alto>280</alto>
+			<valore>check</valore>
+			<help>1</help>
+			<caratteri_max/>
+		</etichetta>
+		<logico id="check">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>0</larghezza>
+			<altezza>0</altezza>
+			<sinistra>220</sinistra>
+			<alto>280</alto>
+			<valore>1</valore>
+		</logico>
+		<etichetta id="multiselect">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>0</larghezza>
+			<altezza>0</altezza>
+			<sinistra>10</sinistra>
+			<alto>306</alto>
+			<valore>multiselect</valore>
+			<help>1</help>
+			<caratteri_max/>
+		</etichetta>
+		<multiselezione id="multiselect">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>0</larghezza>
+			<altezza>60</altezza>
+			<sinistra>220</sinistra>
+			<alto>306</alto>
+			<valore>
+				<elemento id="5">cinque</elemento>
+				<elemento id="20">venti</elemento>
+			</valore>
+			<non_selezionabili>
+			</non_selezionabili>
+			<lista>
+				<elemento id="5">cinque</elemento>
+				<elemento id="10">dieci</elemento>
+				<elemento id="20">venti</elemento>
+			</lista>
+		</multiselezione>
+		<etichetta id="file">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>0</larghezza>
+			<altezza>0</altezza>
+			<sinistra>10</sinistra>
+			<alto>372</alto>
+			<valore>file</valore>
+			<help>1</help>
+			<caratteri_max/>
+		</etichetta>
+		<caricafile id="file">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>260</larghezza>
+			<altezza>0</altezza>
+			<sinistra>220</sinistra>
+			<alto>372</alto>
+			<valore>jethro.pdf</valore>
+			<pagina_visualizzazione/>
+			<dimensioni_file>0</dimensioni_file>
+			<basename>jethro.pdf</basename>
+		</caricafile>
+		<etichetta id="soloora">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>0</larghezza>
+			<altezza>0</altezza>
+			<sinistra>10</sinistra>
+			<alto>398</alto>
+			<valore>ora test</valore>
+			<help>1</help>
+			<caratteri_max/>
+		</etichetta>
+		<ora id="soloora">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>0</larghezza>
+			<altezza>0</altezza>
+			<sinistra>220</sinistra>
+			<alto>398</alto>
+			<valore>17:19:00</valore>
+			<intervallo_minuti>5</intervallo_minuti>
+			<mostra_secondi>0</mostra_secondi>
+			<intervallo_secondi>10</intervallo_secondi>
+		</ora>
+		<bottone id="btnInvia">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>90</larghezza>
+			<altezza>0</altezza>
+			<sinistra>220</sinistra>
+			<alto>442</alto>
+			<valore>REGISTRA</valore>
+			<invia>1</invia>
+			<annulla>0</annulla>
+			<elimina>0</elimina>
+		</bottone>
+		<bottone id="btnElimina">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>90</larghezza>
+			<altezza>0</altezza>
+			<sinistra>310</sinistra>
+			<alto>442</alto>
+			<valore>ELIMINA</valore>
+			<invia>1</invia>
+			<annulla>0</annulla>
+			<elimina>1</elimina>
+		</bottone>
+		<bottone id="cmdAbilita">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>90</larghezza>
+			<altezza>0</altezza>
+			<sinistra>220</sinistra>
+			<alto>480</alto>
+			<valore>abilita</valore>
+			<invia>0</invia>
+			<annulla>0</annulla>
+			<elimina>0</elimina>
+		</bottone>
+		<bottone id="cmdDisabilita">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>90</larghezza>
+			<altezza>0</altezza>
+			<sinistra>310</sinistra>
+			<alto>480</alto>
+			<valore>disabilita</valore>
+			<invia>0</invia>
+			<annulla>0</annulla>
+			<elimina>0</elimina>
+		</bottone>
+		<bottone id="cmdObbligatorio">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>90</larghezza>
+			<altezza>0</altezza>
+			<sinistra>400</sinistra>
+			<alto>480</alto>
+			<valore>obbligatori</valore>
+			<invia>0</invia>
+			<annulla>0</annulla>
+			<elimina>0</elimina>
+		</bottone>
+		<bottone id="cmdNonObbligatorio">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>90</larghezza>
+			<altezza>0</altezza>
+			<sinistra>490</sinistra>
+			<alto>480</alto>
+			<valore>non obblig.</valore>
+			<invia>0</invia>
+			<annulla>0</annulla>
+			<elimina>0</elimina>
+		</bottone>
+		<bottone id="cmdVisualizza">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>90</larghezza>
+			<altezza>0</altezza>
+			<sinistra>580</sinistra>
+			<alto>480</alto>
+			<valore>visualizza</valore>
+			<invia>0</invia>
+			<annulla>0</annulla>
+			<elimina>0</elimina>
+		</bottone>
+		<bottone id="cmdNascondi">
+			<visibile>1</visibile>
+			<sola_lettura>0</sola_lettura>
+			<obbligatorio>0</obbligatorio>
+			<indice_tab>0</indice_tab>
+			<larghezza>90</larghezza>
+			<altezza>0</altezza>
+			<sinistra>670</sinistra>
+			<alto>480</alto>
+			<valore>nascondi</valore>
+			<invia>0</invia>
+			<annulla>0</annulla>
+			<elimina>0</elimina>
+		</bottone>
+	</wamodulo_controlli>
+</wamodulo>

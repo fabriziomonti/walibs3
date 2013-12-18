@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF8"?>
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="wamenu">
+		<xsd:documentation>Radice</xsd:documentation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element type="xsd:string" name="nome">
+					<xsd:documentation>
+						Nome del menu. Corrisponde alla proprietà waMenu::nome
+					</xsd:documentation>
+				</xsd:element>
+				<xsd:element type="xsd:string" name="titolo">
+					<xsd:documentation>Titolo del menu. Corrisponde alla proprietà waMenu::titolo</xsd:documentation>
+				</xsd:element>
+				<xsd:element type="xsd:string" name="wamenu_path">
+					<xsd:documentation>
+						Path della root del package waMenu rispetto alla document root.
+						In base a questo valore è possibile orientarsi rispetto all'intera applicazione.
+					</xsd:documentation>
+				</xsd:element>
+
+				<xsd:element name="wamenu_sezione" maxOccurs="unbounded" minOccurs="0">
+					<xsd:documentation>
+						Apertura di una sezione del menu. Le sezioni possono essere 
+						nestate a piacere.
+					</xsd:documentation>
+					<xsd:complexType>
+						<xsd:attribute type="xsd:string" name="id" use="optional">
+							<xsd:documentation>
+								Identificativo uinivoco della sezione, costruito dinamicamente 
+								secondo il criterio [nome_menu]_[progressivo_sezione] . Il progressivo della sezione
+								è attribuito in ordine di creazione della sezione, indipendentemente dal livello di nesting
+							</xsd:documentation>
+						</xsd:attribute>
+						<xsd:sequence>
+							<xsd:element type="xsd:string" name="url">
+								<xsd:documentation>
+									Se valorizzata, anche la sezione si comporta
+									come una voce di menu.
+									Corrisponde al parametro url del metodo waMenu::apriSezione() .
+								</xsd:documentation>
+							</xsd:element>
+							<xsd:element type="xsd:string" name="finestra">
+								<xsd:documentation>
+									Inizialmente pensata per stabilire in quale finestra html dovesse essere aperto
+									l'url della sezione, allo stato questa informazione può essere usata 
+									a piacere all'interno dell'XSLT.
+									Corrisponde al parametro finestra del metodo waMenu::apriSezione() .
+								</xsd:documentation>
+							</xsd:element>
+							<xsd:element type="xsd:string" name="etichetta">
+								<xsd:documentation>
+									Label della sezione.
+									Corrisponde al parametro etichetta del metodo waMenu::apriSezione() .
+								</xsd:documentation>
+							</xsd:element>
+							<xsd:element type="xsd:byte" name="livello">
+								<xsd:documentation>
+									In caso di nesting di sezioni, indica il
+									livello di nesting (0-based).
+								</xsd:documentation>
+							</xsd:element>
+							<xsd:element type="xsd:byte" name="selezionato">
+								<xsd:documentation>
+									Indica se l'url corrente della pagina corrisponde
+									a una delle voci/sezioni di menu contenute in questa
+									sezione (0-1).
+								</xsd:documentation>
+							</xsd:element>
+
+							<xsd:element name="wamenu_voce" maxOccurs="unbounded" minOccurs="0">
+								<xsd:documentation>
+									Voce di menu.
+								</xsd:documentation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element type="xsd:string" name="url">
+											<xsd:documentation>
+												URL di destinazione delle voce di menu.
+												Corrisponde al parametro url del metodo waMenu::aggiungiVoce() .
+											</xsd:documentation>
+										</xsd:element>
+										<xsd:element type="xsd:string" name="finestra">
+											<xsd:documentation>
+												Inizialmente pensata per stabilire in quale finestra html dovesse essere aperto
+												l'url della voce allo stato questa informazione può essere usata 
+												a piacere all'interno dell'XSLT.
+												Corrisponde al parametro finestra del metodo waMenu::aggiungiVoce() .
+											</xsd:documentation>
+										</xsd:element>
+										<xsd:element type="xsd:string" name="etichetta">
+											<xsd:documentation>
+												Label della voce.
+												Corrisponde al parametro etichetta del metodo waMenu::aggiungiVoce() .
+											</xsd:documentation>
+										</xsd:element>
+										<xsd:element type="xsd:byte" name="selezionato">
+											<xsd:documentation>
+												Indica se l'url corrente della pagina corrisponde
+												a questa voce di menu  (0-1).
+											</xsd:documentation>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+
+				<xsd:element name="wamenu_sezioni_selezionate">
+					<xsd:documentation>
+						Lista delle sezioni al cui interno è presente la
+						voce/sezione del menu la cui destinazione (url) 
+						corrisponde la pagina corrente.
+					</xsd:documentation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element type="xsd:string" name="id_sezione" maxOccurs="unbounded" minOccurs="0">
+								<xsd:documentation>
+									Identificativo della sezione selezionata (corrispondente all'attributo
+									id dell'elemento wamenu_sezione)
+								</xsd:documentation>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

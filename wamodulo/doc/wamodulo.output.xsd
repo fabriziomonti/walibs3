@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF8"?>
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="wamodulo">
+		<xsd:documentation>Radice</xsd:documentation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element type="xsd:string" name="nome">
+					<xsd:documentation>
+						Nome del modulo. Corrisponde alla proprietà waModulo::nome
+					</xsd:documentation>
+				</xsd:element>
+				<xsd:element type="xsd:string" name="titolo">
+					<xsd:documentation>
+						Titolo del modulo. Corrisponde alla proprietà waModulo::titolo
+					</xsd:documentation>
+				</xsd:element>
+				<xsd:element type="xsd:string" name="uri">
+					<xsd:documentation>
+						Contiene la URI della pagina corrente
+					</xsd:documentation>
+				</xsd:element>
+				<xsd:element type="xsd:string" name="wamodulo_path">
+					<xsd:documentation>
+						Path della root del package waModulo rispetto alla document root.
+						In base a questo valore è possibile orientarsi rispetto all'intera applicazione.
+					</xsd:documentation>
+				</xsd:element>
+				<xsd:element type="xsd:string" name="pagina_destinazione">
+					<xsd:documentation>
+						Action del modulo; tipicamente la stessa pagina. 
+						Corrisponde alla proprietà waModulo::paginaDestinazione.
+					</xsd:documentation>
+				</xsd:element>
+				<xsd:element type="xsd:string" name="sinistra">
+					<xsd:documentation>
+						Posizionamento left del modulo; 
+						Corrisponde alla proprietà waModulo::sinistra;
+						l'XSLT può farci ciò che vuole di questa informazione
+					</xsd:documentation>
+				</xsd:element>
+				<xsd:element type="xsd:string" name="alto">
+					<xsd:documentation>
+						Posizionamento top del modulo; 
+						Corrisponde alla proprietà waModulo::alto;
+						l'XSLT può farci ciò che vuole di questa informazione
+					</xsd:documentation>
+				</xsd:element>
+				<xsd:element type="xsd:string" name="larghezza">
+					<xsd:documentation>
+						Larghezza del modulo; 
+						Corrisponde alla proprietà waModulo::larghezza;
+						l'XSLT può farci ciò che vuole di questa informazione
+					</xsd:documentation>
+				</xsd:element>
+				<xsd:element type="xsd:string" name="altezza">
+					<xsd:documentation>
+						Altezza del modulo; 
+						Corrisponde alla proprietà waModulo::altezza;
+						l'XSLT può farci ciò che vuole di questa informazione
+					</xsd:documentation>
+				</xsd:element>
+				<xsd:element name="rec_id">
+					<xsd:documentation>
+						Dati dell'identificativo del record in editing
+					</xsd:documentation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element type="xsd:string" name="nome">
+								<xsd:documentation>
+									Nome del campo chiave primaria del record in editing
+								</xsd:documentation>
+							</xsd:element>
+							<xsd:element type="xsd:byte" name="valore">
+								<xsd:documentation>
+									Valore del campo chiave primaria del record in editing
+								</xsd:documentation>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="mod_id">
+					<xsd:documentation>
+						Dati di un eventuale campo identificativo dell'ultima modifica del record in editing
+					</xsd:documentation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element type="xsd:string" name="nome">
+								<xsd:documentation>
+									Nome del campo identificativo dell'ultima modifica del record in editing
+								</xsd:documentation>
+							</xsd:element>
+							<xsd:element type="xsd:byte" name="valore">
+								<xsd:documentation>
+									Valore del campo identificativo dell'ultima modifica del record in editing
+								</xsd:documentation>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+
+				<xsd:element name="wamodulo_controlli">
+					<xsd:documentation>
+						Lista dei controlli contenuti nel modulo; ognuno dei controlli
+						possiede un identificativo corrispondente alla proprietà waControllo::nome,
+						e una serie di elementi corrispondenti alle specifiche proprietà
+						dei vari derivati di waControllo
+					</xsd:documentation>
+					<xsd:complexType>
+						<xsd:choice maxOccurs="unbounded" minOccurs="0">
+							<xsd:element name="etichetta">
+								<xsd:complexType>
+									<xsd:attribute type="xsd:string" name="id">
+										<xsd:documentation>
+											Identificativo del controllo; 
+											Corrisponde alla proprietà waControllo::nome
+										</xsd:documentation>
+									</xsd:attribute>
+									<xsd:sequence>
+										<xsd:element type="xsd:byte" name="visibile"/>
+										<xsd:element type="xsd:byte" name="sola_lettura"/>
+										<xsd:element type="xsd:byte" name="obbligatorio"/>
+										<xsd:element type="xsd:byte" name="indice_tab"/>
+										<xsd:element type="xsd:byte" name="larghezza"/>
+										<xsd:element type="xsd:byte" name="altezza"/>
+										<xsd:element type="xsd:byte" name="sinistra"/>
+										<xsd:element type="xsd:byte" name="alto"/>
+										<xsd:element type="xsd:string" name="valore"/>
+										<xsd:element type="xsd:byte" name="help"/>
+										<xsd:element type="xsd:byte" name="caratteri_max"/>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="selezione">
+								<xsd:complexType>
+									<xsd:attribute type="xsd:string" name="id">
+										<xsd:documentation>
+											Identificativo del controllo; 
+											Corrisponde alla proprietà waControllo::nome
+										</xsd:documentation>
+									</xsd:attribute>
+									<xsd:sequence>
+										<xsd:element type="xsd:byte" name="visibile"/>
+										<xsd:element type="xsd:byte" name="sola_lettura"/>
+										<xsd:element type="xsd:byte" name="obbligatorio"/>
+										<xsd:element type="xsd:byte" name="indice_tab"/>
+										<xsd:element type="xsd:byte" name="larghezza"/>
+										<xsd:element type="xsd:byte" name="altezza"/>
+										<xsd:element type="xsd:short" name="sinistra"/>
+										<xsd:element type="xsd:byte" name="alto"/>
+										<xsd:element type="xsd:string" name="valore"/>
+										<xsd:element type="xsd:byte" name="riga_vuota" minOccurs="0"/>
+										<xsd:element type="xsd:byte" name="seleziona_primo" minOccurs="0"/>
+										<xsd:element name="lista" minOccurs="0">
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element name="elemento" maxOccurs="unbounded" minOccurs="0">
+														<xsd:complexType>
+															<xsd:simpleContent>
+																<xsd:extension base="xsd:string">
+																	<xsd:attribute type="xsd:byte" name="id" use="optional"/>
+																</xsd:extension>
+															</xsd:simpleContent>
+														</xsd:complexType>
+													</xsd:element>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element type="xsd:byte" name="help" minOccurs="0"/>
+										<xsd:element type="xsd:byte" name="caratteri_max" minOccurs="0"/>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="testo">
+								<xsd:complexType>
+									<xsd:attribute type="xsd:string" name="id">
+										<xsd:documentation>
+											Identificativo del controllo; 
+											Corrisponde alla proprietà waControllo::nome
+										</xsd:documentation>
+									</xsd:attribute>
+									<xsd:sequence>
+										<xsd:element type="xsd:byte" name="visibile"/>
+										<xsd:element type="xsd:byte" name="sola_lettura"/>
+										<xsd:element type="xsd:byte" name="obbligatorio"/>
+										<xsd:element type="xsd:byte" name="indice_tab"/>
+										<xsd:element type="xsd:byte" name="larghezza"/>
+										<xsd:element type="xsd:byte" name="altezza"/>
+										<xsd:element type="xsd:short" name="sinistra"/>
+										<xsd:element type="xsd:byte" name="alto"/>
+										<xsd:element type="xsd:string" name="valore"/>
+										<xsd:element type="xsd:byte" name="help" minOccurs="0"/>
+										<xsd:element type="xsd:byte" name="caratteri_max"/>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="intero">
+								<xsd:complexType>
+									<xsd:attribute type="xsd:string" name="id">
+										<xsd:documentation>
+											Identificativo del controllo; 
+											Corrisponde alla proprietà waControllo::nome
+										</xsd:documentation>
+									</xsd:attribute>
+									<xsd:sequence>
+										<xsd:element type="xsd:byte" name="visibile"/>
+										<xsd:element type="xsd:byte" name="sola_lettura"/>
+										<xsd:element type="xsd:byte" name="obbligatorio"/>
+										<xsd:element type="xsd:byte" name="indice_tab"/>
+										<xsd:element type="xsd:byte" name="larghezza"/>
+										<xsd:element type="xsd:byte" name="altezza"/>
+										<xsd:element type="xsd:short" name="sinistra"/>
+										<xsd:element type="xsd:short" name="alto"/>
+										<xsd:element type="xsd:string" name="valore"/>
+										<xsd:element type="xsd:byte" name="help" minOccurs="0"/>
+										<xsd:element type="xsd:byte" name="caratteri_max"/>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="data">
+								<xsd:complexType>
+									<xsd:attribute type="xsd:string" name="id">
+										<xsd:documentation>
+											Identificativo del controllo; 
+											Corrisponde alla proprietà waControllo::nome
+										</xsd:documentation>
+									</xsd:attribute>
+									<xsd:sequence>
+										<xsd:element type="xsd:byte" name="visibile"/>
+										<xsd:element type="xsd:byte" name="sola_lettura"/>
+										<xsd:element type="xsd:byte" name="obbligatorio"/>
+										<xsd:element type="xsd:byte" name="indice_tab"/>
+										<xsd:element type="xsd:byte" name="larghezza"/>
+										<xsd:element type="xsd:byte" name="altezza"/>
+										<xsd:element type="xsd:short" name="sinistra"/>
+										<xsd:element type="xsd:short" name="alto"/>
+										<xsd:element type="xsd:string" name="valore"/>
+										<xsd:element type="xsd:byte" name="anno_decrescente" minOccurs="0"/>
+										<xsd:element type="xsd:short" name="anno_partenza" minOccurs="0"/>
+										<xsd:element type="xsd:short" name="anno_termine" minOccurs="0"/>
+										<xsd:element type="xsd:byte" name="help" minOccurs="0"/>
+										<xsd:element type="xsd:byte" name="caratteri_max" minOccurs="0"/>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="dataora">
+								<xsd:complexType>
+									<xsd:attribute type="xsd:string" name="id">
+										<xsd:documentation>
+											Identificativo del controllo; 
+											Corrisponde alla proprietà waControllo::nome
+										</xsd:documentation>
+									</xsd:attribute>
+									<xsd:sequence>
+										<xsd:element type="xsd:byte" name="visibile"/>
+										<xsd:element type="xsd:byte" name="sola_lettura"/>
+										<xsd:element type="xsd:byte" name="obbligatorio"/>
+										<xsd:element type="xsd:byte" name="indice_tab"/>
+										<xsd:element type="xsd:byte" name="larghezza"/>
+										<xsd:element type="xsd:byte" name="altezza"/>
+										<xsd:element type="xsd:short" name="sinistra"/>
+										<xsd:element type="xsd:short" name="alto"/>
+										<xsd:element type="xsd:string" name="valore"/>
+										<xsd:element type="xsd:byte" name="anno_decrescente" minOccurs="0"/>
+										<xsd:element type="xsd:short" name="anno_partenza" minOccurs="0"/>
+										<xsd:element type="xsd:short" name="anno_termine" minOccurs="0"/>
+										<xsd:element type="xsd:byte" name="intervallo_minuti" minOccurs="0"/>
+										<xsd:element type="xsd:byte" name="mostra_secondi" minOccurs="0"/>
+										<xsd:element type="xsd:byte" name="intervallo_secondi" minOccurs="0"/>
+										<xsd:element type="xsd:byte" name="help" minOccurs="0"/>
+										<xsd:element type="xsd:byte" name="caratteri_max" minOccurs="0"/>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="valuta">
+								<xsd:complexType>
+									<xsd:attribute type="xsd:string" name="id">
+										<xsd:documentation>
+											Identificativo del controllo; 
+											Corrisponde alla proprietà waControllo::nome
+										</xsd:documentation>
+									</xsd:attribute>
+									<xsd:sequence>
+										<xsd:element type="xsd:byte" name="visibile"/>
+										<xsd:element type="xsd:byte" name="sola_lettura"/>
+										<xsd:element type="xsd:byte" name="obbligatorio"/>
+										<xsd:element type="xsd:byte" name="indice_tab"/>
+										<xsd:element type="xsd:byte" name="larghezza"/>
+										<xsd:element type="xsd:byte" name="altezza"/>
+										<xsd:element type="xsd:short" name="sinistra"/>
+										<xsd:element type="xsd:short" name="alto"/>
+										<xsd:element type="xsd:string" name="valore"/>
+										<xsd:element type="xsd:byte" name="nr_decimali" minOccurs="0"/>
+										<xsd:element type="xsd:byte" name="nr_interi" minOccurs="0"/>
+										<xsd:element type="xsd:byte" name="vuoto_se_zero" minOccurs="0"/>
+										<xsd:element type="xsd:byte" name="help" minOccurs="0"/>
+										<xsd:element type="xsd:string" name="caratteri_max" minOccurs="0"/>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="areatesto">
+								<xsd:complexType>
+									<xsd:attribute type="xsd:string" name="id">
+										<xsd:documentation>
+											Identificativo del controllo; 
+											Corrisponde alla proprietà waControllo::nome
+										</xsd:documentation>
+									</xsd:attribute>
+									<xsd:sequence>
+										<xsd:element type="xsd:byte" name="visibile"/>
+										<xsd:element type="xsd:byte" name="sola_lettura"/>
+										<xsd:element type="xsd:byte" name="obbligatorio"/>
+										<xsd:element type="xsd:byte" name="indice_tab"/>
+										<xsd:element type="xsd:short" name="larghezza"/>
+										<xsd:element type="xsd:byte" name="altezza"/>
+										<xsd:element type="xsd:short" name="sinistra"/>
+										<xsd:element type="xsd:short" name="alto"/>
+										<xsd:element type="xsd:string" name="valore"/>
+										<xsd:element type="xsd:byte" name="colonne" minOccurs="0"/>
+										<xsd:element type="xsd:byte" name="righe" minOccurs="0"/>
+										<xsd:element type="xsd:byte" name="help" minOccurs="0"/>
+										<xsd:element type="xsd:string" name="caratteri_max" minOccurs="0"/>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="logico">
+								<xsd:complexType>
+									<xsd:attribute type="xsd:string" name="id">
+										<xsd:documentation>
+											Identificativo del controllo; 
+											Corrisponde alla proprietà waControllo::nome
+										</xsd:documentation>
+									</xsd:attribute>
+									<xsd:sequence>
+										<xsd:element type="xsd:byte" name="visibile"/>
+										<xsd:element type="xsd:byte" name="sola_lettura"/>
+										<xsd:element type="xsd:byte" name="obbligatorio"/>
+										<xsd:element type="xsd:byte" name="indice_tab"/>
+										<xsd:element type="xsd:byte" name="larghezza"/>
+										<xsd:element type="xsd:byte" name="altezza"/>
+										<xsd:element type="xsd:short" name="sinistra"/>
+										<xsd:element type="xsd:short" name="alto"/>
+										<xsd:element type="xsd:string" name="valore"/>
+										<xsd:element type="xsd:byte" name="help" minOccurs="0"/>
+										<xsd:element type="xsd:string" name="caratteri_max" minOccurs="0"/>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="multiselezione">
+								<xsd:complexType>
+									<xsd:attribute type="xsd:string" name="id">
+										<xsd:documentation>
+											Identificativo del controllo; 
+											Corrisponde alla proprietà waControllo::nome
+										</xsd:documentation>
+									</xsd:attribute>
+									<xsd:sequence>
+										<xsd:element type="xsd:byte" name="visibile"/>
+										<xsd:element type="xsd:byte" name="sola_lettura"/>
+										<xsd:element type="xsd:byte" name="obbligatorio"/>
+										<xsd:element type="xsd:byte" name="indice_tab"/>
+										<xsd:element type="xsd:byte" name="larghezza"/>
+										<xsd:element type="xsd:byte" name="altezza"/>
+										<xsd:element type="xsd:short" name="sinistra"/>
+										<xsd:element type="xsd:short" name="alto"/>
+										<xsd:element type="xsd:string" name="valore"/>
+										<xsd:element type="xsd:string" name="non_selezionabili" minOccurs="0"/>
+										<xsd:element name="lista" minOccurs="0">
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element name="elemento" maxOccurs="unbounded" minOccurs="0">
+														<xsd:complexType>
+															<xsd:simpleContent>
+																<xsd:extension base="xsd:string">
+																	<xsd:attribute type="xsd:byte" name="id" use="optional"/>
+																</xsd:extension>
+															</xsd:simpleContent>
+														</xsd:complexType>
+													</xsd:element>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element type="xsd:byte" name="help" minOccurs="0"/>
+										<xsd:element type="xsd:string" name="caratteri_max" minOccurs="0"/>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="caricafile">
+								<xsd:complexType>
+									<xsd:attribute type="xsd:string" name="id">
+										<xsd:documentation>
+											Identificativo del controllo; 
+											Corrisponde alla proprietà waControllo::nome
+										</xsd:documentation>
+									</xsd:attribute>
+									<xsd:sequence>
+										<xsd:element type="xsd:byte" name="visibile"/>
+										<xsd:element type="xsd:byte" name="sola_lettura"/>
+										<xsd:element type="xsd:byte" name="obbligatorio"/>
+										<xsd:element type="xsd:byte" name="indice_tab"/>
+										<xsd:element type="xsd:short" name="larghezza"/>
+										<xsd:element type="xsd:byte" name="altezza"/>
+										<xsd:element type="xsd:short" name="sinistra"/>
+										<xsd:element type="xsd:short" name="alto"/>
+										<xsd:element type="xsd:string" name="valore"/>
+										<xsd:element type="xsd:string" name="pagina_visualizzazione" minOccurs="0"/>
+										<xsd:element type="xsd:byte" name="dimensioni_file" minOccurs="0"/>
+										<xsd:element type="xsd:string" name="basename" minOccurs="0"/>
+										<xsd:element type="xsd:byte" name="help" minOccurs="0"/>
+										<xsd:element type="xsd:string" name="caratteri_max" minOccurs="0"/>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="ora">
+								<xsd:complexType>
+									<xsd:attribute type="xsd:string" name="id">
+										<xsd:documentation>
+											Identificativo del controllo; 
+											Corrisponde alla proprietà waControllo::nome
+										</xsd:documentation>
+									</xsd:attribute>
+									<xsd:sequence>
+										<xsd:element type="xsd:byte" name="visibile"/>
+										<xsd:element type="xsd:byte" name="sola_lettura"/>
+										<xsd:element type="xsd:byte" name="obbligatorio"/>
+										<xsd:element type="xsd:byte" name="indice_tab"/>
+										<xsd:element type="xsd:byte" name="larghezza"/>
+										<xsd:element type="xsd:byte" name="altezza"/>
+										<xsd:element type="xsd:short" name="sinistra"/>
+										<xsd:element type="xsd:short" name="alto"/>
+										<xsd:element type="xsd:string" name="valore"/>
+										<xsd:element type="xsd:byte" name="intervallo_minuti"/>
+										<xsd:element type="xsd:byte" name="mostra_secondi"/>
+										<xsd:element type="xsd:byte" name="intervallo_secondi"/>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="bottone" maxOccurs="unbounded" minOccurs="0">
+								<xsd:complexType>
+									<xsd:attribute type="xsd:string" name="id">
+										<xsd:documentation>
+											Identificativo del controllo; 
+											Corrisponde alla proprietà waControllo::nome
+										</xsd:documentation>
+									</xsd:attribute>
+									<xsd:sequence>
+										<xsd:element type="xsd:byte" name="visibile"/>
+										<xsd:element type="xsd:byte" name="sola_lettura"/>
+										<xsd:element type="xsd:byte" name="obbligatorio"/>
+										<xsd:element type="xsd:byte" name="indice_tab"/>
+										<xsd:element type="xsd:byte" name="larghezza"/>
+										<xsd:element type="xsd:byte" name="altezza"/>
+										<xsd:element type="xsd:short" name="sinistra"/>
+										<xsd:element type="xsd:short" name="alto"/>
+										<xsd:element type="xsd:string" name="valore"/>
+										<xsd:element type="xsd:byte" name="invia"/>
+										<xsd:element type="xsd:byte" name="annulla"/>
+										<xsd:element type="xsd:byte" name="elimina"/>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:choice>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

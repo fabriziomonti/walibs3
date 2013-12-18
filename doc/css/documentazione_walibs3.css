@@ -1,0 +1,122 @@
+/* 
+    Document   : documentazione_walibs3
+    Created on : 6-feb-2013, 12.46.34
+    Author     : bicio
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+body 
+	{
+	margin: 150px;
+	margin-top: 150px;
+	background-image: url(../img/logo_webappls.gif);
+	background-repeat: no-repeat;
+	background-position: center top;
+	font-family: verdana, arial, helvetica;
+	}
+i
+	{
+	color:#008000;
+	}
+
+a, a:visited
+	{
+	text-decoration: none;
+	color: #000080;
+	}
+	
+div.titolo
+	{
+	font-size: 16px;
+	margin-bottom: 30px;
+	text-align: center;
+	font-weight: bold;
+	}
+	
+div
+	{
+	text-align: justify;
+	margin: 20px;
+	}
+	
+div ul li
+	{
+	text-align: justify;
+	margin: 10px;
+	margin-left: -25px;
+	}
+	
+div.img
+	{
+	margin-top: 50px;
+	margin-left: -150px;
+	margin-right: -150px;
+	text-align: center;
+	}
+	
+table.navbar
+	{
+	margin-top: 50px;
+	width: 100%;
+	border: #000000 solid 1px;
+	}
+
+table.navbar td
+	{
+	font-size: 12px;
+	width: 50%;
+	}
+
+
+body.indice 
+	{
+	margin: 10px;
+	background-image: none;
+	}
+
+body.indice div.titolo
+	{
+	margin-top: 14px;
+	margin-bottom: 14px;
+	text-align: center;
+	font-weight: bold;
+	}
+	
+body.indice div.item
+	{
+	margin: 2px;
+	margin-left: 10px;
+	font-size: 12px;
+	}	
+	
+body.indice div.item a
+	{
+	overflow: hidden;
+	white-space: nowrap;
+	}	
+	
+	
+pre.shell-code
+	{
+	background-color: #000000;
+	color: #ffffff;
+	padding: 10px;
+	font-family: 'Courier New', Courier, monospace; 
+	font-size: 14px;
+	}
+	
+.php-code 
+	{ 
+	background-color: f0f0f0;
+	border: #000000 thin solid;
+	font-family: 'Courier New', Courier, monospace; 
+	font-size: 14px;
+	}
+	
+.php-comment
+	{ 
+	font-style: italic;
+	color: #c0c0c0;
+	}
+	

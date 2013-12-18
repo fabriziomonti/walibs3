@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN' 'http://www.w3.org/TR/REC-html40/loose.dtd'>
+<!--NewPage-->
+<HTML>
+<HEAD>
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+	<TITLE>waMenu 3.0</TITLE>
+<LINK REL ='stylesheet' TYPE='text/css' HREF='../media/layout.css' TITLE='Style'>
+<LINK REL ='stylesheet' TYPE='text/css' HREF='../media/stylesheet.css' TITLE='Style'>
+</HEAD>
+<BODY>
+<p>&nbsp;</p>
+<div align="center">
+<h1>waMenu 3.0</h1>
+</div>
+<p>&nbsp;</p>
+<div align="justify">
+Classe per la gestione di un menu
+<p>
+Features:
+<ul>
+<li>completa governabilita' del menu mediante foglio di stile XSLT
+<li>gia' compresi nel package i fogli XSLT (UIS) per:
+	<ul>
+	<li>formato ad albero
+	<li>orizzontale e verticale
+	<li>usabile (senza uso di javascript)
+	<li>posizionamento statico o dinamico
+	<li>always on top
+	<li>a scomparsa (automatica e manuale).
+	</ul>
+</ul>
+<p>
+Come si usa il package? Seguite questo esempio di codice PHP:
+<p>
+<pre class='src-code'>
+&lt;?php
+
+<span class='src-comm'>// includete il package waMenu</span>
+include "wamenu.inc.php";
+
+<span class='src-comm'>// create l'oggetto e apritelo</span>
+$m = new waMenu();
+$m->apri();
+
+<span class='src-comm'>// aprite le diverse sezioni, anche nestate, e riempitele
+// con le voci di vostro gradimento</span>
+$m->apriSezione("PHP");
+	$m->aggiungiVoce("Manuale",  "http://it.php.net/manual/it/");
+	$m->aggiungiVoce("PHPClasses", "http://www.phpclasses.org/");
+	$m->apriSezione("Varie");
+		$m->aggiungiVoce("weberdev",  "http://www.weberdev.com/");
+		$m->aggiungiVoce("freescripts", "http://www.freescripts.com/");
+	$m->chiudiSezione();
+$m->chiudiSezione();
+$m->apriSezione("Javascript");
+	$m->aggiungiVoce("reference", "http://javascript-reference.info/");
+$m->chiudiSezione();
+$m->apriSezione("Logout", "logout.php");
+<span class='src-comm'>// chiudete le diverse sezioni che avete aperto e chiudete il menu</span>
+$m->chiudiSezione();
+$m->chiudi();
+$m->mostra();
+?>
+</pre>
+
+
+Buon lavoro,
+<p>
+Bicio, Boka.
+
+</div>
+</BODY>
+</HTML>

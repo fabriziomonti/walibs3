@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF8"?>
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="wamodulo.input">
+		<xsd:documentation>Radice</xsd:documentation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element type="xsd:string" name="nome">
+					<xsd:documentation>
+						Nome del modulo. Corrisponde alla proprietà waModulo::nome
+					</xsd:documentation>
+				</xsd:element>
+				<xsd:element type="xsd:string" name="wamodulo_path">
+					<xsd:documentation>
+						Path della root del package waModulo rispetto alla document root.
+						In base a questo valore è possibile orientarsi rispetto all'intera applicazione.
+					</xsd:documentation>
+				</xsd:element>
+				<xsd:element name="mod_id">
+					<xsd:documentation>
+						Dati di un eventuale campo identificativo dell'ultima modifica del record in editing
+					</xsd:documentation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element type="xsd:string" name="nome">
+								<xsd:documentation>
+									Nome dell'eventuale campo usato nel record come identificativo di modifica
+								</xsd:documentation>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="post">
+					<xsd:documentation>
+						Lista delle variabili passate tramite HTTP/POST
+					</xsd:documentation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="item" maxOccurs="unbounded" minOccurs="0">
+								<xsd:documentation>
+									Contiene uno dei valori passati in post
+								</xsd:documentation>
+								<xsd:complexType mixed="true">
+									<xsd:attribute type="xsd:string" name="id" use="optional">
+										<xsd:documentation>
+											Identificativo (nome) della variabile passata tramite HTTP/POST; 
+											dipende ovviamente dalla UI (dall'XSLT che ha impostato la UI in output e quindi 
+											dai nomi che ha attribuito ai diversi controlli del modulo)
+											il valore di questo id
+										</xsd:documentation>
+									</xsd:attribute>
+									<xsd:sequence>
+										<xsd:element name="item" maxOccurs="unbounded" minOccurs="0">
+											<xsd:documentation>
+												Se il valore passato in post è un array 
+												allora il valore èuna lista di "item" il cui id è
+												la chiave dell'elemento dell'array
+											</xsd:documentation>
+											<xsd:complexType>
+												<xsd:simpleContent>
+													<xsd:extension base="xsd:byte">
+														<xsd:attribute type="xsd:byte" name="id" use="optional">
+															<xsd:documentation>
+																Chiave dell'elemento dell'array
+																se il valore passato in post è un array 
+															</xsd:documentation>
+														</xsd:attribute>
+													</xsd:extension>
+												</xsd:simpleContent>
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+
+				<xsd:element name="files">
+					<xsd:documentation>
+						Lista degli input type=file
+					</xsd:documentation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="item">
+								<xsd:documentation>
+									Contiene uno dei valori passati in post
+								</xsd:documentation>
+								<xsd:complexType>
+									<xsd:attribute type="xsd:string" name="id">
+										<xsd:documentation>
+											Identificativo (nome) del controllo di input; 
+											dipende ovviamente dalla UI (dall'XSLT che ha impostato la UI in output e quindi 
+											dai nomi che ha attribuito ai diversi controlli del modulo)
+											il valore di questo id										
+										</xsd:documentation>
+									</xsd:attribute>									
+									<xsd:sequence>
+										<xsd:element name="item" maxOccurs="unbounded" minOccurs="0">
+											<xsd:documentation>
+												Lista degli attributi del file upload
+												(array associativo identico a come lo gestisce PHP)
+											</xsd:documentation>											
+										<xsd:complexType>
+												<xsd:simpleContent>
+													<xsd:extension base="xsd:string">
+														<xsd:attribute type="xsd:string" name="id" use="optional">
+															<xsd:documentation>
+																Chiave dell'array associativo del file upload
+															</xsd:documentation>								
+														</xsd:attribute>			
+													</xsd:extension>
+												</xsd:simpleContent>
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="wamodulo_controlli.input">
+					<xsd:documentation>
+						Lista dei controlli gestiti dal modulo, divisi per 
+						tipologia
+					</xsd:documentation>											
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="selezione.input" maxOccurs="unbounded" minOccurs="0">
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:string">
+											<xsd:attribute type="xsd:string" name="id" use="optional">
+												<xsd:documentation>
+													Identificativo (nome) del controllo 
+												</xsd:documentation>								
+											</xsd:attribute>			
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="testo.input" maxOccurs="unbounded" minOccurs="0">
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:string">
+											<xsd:attribute type="xsd:string" name="id" use="optional">
+												<xsd:documentation>
+													Identificativo (nome) del controllo 
+												</xsd:documentation>								
+											</xsd:attribute>			
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="intero.input">
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:string">
+											<xsd:attribute type="xsd:string" name="id" use="optional">
+												<xsd:documentation>
+													Identificativo (nome) del controllo 
+												</xsd:documentation>								
+											</xsd:attribute>			
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="data.input">
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:string">
+											<xsd:attribute type="xsd:string" name="id" use="optional">
+												<xsd:documentation>
+													Identificativo (nome) del controllo 
+												</xsd:documentation>								
+											</xsd:attribute>			
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="dataora.input">
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:string">
+											<xsd:attribute type="xsd:string" name="id" use="optional">
+												<xsd:documentation>
+													Identificativo (nome) del controllo 
+												</xsd:documentation>								
+											</xsd:attribute>			
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="valuta.input">
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:string">
+											<xsd:attribute type="xsd:string" name="id" use="optional">
+												<xsd:documentation>
+													Identificativo (nome) del controllo 
+												</xsd:documentation>								
+											</xsd:attribute>			
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="areatesto.input">
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:string">
+											<xsd:attribute type="xsd:string" name="id" use="optional">
+												<xsd:documentation>
+													Identificativo (nome) del controllo 
+												</xsd:documentation>								
+											</xsd:attribute>			
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="logico.input">
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:string">
+											<xsd:attribute type="xsd:string" name="id" use="optional">
+												<xsd:documentation>
+													Identificativo (nome) del controllo 
+												</xsd:documentation>								
+											</xsd:attribute>			
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="multiselezione.input">
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:string">
+											<xsd:attribute type="xsd:string" name="id" use="optional">
+												<xsd:documentation>
+													Identificativo (nome) del controllo 
+												</xsd:documentation>								
+											</xsd:attribute>			
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="caricafile.input">
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:string">
+											<xsd:attribute type="xsd:string" name="id" use="optional">
+												<xsd:documentation>
+													Identificativo (nome) del controllo 
+												</xsd:documentation>								
+											</xsd:attribute>			
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="ora.input">
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:string">
+											<xsd:attribute type="xsd:string" name="id" use="optional">
+												<xsd:documentation>
+													Identificativo (nome) del controllo 
+												</xsd:documentation>								
+											</xsd:attribute>			
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="bottone.input" maxOccurs="unbounded" minOccurs="0">
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:string">
+											<xsd:attribute type="xsd:string" name="id" use="optional">
+												<xsd:documentation>
+													Identificativo (nome) del controllo 
+												</xsd:documentation>								
+											</xsd:attribute>			
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title></title>
+		<link href="css/documentazione_walibs3.css" rel="stylesheet" />
+	</head>
+
+	<body>
+
+		<div class='titolo'>waLibs 3.x</div>
+		<div class='titolo'>Aggiungere una waTabella</div>
+
+		<div>
+			Allo stesso modo di waMenu, un oggetto di classe waTabella può essere
+			un elemento da dare in pasto a waApplicazione per essere mandato in 
+			output. Continuando col nostro esempio, creiamo un oggetto di classe
+			waTabella all'interno della nostra pagina, ne valorizziamo le
+			proprietà di comportamento e lo mandiamo in output:
+		</div>
+		
+		<div>
+			<pre class='php-code'>
+&lt;?php
+<span class="php-comment">
+//****************** pagina1.php ***************************************
+</span>
+include dirname(__FILE__) . "/testwalibs.inc.php";
+
+class pagina extends testwalibs
+	{
+	function faiQualcosa()
+		{			
+		$this->aggiungiElemento($this->dammiMenu());
+		$corpo = "Lorem Ipsum è un testo segnaposto utilizzato nel settore della 
+			tipografia e della stampa. Lorem Ipsum è considerato il testo segnaposto standard 
+			sin dal sedicesimo secolo, quando un anonimo tipografo prese una cassetta di 
+			caratteri e li assemblò per preparare un testo campione. È sopravvissuto non solo 
+			a più di cinque secoli, ma anche al passaggio alla videoimpaginazione, pervenendoci 
+			sostanzialmente inalterato. Fu reso popolare, negli anni ’60, con la diffusione 
+			dei fogli di caratteri trasferibili “Letraset”, che contenevano passaggi del 
+			Lorem Ipsum, e più recentemente da software di impaginazione come Aldus PageMaker, 
+			che includeva versioni del Lorem Ipsum.";
+		$this->aggiungiElemento($corpo, "corpo");
+		$this->aggiungiElemento("ciao mondo", "titolo");
+		<span style="color: red">
+		$tabella = new waTabella("SELECT * FROM amministrazioni", $this->fileConfigurazioneDB);
+		$tabella->aggiungiColonna("id_amministrazione", "ID");
+		$tabella->aggiungiColonna("sigla", "Sigla");
+		$tabella->aggiungiColonna("nome", "Nome");
+
+		<span class="php-comment">// lettura dal database delle righe che andranno a popolare la tabella</span>
+		if (!$tabella->caricaRighe())
+			$this->mostraErroreDB($tabella->righeDB->connessioneDB);
+		$this->aggiungiElemento($tabella);
+		</span>
+		$this->mostra();
+		}
+
+	}
+
+$pagina = new pagina();
+$pagina->faiQualcosa();
+?&gt;
+			</pre>
+		</div>
+		
+		
+		<div>
+			Inizia ad assomigliare ad una pagina di una applicazione, vero? E 
+			abbiamo scritto si e no 50 righe di codice...
+		</div>
+		
+		<div>
+			Come waMenu e waApplicazione, la UI di ogni waTabella può essere 
+			personalizzata secondo il solito schema, e come per tutti gli altri
+			oggetti troverete la documentazione della classe e del significato
+			degli elementi XPATH prodotti dalla classe, all'interno della 
+			documentazione specifica del package.
+		</div>
+		
+		<div>
+			Altro pistolotto: non seguite l'esempio di questa pagina, nel quale
+			viene creato direttamente un oggetto di classe waTabella; lasciate 
+			che sia la vostra applicazione a decidere di che classe saranno gli
+			oggetti tabella: create un metodo della classe <i>testwalibs</i>
+			(la vostra applicazione) che crea la tabella e la restituisce, e 
+			all'interno della pagina
+			richiamate il metodo della classe <i>testwalibs</i> quando volete 
+			creare una nuova tabella. In questo modo,
+			qualora sia sempre necessario impostare delle proprietà di default della
+			tabella, oppure decidiate di estendere la classe ed utilizzare la 
+			classe estesa, oppure ad un certo punto vi accorgiate che avete
+			bisogno di generare un nuovo xslt (che è una proprietà della classe),
+			avrete un solo unico punto centralizzato da modificare, e 
+			l'applicazione, come per incanto, cambierà per intero il suo 
+			comportamento.
+		</div>
+
+		<div>
+			P.S.: waTabella possiede al suo interno un meccanismo per esportare
+			le righe in formato CSV, XLS e PDF. Per effettuare l'esportazione in 
+			formato PDF viene utilizzata la famosa classe FPDF, estesa con 
+			l'implementazione di alcune funzioni utili (gestione input UTF8 e
+			"MultiLineRow"). Quindi, qualora la vostra applicazione dovesse
+			generare file in formato PDF e vogliate utilizzare FPDF e successive
+			modificazioni nostrane, non è necessario includere nuovamente il 
+			package: è già incluso nelle waLibs!
+		</div>
+
+		<div>
+			<table class="navbar">
+				<tr>
+					<td align="left"><a href="aggiungere_wadb.html"><< Aggiungere waDB</a></td>
+					<td align="right"><a href="aggiungere_wamodulo.html">Aggiungere un waModulo >></a></td>
+				</tr>
+			</table>
+		</div>
+
+	</body>
+</html>

@@ -1,0 +1,153 @@
+/********************************* watabella *********************************/
+/********************************* watabella *********************************/
+/********************************* watabella *********************************/
+/********************************* watabella *********************************/
+/********************************* watabella *********************************/
+
+/*****************************************************/
+/******** elementi tabella vera e propria ************/
+/*****************************************************/
+
+/************* tabella *******************************/
+form.watabella table
+{
+	width: 100%;
+	border: #000000 1px solid;
+	border-collapse: collapse;
+}
+
+/************* riga normale ********************/
+form.watabella table tr
+{
+}
+
+/************* riga selezionata ****************/
+form.watabella table tr.selezionata
+{
+    background-color: #808080;
+	color: #ffffff
+}
+
+/************* riga evidenziata ****************/
+form.watabella table tbody tr:hover
+{
+    background-color: #000000;
+	color: #ffffff;
+}
+
+
+/************* cella intestazione **************/
+form.watabella table th
+{
+    background-color: #f0f0f0;
+    font-weight: bold;
+	border: #000000 1px solid;
+	border-collapse: collapse;
+}
+
+form.watabella table th a,
+form.watabella table th a:active , 
+form.watabella table th a:visited , 
+form.watabella table th a:link , 
+form.watabella table th a:hover 
+{
+}
+
+/************* cella standard *****************/
+form.watabella table td
+{
+	border: #000000 1px solid;
+	border-collapse: collapse;
+}
+
+form.watabella table td a,
+form.watabella table td a:active , 
+form.watabella table td a a:visited , 
+form.watabella table td a:link , 
+form.watabella table td a:hover 
+{
+}
+
+/************* bottone azione su record in linea (solo testo) *******/
+form.watabella table td button
+{
+    width: 64px;
+    white-space:nowrap;
+    margin-right: 1px;
+}
+
+
+/********************************/
+/******** bottoniera ************/
+/********************************/
+form.watabella
+{
+    vertical-align: middle;
+	margin: 0px;
+	padding-top: 6px;
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-bottom: 6px;
+}
+
+/******** bottoni bottoniera (solo testo) ************/
+form.watabella button
+{
+    width: 100px;
+    margin-top: 1px;
+    margin-right: -3px;
+}
+
+/******** bottoni bottoniera disabilitati (solo testo) ************/
+form.watabella button.disabilitato
+{
+}
+
+/******** label ricerca rapida ***********/
+form.watabella span
+{
+    color: #000000;
+    margin-left: 5px;
+    margin-right: 1px;
+}
+
+/******** input text ricerca rapida ***********/
+form.watabella input
+{
+	margin-top: 3px;
+}
+
+/****************************************************/
+/******** modulo di ordinamento e filtro ************/
+/****************************************************/
+div.watabella_finestra_ordinamento_filtro
+	{
+ 	border: #000000 1px solid;
+	color: #000000;
+    background-color: #ffffff;
+	width: 660px; 
+	height: 400px; 
+	position: absolute; 
+	left: 50%;
+	margin-left: -330px;
+	z-index: 1000;    
+	}
+
+div.watabella_finestra_ordinamento_filtro p
+	{	
+    text-align: center;
+    font-weight: bold;
+	}
+	
+div.watabella_finestra_ordinamento_filtro table
+	{	
+	width: 100%;
+	margin-bottom: 20px;
+	}
+	
+div.watabella_finestra_ordinamento_filtro input[type=submit],
+div.watabella_finestra_ordinamento_filtro input[type=button]
+	{	
+	width: 100px;
+	}
+	

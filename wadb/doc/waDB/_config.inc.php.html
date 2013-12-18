@@ -1,0 +1,100 @@
+<html>
+	<head>
+		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+		<title>Docs for page config.inc.php</title>
+		<link rel="stylesheet" type="text/css" href="../media/style.css">
+	</head>
+	<body>
+
+		<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+			<tr>
+				<td class="header_top">waDB</td>
+			</tr>
+			<tr><td class="header_line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+			<tr>
+				<td class="header_menu">
+					
+																		
+																						[ <a href="../classtrees_waDB.html" class="menu">albero delle classi</a> ]
+						[ <a href="../elementindex_waDB.html" class="menu">indice degli elementi</a> ]
+										<!-- [ <a href="../elementindex.html" class="menu">all elements</a> ] -->
+				</td>
+			</tr>
+			<tr><td class="header_line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+		</table>
+
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr valign="top">
+				<td width="200" class="menu">
+															<!-- <b>Packages:</b><br />-->
+											<a href="../li_waDB.html">Introduzione</a><br />
+										<br />
+													
+											<b><a href="../waDB/_wadb.inc.php.html">Defines applicative
+</a><br>
+<br /></b>
+					
+											<b>Classi:</b><br />
+								    		<a href="../waDB/waConnessioneDB.html">waConnessioneDB</a><br />
+	    		<a href="../waDB/waRecord.html">waRecord</a><br />
+	    		<a href="../waDB/waRigheDB.html">waRigheDB</a><br />
+	
+						<br />
+					
+											<b>Files:</b><br />
+						<a href="../waDB/_config.inc.php.html">config.inc.php
+</a><br>
+<a href="../waDB/_wadb.inc.php.html">wadb.inc.php
+</a><br>
+<a href="../waDB/_wadbdriver.class.php.html">wadbdriver.class.php
+</a><br>
+<a href="../waDB/_warecord.class.php.html">warecord.class.php
+</a><br>
+<a href="../waDB/_warighedb.class.php.html">warighedb.class.php
+</a><br>
+<a href="../waDB/_utilita.inc.php.html">utilita.inc.php
+</a><br>
+<br />
+						<br />
+					
+					
+							</td>
+			<td>
+				<table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
+
+																			<h1>File config.inc.php</h1>
+							(/config.inc.php)<br /><br />
+						
+
+<h3>Contenuto del file:</h3>
+<div><p style="margin-top: -4px"><b>file di configurazione tipo di una connessione DB</b></p></div><div><p>Il file deve essere copiato all'interno della directory della propria  applicazione e valorizzato secondo le proprie esigenze.  <br /><br />  Il significato dei parametri da valorizzare è il seguente:</p><p><strong>$WADB_TIPODB</strong><br />  Tipo database; si vedano le defines WADB_TIPODB_* in <a href="../waDB/_wadb.inc.php.html">wadb.inc.php</a>  <br /><br />  <strong>$WADB_HOST</strong><br />  Nome o indirizzo IP host di residenza del db  <br /><br />  <strong>$WADB_NOMEUTENTE</strong><br />  Nome utente per l'accesso al db  <br /><br />  <strong>$WADB_PASSWORD</strong><br />  Password utente per l'accesso al db  <br /><br />  <strong>$WADB_NOMEDB</strong><br />  Nome del db  <br /><br />  <strong>$WADB_PORTA</strong><br />  Porta sui cui viene condiviso il db (vuoto per porta di default del RDBMS)  <br /><br />  <strong>$WADB_NOMELOG</strong><br />  Nome di un file sequenziale dove vengono loggati tutti gli acessi in scrittura al db  (anonimi, salvo l'ip di provenienza)  <br /><br />  <strong>$WADB_LOG_CALLBACK_FNC</strong><br />  Nome di una funzione callback invocata ad ogni accesso al db in scrittura.  Alla funzione, se esistente, viene passato come parametro la stringa sql in esecuzione. E' cosi'  possibile per una applicazione definire un proprio logging, che riporti eventuali dati dell'utente  che ha invocato la scrittura su db. La variabile puo' anche contenere un metodo: in questo caso sara'  un array di tre elementi: <ul><li>nome della classe che contiene il metodo</li><li>nome di una proprieta' statica della classe che restituisce un' istanza della classe</li><li>nome del metodo da invocare</li></ul>  Si presti attenzione al fatto che le variabili in questione, essendo incluse  all'interno di una funzione, non hanno scope globale, ma locale alla funzione  che include il file.</p></div>	<div class="tags">
+		<table border="0" cellspacing="0" cellpadding="0">
+							<tr>
+					<td><b>
+																																																	</td>
+				</tr>
+							<tr>
+					<td><b>
+																																																	</td>
+				</tr>
+							<tr>
+					<td><b>
+																																																	</td>
+				</tr>
+							<tr>
+					<td><b>
+																																																	</td>
+				</tr>
+					</table>
+	</div>
+        <div class="credit">
+		    <hr />
+		    Documentation generated on Fri, 08 Mar 2013 12:10:04 +0100 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.4</a>
+	      </div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

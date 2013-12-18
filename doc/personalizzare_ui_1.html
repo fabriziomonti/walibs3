@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title></title>
+		<link href="css/documentazione_walibs3.css" rel="stylesheet" />
+	</head>
+
+	<body>
+
+		<div class='titolo'>waLibs 3.x</div>
+		<div class='titolo'>Personalizzare la UI - 1</div>
+
+		<div>Sicuramente, anche se non siete dei fini esteti, vorrete ridefinire
+			gli stili CSS rispetto a quelli forniti di default; questi, di fatto, 
+			non sono definiti: esiste solo un template pressoché vuoto che dovrete
+			riempire se non volete un grazioso risultato di tipo <i>Deutsche 
+			Demokratische Republik</i>. Come fare l'abbiamo già visto: create il
+			foglio CSS dell'applicazione dentro la vostra UI e modificatelo a 
+			piacere
+		</div>
+		
+		<div>
+			<pre class='shell-code'>
+$ cd /var/www/testwalibs
+$ mkdir ui
+$ mkdir ui/css
+$ pico ui/css/testwalibs.css
+			</pre>
+		</div>
+		
+
+		
+		<div>
+			<pre class='php-code'>
+<span class="php-comment">
+/****************** testwalibs.css ***************************************/
+</span>
+body
+	{
+	margin: auto;
+	margin-top: 50px;
+	width: 80%;
+	border: #000000 solid 1px;
+	font-size: 12px;
+	font-family: verdana, arial, helvetica;
+	}
+
+div.waapplicazione_titolo
+	{
+	text-align: center;
+	font-size: 15px;
+	font-weight: bold;
+	}
+			</pre>
+		</div>
+		
+		
+		<div>
+			<table class="navbar">
+				<tr>
+					<td align="left"><a href="prima_pagina.html"><< La mia prima pagina</a></td>
+					<td align="right"><a href="personalizzare_ui_2.html">Personalizzare la UI - 2 >></a></td>
+				</tr>
+			</table>
+		</div>
+
+	</body>
+</html>

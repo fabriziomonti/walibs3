@@ -1,0 +1,228 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title></title>
+		<link href="css/documentazione_walibs3.css" rel="stylesheet" />
+	</head>
+
+	<body>
+
+		<div class='titolo'>waLibs 3.x</div>
+		<div class='titolo'>Personalizzare la UI - 2</div>
+
+		<div>
+			Applicare stili CSS diversi modifica il rendering, ma naturalmente
+			non cambia nulla della funzionalità della vostra pagina. Se per 
+			qualsiasi motivo, che va dal vostro gusto personale alle esigenze
+			applicative al desiderio del cliente, volete modificare la
+			funzionalità della vostra applicazione, allora dovrete mettere mano
+			al foglio di stile XSLT e modificarlo affinchè la vostra applicazione
+			si comporti come voi desiderate.
+		</div>
+
+		<div>
+			Prima di vedere come si fa, un inciso. Esistono milioni di casi
+			diversi per cui è necessario inventarsi una UI funzionalmente
+			originale. Ma occorre sempre ricordare che:
+			<ul>
+				<li>
+					ogni nuova <i>user-experience</i> è faticosa e dispendiosa
+					per l'utente finale; condurlo o ricondurlo (nel caso voglia 
+					farsi del male da solo) a qualcosa per lui (e i suoi 
+					dipendenti) già noto e sperimentato fa parte del vostro 
+					bagaglio professionale: voi siete i professionisti, gli 
+					esperti che conoscono le conseguenze a lungo termine dell'adozione
+					di una UI troppo diversa dallo standard. Ricordate che state 
+					facendo un'applicazione gestionale, non un sito di suonerie
+					per cellulari. Siete gli eredi di Excel, non di Facebook
+				</li>
+				<li>
+					avere ogni pagina dell'applicazione "fatta con lo stampino" 
+					è un valore, non un disvalore. Significa che avete individuato
+					una modalità efficace di comunicazione per la vostra UI. 
+					L'utente impara un criterio di comunicazione, uno e uno solo,
+					meglio ancora se già noto, 
+					e dopo segue quello: è una cosa che fornisce sicurezza, dà
+					senso di stabilità, non genera rigetto. Tutte le volte che 
+					si può occorre 
+					perseguire questo obiettivo, anche a costo di essere 
+					insistenti con una controparte committente che spesso non 
+					è personalmente destinata ad usare la vostra UI; anche questa
+					è professionalità
+				</li>
+				<li>
+					ogni nuova UI funzionalmente diversa è un costo per l'azienda
+					che vi paga; prima perchè dovete redigerla, poi perchè i
+					colleghi dovranno manutenerla. Questo costo ovviamente non
+					potra' che ricadere sul cliente.
+				</li>
+			</ul>
+			
+			Quindi, prima di accingervi a generare un XSLT che dia vita a una 
+			nuova UI partendo da zero, 
+			chiedetevi sempre: lo sto facendo per il cliente e per l'azienda o 
+			per il mio ego di informatico che "ho sempre fatto così"?
+		</div>
+		
+		<div>
+			E dopo questo bel pistolotto, vediamo come modificare la funzionalità
+			della nostra pagina di esempio. Diciamo che vogliamo inserire
+			l'elemento <i>titolo</i> tra <i>H1</i>, anzichè in un <i>div</i> e
+			vogliamo assicurarci che l'elemento <i>titolo</i> sia sempre
+			mandato in output come primo elemento (l'XSLT di default di 
+			waApplicazione manda in output gli elementi della pagina nello stesso
+			ordine in cui gli vengono passati, e non è assolutamente consapevole
+			di cosa il nome di un elemento possa significare).
+		</div>
+
+		<div>
+			Copiamo il foglio di stile di default di waApplicazione all'interno
+			della nostra UI e apriamolo col nostro editor preferito
+		</div>
+		
+		<div>
+			<pre class='shell-code'>
+$ cd /var/www/testwalibs
+$ mkdir ui
+$ mkdir ui/xslt
+$ cp walibs3/waapplicazione/uis/wa_default/xslt/waapplicazione.xsl ui/xslt/testwalibs.xsl
+$ pico ui/xslt/testwalibs.xsl
+			</pre>
+		</div>
+		
+		<div>
+			Avete davanti un foglio di stile XSLT; se non capite veramente nulla,
+			allora è il momento di imparare il linguaggio XSLT: cercatevi un 
+			buon tutorial e leggetelo. E' poco tempo e molto ben speso.
+		</div>
+
+		<div>
+			Il foglio fa riferimento a elementi XPATH di cui potrete trovare 
+			la spiegazione all'interno della documentazione specifica di 
+			waApplicazione. Qui vogliamo vedere solo come intervenire per 
+			ottenere il risultato che ci siamo prefissi.
+		</div>
+		
+		<div>
+			Intorno alla metà del file troverete un costrutto <i>for-each</i> che
+			cicla su tutti gli elementi <i>pagina/elementi/elemento</i>; modifichiamo
+			l'intero blocco <i>for-each</i> in questo modo:
+		</div>
+		
+		<div>
+			<pre class='php-code'>
+<span class="php-comment">
+&lt;!-- ****************** testwalibs.xsl ************************************* -->
+</span>
+		<span class="php-comment">&lt;!-- creazione degli elementi costitutivi della pagina (titolo, tabelle, moduli, testo libero, ecc.--></span>
+		<span style="color: red">&lt;h1>
+		  &lt;xsl:value-of disable-output-escaping="yes" select="pagina/elementi/elemento[nome = 'titolo']/valore" />
+		&lt;/h1>
+		&lt;xsl:for-each select="pagina/elementi/elemento[nome != 'titolo']"></span>
+			&lt;xsl:text>&amp;#10;&lt;/xsl:text>
+			&lt;div class="waapplicazione_{nome}">
+				&lt;xsl:value-of disable-output-escaping="yes" select="valore" />
+			&lt;/div>
+			&lt;xsl:text>&amp;#10;&lt;/xsl:text>
+		&lt;/xsl:for-each>
+			
+			</pre>
+		</div>
+		
+		<div>
+			Salviamo il nostro foglio XSLT e ricarichiamo col browser
+			<i>pagina1.php</i>. Magicamente scopriremo che... non è successo
+			niente. Ovvio: non abbiamo istruito la nostra applicazione che
+			deve usare il nostro foglio di stile anzichè quello di default...
+		</div>
+		
+		<div>
+			Editiamo allora la classe della nostra applicazione (ma volendo 
+			avremmo potuto farlo per ogni singola pagina) e informiamo 
+			l'applicazione che la nostra UI è data dal foglio di stile appena 
+			modificato:
+		</div>
+		
+		<div>
+			<pre class='php-code'>
+&lt;?php
+<span class="php-comment">
+//****************** testwalibs.inc.php ***************************************
+</span>
+include dirname(__FILE__) . "/walibs3/waapplicazione/waapplicazione.inc.php";
+
+class testwalibs extends waApplicazione
+	{
+
+	function __construct()
+		{			
+		$this->nome = "testwalibs";
+		$this->titolo = "Voglio testare le waLibs";
+		<span style="color: red">$this->xslt = dirname(__FILE__) . "/ui/xslt/testwalibs.xsl";</span>
+		$this->inizializza();
+		}
+	}
+?&gt;
+			</pre>
+		</div>
+
+		<div>
+			Già che ci siamo, e giusto per dare un po' di movimento alla pagina,
+			aggiungiamo anche un elemento <i>corpo</i> (lo aggiungiamo prima del 
+			<i>titolo</i>, ma come vedrete comparirà dopo, all'interno dell'output
+			della pagina)
+		</div>
+		
+		<div>
+			<pre class='php-code'>
+&lt;?php
+<span class="php-comment">
+//****************** pagina1.php ***************************************
+</span>
+include dirname(__FILE__) . "/testwalibs.inc.php";
+
+class pagina extends testwalibs
+	{
+	function faiQualcosa()
+		{			
+		<span style="color: red">$corpo = "Lorem Ipsum è un testo segnaposto utilizzato nel settore della 
+			tipografia e della stampa. Lorem Ipsum è considerato il testo segnaposto standard 
+			sin dal sedicesimo secolo, quando un anonimo tipografo prese una cassetta di 
+			caratteri e li assemblò per preparare un testo campione. È sopravvissuto non solo 
+			a più di cinque secoli, ma anche al passaggio alla videoimpaginazione, pervenendoci 
+			sostanzialmente inalterato. Fu reso popolare, negli anni ’60, con la diffusione 
+			dei fogli di caratteri trasferibili “Letraset”, che contenevano passaggi del 
+			Lorem Ipsum, e più recentemente da software di impaginazione come Aldus PageMaker, 
+			che includeva versioni del Lorem Ipsum.";
+		$this->aggiungiElemento($corpo, "corpo");</span>
+		$this->aggiungiElemento("ciao mondo", "titolo");
+		$this->mostra();
+		}
+
+	}
+
+$pagina = new pagina();
+$pagina->faiQualcosa();
+?&gt;
+			</pre>
+		</div>
+		
+		<div>
+			Caricate la pagina col browser, guardate il risultato e iniziate a
+			far girare le idee nella vostra testa di bravi, giovani 
+			problem-solver.
+		</div>
+		
+		
+		<div>
+			<table class="navbar">
+				<tr>
+					<td align="left"><a href="personalizzare_ui_1.html"><< Personalizzare la UI - 1</a></td>
+					<td align="right"><a href="aggiungere_wamenu.html">Aggiungere un waMenu >></a></td>
+				</tr>
+			</table>
+		</div>
+
+	</body>
+</html>

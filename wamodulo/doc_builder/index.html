@@ -1,0 +1,207 @@
+<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN' 'http://www.w3.org/TR/REC-html40/loose.dtd'>
+<!--NewPage-->
+<HTML>
+<HEAD>
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+	<TITLE>waModulo 3.0</TITLE>
+<LINK REL ='stylesheet' TYPE='text/css' HREF='../media/layout.css' TITLE='Style'>
+<LINK REL ='stylesheet' TYPE='text/css' HREF='../media/stylesheet.css' TITLE='Style'>
+</HEAD>
+<BODY>
+<p>&nbsp;</p>
+<div align="center">
+<h1>waModulo 3.0</h1>
+</div>
+<p>&nbsp;</p>
+<div align="justify">
+Classe per la gestione di un modulo (form) standard, con prelevamento, opzionale, dei dati da 
+un record waRecord contenuto in un oggetto waRigheDB e gestione dei dati in input
+da parte del client. Il modulo è solo il contenitore 
+che contiene i vari controlli definiti dalle specifiche classi.
+<p>
+Di per sè, la classe genera solamente un codice XML che viene dato in pasto ad una
+UI (foglio di stile XSLT il quale può fare riferimento a risorse quali script
+javascript e css) che trasforma l'XML come si ritiene opportuno.
+
+Si tenga però in considerazione il fatto che la riscrittura completa dell'XSLT è
+assai gravosa, soprattutto per ciò che riguarda le implicazioni delle procedure
+di controllo javascript; a seconda delle esigenze, si consiglia pertanto di
+partire dall'esistente e modificare solo le parti che devono essere modificate
+(ad esempio eliminando tutti i riferimenti a javascript in caso di form usabili).
+
+<p>
+Nella sua configurazione di default, ossia utilizzando la UI fornito dal package
+(<b>uis/wa_default</b>),
+il package gestisce l'RPC (chiamata remota al server senza ricaricamento della pagina) e
+effettua un controllo formale dei dati inseriti nei vari controlli instanziati
+all'interno del modulo.
+<p>
+Come si usa il package? Sseguite questo esempio di codice PHP:
+
+<pre class='src-code'>
+&lt;?php
+
+<span class='src-comm'>// includete il package waModulo</span>
+include "wamodulo.inc.php";
+
+<span class='src-comm'>// istanziate un oggetto di classe waModulo</span>
+$modulo = new waModulo();
+
+<span class='src-comm'>// create un oggetto di classe waRigheDB da associare
+// al modulo</span>
+$connessioneDB = wadb_dammiConnessione();
+if ($connessioneDB->nrErrore())
+	exit("Errore connessione DB: " . 
+		$connessioneDB->nrErrore() . " - " . 
+		$connessioneDB->messaggioErrore());
+$modulo->righeDB = new waRigheDB($connessioneDB);
+
+<span class='src-comm'>// caricate il record che vi interessa all'interno del modulo</span>
+$sql = "SELECT * FROM Ordini WHERE IDOrdine=" . $connessioneDB->interoSql(95);
+$modulo->righeDB->caricaDaSql($sql);
+if ($modulo->righeDB->nrErrore())
+	exit("Errore caricaDaSql: " . 
+			$modulo->righeDB->nrErrore() . " - " . 
+			$modulo->righeDB->messaggioErrore());
+
+<span class='src-comm'>// definite le proprietà del vostro modulo</span>
+$modulo->larghezza = 600;
+$modulo->altezza = 100;
+$modulo->nomeCampoRecId = $modulo->righeDB->chiavePrimaria();
+
+<span class='src-comm'>// create i controlli che il vostro modulo dovrà contenere</span>
+$etichetta = new waEtichetta($modulo , "NoteOrdine", "Note ordine");
+$etichetta->alto = 20;
+$etichetta->sinistra = 5;
+$ctrl = new waTesto($modulo, "NoteOrdine");
+$ctrl->alto = 20;
+$ctrl->sinistra = 200;
+$ctrl->larghezza = 300;
+
+$OkCtrl = new waBottone($modulo, 'cmdInvia', "Invia");
+$OkCtrl->alto = 50;
+$OkCtrl->sinistra = 200;
+$OkCtrl->larghezza = 100;
+
+<span class='src-comm'>// chiamata al metodo che legge eventuali valori in input</span>
+$modulo->leggiValoriIngresso();
+
+<span class='src-comm'>// verifica se è stato richiesto dall'utente la cancellazione del record
+// in editing</span>
+if ($modulo->daEliminare())
+	$modulo->elimina(true);
+
+<span class='src-comm'>// verifica se è stato effettuato il submit da parte dell'utente, che 
+// quindi desidera consolidare (inserire/modificare)i dati inputati nel 
+// modulo</span>
+elseif ($modulo->daAggiornare())
+	{
+	if ($modulo->verificaObbligo())
+		$modulo->salva(true);
+	}
+
+<span class='src-comm'>// poichè non è stata effettuata alcuna azione di input da parte 
+// dell'utente, produciamo l'output del modulo</span>
+else
+	$modulo->mostra();
+
+?>
+</pre>
+
+<p>
+Naturalmente potete personalizzare molto meglio il vostro modulo e renderlo molto
+più complesso e adatto alle vostre esigenze. 
+Per scoprire come vi invitiamo a scorrere le descrizioni delle diverse proprietà
+che le classi vi mettono a disposizione.
+
+<p style='margin-top: 40px'>
+
+<h3 style='text-align: center'>Requisiti del protocollo di comunicazione client/server</h3>
+La classe, o meglio l'oggetto istanziato della classe, risponde agli eventi 
+generati dal client se vengono rispettati i seguenti requisiti:
+<ul>
+	<li>
+		i dati devono essere sempre inviati mediante HTTP/POST
+	</li>
+	<li>
+		tra i parametri POST deve essere sempre presente la variabile
+		<b>wamodulo_nome_modulo</b> valorizzata con il nome attribuito al modulo
+		in fase di costruzione (proprietà {@link waModulo::$nome})
+	</li>
+	<li>
+		qualora si voglia utilizzare il meccanismo standard previsto dalla classe per la scelta
+		dell'azione di input da eseguire (aggiornamento record, eliminazione record, 
+		abort dell'operazione), tra i parametri POST deve essere presente la variabile
+		<b>wamodulo_operazione</b> valorizzata con una delle defines relative
+		alle possibili operazioni del modulo (WAMODULO_OPE_xxx). 
+		<p>
+		E' ovviamente possibile non utilizzare questo meccanismo, oppure valorizzare
+		il parametro con un valore personalizzato (ad esempio: "archivia"), ma
+		in questo caso, ovviamente, sarà compito del programmatore gestire 
+		correttamente l'operazione di input richiesta dal client.
+		</p>
+	</li>
+</ul>
+
+<p style='margin-top: 40px'>
+
+<h3 style='text-align: center'>RPC mediante HTTP/POST</h3>
+
+La classe è in grado di fornire un servizio di RPC; per innescare il meccanismo
+è necessario inviare tramite HTTP/POST i seguenti parametri:
+<ul>
+	<li>
+		<b>wamodulo_nome_modulo</b> questo parametro deve corrispondere alla proprietà
+		{@link waModulo::$nome nome} dell'oggetto waModulo istanziato
+	</li>
+	<li>
+		<b>wamodulo_operazione</b> valorizzato a {@link WAMODULO_OPE_RPC}
+	</li>
+	<li>
+		<b>wamodulo_funzione_rpc</b> nome della funzione PHP che si intende richiamare;
+		il nome può anche essere un metodo dell'oggetto 
+		{@link waModulo::$applicazione applicazione} se la proprietà è stata
+		opportunamente valorizzata
+	</li>
+	<li>
+		<b>wamodulo_dati_rpc</b> array dei parametri che si intendono passare
+		alla funzione/metodo di cui al punto precedente; i parametri saranno 
+		passati in ordine posizionale
+	</li>
+	
+</ul>
+
+Lato server dovrà essere invocato il metodo
+{@link waModulo::leggiValoriIngresso() leggiValoriIngresso}
+affinchè la classe possa accorgersi che le è giunto un input da gestire.
+</p>
+<p>
+Il risultato della funzione/metodo PHP può essere di un qualunque tipo
+semplice oppure un array. Al client sarà inviato in risposta un flusso XML così
+definito:
+<ul>
+	<li>
+		<b>wamodulo_esito_rpc</b> può valere {@link WAMODULO_RPC_OK} oppure
+		{@link WAMODULO_RPC_KO}
+	</li>
+	<li>
+		<b>wamodulo_messaggio_rpc</b> eventuale messaggio di errore
+	</li>
+	<li>
+		<b>wamodulo_dati_rpc</b> dati in risposta (valore ritornato dalla
+		funzione/metodo). In caso di array ogni elemento sarà contenuto in un
+		elemento XML di nome <b>item</b>
+	</li>
+</ul>
+
+
+		
+<p>
+<hr>
+Buon lavoro,
+<p>
+Bicio, Boka.
+
+</div>
+</BODY>
+</HTML>

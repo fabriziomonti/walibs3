@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title></title>
+		<link href="css/documentazione_walibs3.css" rel="stylesheet" />
+	</head>
+
+	<body>
+
+		<div class='titolo'>waLibs 3.x</div>
+		<div class='titolo'>Buone prassi - 3</div>
+
+		<div>
+			Tutti i moderni IDE hanno al proprio interno una funzionalità di
+			formattazione del codice secondo i propri gusti, quindi non è
+			fondamentale che il codice sia indentato e formattato correttamente:
+			chiunque prenda a mano un sorgente può, con un click, formattarselo
+			a piacimento e renderselo quindi familiare e comprensibile, da questo
+			punto di vista.
+		</div>
+		
+		<div>
+			Ciò nonostante, alcune linee guida nella stesura del codice sono
+			sentitamente auspicabili:
+			<ul>
+				<li>
+					separate ogni metodo/funzione con un banner, in modo che 
+					l'occhio rimanga attento al solo codice del metodo in esame,
+					senza inutili dispersioni
+				</li>
+				<li>
+					marcate ogni metodo/funzione con un DocBlock (ogni IDE ha la
+					funzione automatica!), che fornisca un 
+					commento esaustivo sul metodo e dichiari, secondo le regole
+					del DocBlock, tipo e significato dei parametri di input
+					e, SOPRATTUTTO, dei valori di ritorno
+				</li>
+				<li>
+					salvo casi particolari (quelli compilativi, ad esempio) i
+					metodi non devono superare le 40 righe di codice: devono 
+					stare in una videata
+				</li>
+				<li>
+					commentate gli snodi logici del vostro metodo/funzione: non 
+					solo altrimenti tra un anno non ci capirete più un tubo, ma 
+					i vostri colleghi potrebbero desiderare il vostro immediato 
+					e inopinato decesso!
+				</li>
+			</ul>
+		</div>
+		
+		<div>
+			Vediamo come dovrebbe essere riscritto il codice della vostra
+			classe applicazione <i>testwalibs</i>
+		</div>
+		
+		<div>
+			<pre class='php-code'>
+&lt;?php
+<span class="php-comment">//****************** testwalibs.inc.php ***************************************
+
+//*****************************************************************************
+//*****************  includes  ************************************************
+//*****************************************************************************</span>
+include dirname(__FILE__) . "/walibs3/waapplicazione/waapplicazione.inc.php";
+
+<span class="php-comment">//*****************************************************************************
+//*****************************************************************************
+//*****************************************************************************</span>
+class testwalibs extends waApplicazione
+	{
+	<span class="php-comment">/**
+	 *
+	 * @var string nome del file di configurazione per l'accesso al DB
+	 */</span>
+	var $fileConfigurazioneDB;
+
+	<span class="php-comment">//*************************************************************************
+	/**
+	* 
+	* costruttore
+	*/</span>
+	function __construct()
+		{			
+		<span class="php-comment">// valorizzazione delle proprietà dell'applicazione</span>
+		$this->nome = "testwalibs";
+		$this->titolo = "Voglio testare le waLibs";
+		$this->xslt = dirname(__FILE__) . "/ui/xslt/testwalibs.xsl";
+		$this->fileConfigurazioneDB = dirname(__FILE__) . "/dbconfig.inc.php";
+		
+		<span class="php-comment">// inizializzazione della classe waApplicazione</span>
+		$this->inizializza();
+		}
+
+	<span class="php-comment">//*************************************************************************
+	/**
+	* costruisce il menu dell'applicazione e ne ritorna l'oggetto
+	  
+	* @return waMenu
+	*/</span>
+	function dammiMenu()
+		{
+		$m = new waMenu();
+		$m->apri();
+		
+		$m->apriSezione("Pagina 1", "pagina1.php");
+		$m->chiudiSezione();
+		$m->apriSezione("Pagina 2", "pagina2.php.php");
+		$m->chiudiSezione();
+		$m->apriSezione("Pagina N", "paginaN.php.php");
+		$m->chiudiSezione();
+
+		$m->chiudi();
+		return $m;
+		}
+		
+	<span class="php-comment">//*************************************************************************
+	//************  fine classe testwalibs  ***********************************
+	//*************************************************************************</span>
+	}
+
+?&gt;
+			</pre>
+		</div>
+
+		<div>
+			All'interno di ogni package che compone il framework c'è anche un
+			programmino di test. Si consiglia di dare una robusta occhiata 
+			all'impostazione del test di waApplicazione (<i>walibs3/waapplicazione/test</i>).
+			E' un'applicazione molto semplice, la vostra sarà indubbiamente più
+			complessa, ma questa è solo un'ulteriore ragione per mantenerla
+			ancora più ordinata.
+		</div>
+			
+		<div>
+			<table class="navbar">
+				<tr>
+					<td align="left"><a href="buone_prassi_2.html"><< Buone prassi - 2</a></td>
+					<td align="right"></td>
+				</tr>
+			</table>
+		</div>
+
+	</body>
+</html>

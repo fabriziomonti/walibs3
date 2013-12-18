@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN' 'http://www.w3.org/TR/REC-html40/loose.dtd'>
+<html>
+	<head>
+		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+		<title>waApplicazione 3.0</title>
+		<link rel ='stylesheet' type='text/css' href='../media/layout.css' title='Style'>
+		<link rel ='stylesheet' type='text/css' href='../media/stylesheet.css' title='Style'>
+	</head>
+	<body>
+		<div style="text-align: center; margin: 50px;">
+			<h1>waApplicazione 3.0</h1>
+		</div>
+
+		<div style="text-align: justify; margin: 50px;">
+			<p>
+				Il package waApplicazione fornisce un contenitore di base da cui partire per 
+				realizzare applicazioni web-based e database-independent.
+			</p>
+			
+			<p>
+				Non fornisce la struttura, lo scheletro di una applicazione, quanto piuttosto
+				un criterio per realizzare applicazioni con una metodologia ordinata e per 
+				generare codice quanto più possibile leggibile, documentabile e riutilizzabile.
+			</p>
+
+			<p>
+				Il package, ossia la sua unica classe 
+				<a href='waApplicazione/waApplicazione.html'>waApplicazione</a>, non è
+				di fatto utilizzabile così come è fornito: dovrà essere sempre esteso
+				tramite una classe derivata che conterrà i metodi e le proprietà 
+				comuni alle diverse pagine, e 
+				a propria volta l'estensione dovrà essere estesa tramite le sue eventuali sezioni
+				(es.: valutazione, progettazione, ecc.) e infine tramite le pagine, che essendo
+				quindi istanze dell'applicazione erediteranno tutti i metodi e le proprietà
+				di tutte le classi parent.
+			</p>
+			
+			<p>
+				Un esempio di utilizzo della classe prevede quindi la creazione
+				di almeno due moduli: il primo definisce la classe della vostra 
+				applicazione (nel nostro esempio: <i>testwalibs</i>), che conterrà
+				i metodi/proprietà comuni
+				a diverse pagine della vostra applicazione e 
+				ridefinirà tramite overloading il comportamento dei metodi di
+				waApplicazione laddove necessario, e il secondo (nel nostro
+				esempio <i>pagina1.php</i>) che conterrà i metodi/proprietà
+				della singola pagina:
+			</p>
+			
+			<div>
+				<pre class='src-code'>
+&lt;?php
+<span class="src-comm">
+//****************** testwalibs.inc.php ***************************************
+</span>
+include dirname(__FILE__) . "/walibs3/waapplicazione/waapplicazione.inc.php";
+
+class testwalibs extends waApplicazione
+	{
+	<span class="src-comm">// dati dell'utente loggato: proprietà della mia applicazione</span>
+	var $datiUtente;
+
+	function __construct()
+		{
+		<span class="src-comm">// valorizzazione delle proprietà già definite da waApplicazione</span>
+		$this->nome = "testwalibs";
+		$this->titolo = "Voglio testare le waLibs";
+
+		$this->inizializza();
+
+		<span class="src-comm">// valorizzazione delle proprietà della mia applicazione</span>
+		$this->datiUtente = & $_SESSION['dati_utente'];
+		}
+&nbsp;
+	}
+?&gt;
+				</pre>
+			</div>
+			<p>
+				
+			</p>
+			<div>
+				<pre class='src-code'>
+&lt;?php
+<span class="src-comm">
+//****************** pagina1.php ***************************************
+</span>
+include dirname(__FILE__) . "/testwalibs.inc.php";
+
+class pagina extends testwalibs
+	{
+	function faiQualcosa()
+		{			
+		$this->aggiungiElemento("ciao mondo", "titolo");
+		$this->mostra();
+		}
+&nbsp;
+	}
+
+$pagina = new pagina();
+$pagina->faiQualcosa();
+?&gt;
+				</pre>
+			</div>
+		
+			<p>
+				Naturalmente potete personalizzare molto meglio la vostra applicazione e renderla molto
+				più complessa e adatta alle vostre esigenze. 
+				Per scoprire come vi invitiamo a scorrere le descrizioni dei diversi 
+				<a href="waApplicazione/waApplicazione.html">proprietà/metodi</a>
+				che la classe vi mette a disposizione.
+			</p>			
+
+			<hr>
+			Buon lavoro,
+			<p>
+				Bicio, Boka.
+			</p>
+
+
+		</div>
+	</body>
+</html>

@@ -1,0 +1,324 @@
+<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN' 'http://www.w3.org/TR/REC-html40/loose.dtd'>
+<!--NewPage-->
+<HTML>
+<HEAD>
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+	<TITLE>waTabella 3.0</TITLE>
+<LINK REL ='stylesheet' TYPE='text/css' HREF='../media/layout.css' TITLE='Style'>
+<LINK REL ='stylesheet' TYPE='text/css' HREF='../media/stylesheet.css' TITLE='Style'>
+</HEAD>
+<BODY>
+<p>&nbsp;</p>
+<div align="center">
+<h1>waTabella 3.0</h1>
+</div>
+<p>&nbsp;</p>
+<div align="justify">
+Classe per la gestione di una tabella con alimentazione proveniente da una 
+query SQL o da un array associativo.
+<p>
+Features:
+<ul>
+<li>paginazione dei record
+<li>gestione predefinita delle azioni ricorrenti (vedi/modifica/elimina/nuovo)
+<li>definizione di un protocollo per il colloquio client/server per la gestione dei criteri  di ordinamento e filtro dei record 
+<li>output generato mediante foglio di stile XSLT
+<li>possibilità di data-editing
+</ul>
+Requires:
+<ul>
+<li>waDb
+</ul>
+<p>
+<p>
+Di per sè, la classe genera solamente un codice XML che viene dato in pasto ad una UI 
+(User Interface); questa UI conterrà il foglio di stile XSLT che provvederà a
+renderizzare l'output e a fornire l'implementazione di tutte le procedure di 
+controllo che agiranno lato client. Se non viene specificata una UI (cioè se
+non viene valorizzata la proprietà <a href='waTabella/waTabella.html#var$xslt'>watabella::xslt</a>)
+verrà utilizzata una UI di default
+(all'interno del package la directory: <b>uis/wa_azioni_sx_default</b>),
+che prevede un output XHTML 1.0 strict, l'implementazione delle azioni tramite bottoni e
+una gestione delle azioni tramite classi javascript (si veda al proposito la 
+relativa documentazione UI).
+
+<p></p>
+Come si usa il package? Seguite questo esempio di codice PHP:
+
+<pre class='src-code'>
+&lt;?php
+
+<span class='src-comm'>// includete il package waTabella</span>
+include "watabella.inc.php";
+
+<span class='src-comm'>// definite una query sql</span>
+$sql = "SELECT * FROM Ordini";
+
+<span class='src-comm'>// create un oggetto di classe waTabella e associatevi la stringa sql</span>
+$table = new waTabella($sql, './file_configurazione_wadb.inc.php');
+
+<span class='src-comm'>// definite le proprietà della tabella a vostro piacere</span>
+$table->titolo = "Tabella degli Ordini";
+$table->paginaModulo = "modulo_ordini.php";
+
+<span class='src-comm'>// aggiungete le azioni applicative che la tabella dovrà svolgere</span>
+$table->aggiungiAzione("Archivia", true, "Archivia ordine");
+
+<span class='src-comm'>// definite le colonne della tabella</span>
+$table->aggiungiColonna("IDOrdine", 'ID', true, true, true, WATBL_ALLINEA_DX);
+$table->aggiungiColonna("NoteOrdine", 'Note');
+
+<span class='src-comm'>// mandate in output la tabella</span>
+if (!$table->caricaRighe())
+	exit("Errore caricaRighe: " . 
+			$table->righeDB->nrErrore() . " - " . 
+			$table->righeDB->messaggioErrore());
+$table->mostra();
+
+
+?>
+</pre>
+<p>
+Naturalmente potete personalizzare molto meglio la vostra tabella e renderla molto
+più complessa e adatta alle vostre esigenze. 
+Per scoprire come vi invitiamo a scorrere le descrizioni delle diverse proprietà
+che le classi vi mettono a disposizione.
+</p>
+
+<p style='margin-top: 40px'>
+
+<h3 style='text-align: center'>Il protocollo di comunicazione client/server mediante HTTP/GET</h3>
+
+Il client può inviare alla classe operante sul server alcuni comandi predefiniti;
+ovviamente l'xslt deve 
+predisporre un meccanismo che permetta all'utente di operare queste selezioni. 
+
+I criteri devono essere passati al server sotto forma di 
+parametri HTTP/GET. Di seguito il dettaglio dei parametri previsti dal protocollo:
+
+<ul>
+	<li>
+		<b>watbl_pg[</b><i>{@link waTabella::$nome nome_tabella}</i><b>]</b>: 
+		la classe carica i record previsti
+		alla pagina indicata da questo parametro (0-based)
+	</li>
+	
+	<li>
+		<b>watbl_oc[</b><i>{@link waTabella::$nome nome_tabella}</i><b>][</b><i>indice</i><b>]</b>: 
+		la classe imposta l'ordinamento sulle colonne i cui nomi sono passati come parametri
+		all'interno dell'array, in ordine di <i>indice</i>.
+		L'ordinamento avviene a condizione che la colonna individuata abbia
+		la proprietà {@link waColonna::$ordina ordina} = true. 
+	</li>
+	<li>
+		<b>watbl_om[</b><i>{@link waTabella::$nome nome_tabella}</i><b>][</b><i>indice</i><b>]</b>: 
+		la classe imposta l'ordinamento sulle colonne i cui nomi sono passati come parametri
+		all'interno dell'array <b>watbl_oc[</b><i>{@link waTabella::$nome nome_tabella}</i><b>][</b><i>indice</i><b>]</b>, 
+		secondo la modalità passata in questo parametro nel corrispondente <i>indice</i>, 
+		modalità che potrà valere <b>ASC</b> (default) o <b>DESC</b>
+	</li>
+	
+	<li>
+		<b>watbl_fc[</b><i>{@link waTabella::$nome nome_tabella}</i><b>][</b><i>indice</i><b>]</b>: 
+		la classe imposta il filtro sulle colonne i cui nomi sono passati come parametri
+		all'interno dell'array.
+		Il filtro viene impostato a condizione che la colonna individuata abbia
+		la proprietà {@link waColonna::$filtra filtra} = true e che siano valorizzati
+		anche i corrispondenti elementi <i>indice</i> dei parametri 
+		<b>watbl_fm[</b><i>{@link waTabella::$nome nome_tabella}</i><b>][</b><i>indice</i><b>]</b> e
+		<b>watbl_fv[</b><i>{@link waTabella::$nome nome_tabella}</i><b>][</b><i>indice</i><b>]</b> 
+	</li>
+	<li>
+		<b>watbl_fm[</b><i>{@link waTabella::$nome nome_tabella}</i><b>][</b><i>indice</i><b>]</b>: 
+		la classe imposta il filtro sulle colonne i cui nomi sono passati come parametri
+		all'interno dell'array <b>watbl_fc[</b><i>{@link waTabella::$nome nome_tabella}</i><b>][</b><i>indice</i><b>]</b>, 
+		secondo l'operatore passato in questo parametro nel corrispondente <i>indice</i>. 
+		Gli operatori riconosciuti dalla classe vengono passati anche all'XSLT 
+		tramite l'elemento XPATH /watabella/modi_filtro
+	</li>
+	<li>
+		<b>watbl_fv[</b><i>{@link waTabella::$nome nome_tabella}</i><b>][</b><i>indice</i><b>]</b>: 
+		la classe imposta il filtro sulle colonne i cui nomi sono passati come parametri
+		all'interno dell'array <b>watbl_fc[</b><i>{@link waTabella::$nome nome_tabella}</i><b>][</b><i>indice</i><b>]</b>, 
+		secondo il valore passato in questo parametro nel corrispondente <i>indice</i>. 
+		Il valore è atteso dalla classe nel formato <i>waLibs</i> (data: Y-m-d, 
+		ora: H:i:s, ecc.)
+	</li>
+	
+	<li>
+		<b>watbl_or[</b><i>{@link waTabella::$nome nome_tabella}</i><b>]</b>: 
+		la classe imposta l'ordinamento sulla colonna il cui nome è passato come parametro,
+		a condizione che questa abbia
+		la proprietà {@link waColonna::$ordina ordina} = true. Rende inattivi i
+		parametri <b>watbl_oc[</b><i>{@link waTabella::$nome nome_tabella}</i><b>]</b>
+	</li>
+	<li>
+		<b>watbl_orm[</b><i>{@link waTabella::$nome nome_tabella}</i><b>]</b>: 
+		la classe imposta l'ordinamento sulla colonna il cui nome è passato dal parametro
+		<b>watbl_or[</b><i>{@link waTabella::$nome nome_tabella}</i><b>]</b>,
+		secondo la modalità passata in questo parametro, che potrà valere
+		<b>ASC</b> (default) o <b>DESC</b>
+	</li>
+	<li>
+		<b>watbl_rr[</b><i>{@link waTabella::$nome nome_tabella}</i><b>]</b>: 
+		la classe effettua una ricerca 
+		del testo dato all'interno di ogni colonna della tabella che abbia
+		la proprietà {@link waColonna::$filtra filtra} = true. Il filtro si somma
+		(in AND logico) ad eventuali filtri impostati tramite il parametro
+		<b>watbl_fc[</b><i>{@link waTabella::$nome nome_tabella}</i><b>]</b>.
+	</li>
+	<li>
+		<b>watbl_esporta_csv[</b><i>{@link waTabella::$nome nome_tabella}</i><b>]</b>: 
+		la classe genera un file in formato CSV di tutte le righe che
+		soddisfano le condizioni impostate ed invia il file al client 
+	</li>
+	<li>
+		<b>watbl_esporta_xls[</b><i>{@link waTabella::$nome nome_tabella}</i><b>]</b>: 
+		la classe genera un file in formato XLS (MS-Office 2003) di tutte le righe che
+		soddisfano le condizioni impostate ed invia il file al client. 
+		Richiede che sia installatto il pacchetto PEAR 
+		<a href="http://pear.php.net/package/Spreadsheet_Excel_Writer/redirected">Spreadsheet_Excel_Writer</a>
+	</li>
+	<li>
+		<b>watbl_esporta_pdf[</b><i>{@link waTabella::$nome nome_tabella}</i><b>]</b>: 
+		la classe genera un file in formato PDF di tutte le righe che
+		soddisfano le condizioni impostate ed invia il file al client
+	</li>
+
+</ul>
+</p>
+<p style='margin-top: 40px'>
+
+<h3 style='text-align: center'>Editing mediante HTTP/POST</h3>
+
+La classe è in grado di fornire un servizio di editing dei dati mostrati nella 
+tabella. Per poterlo utlizzare, occorre ovviamente un XSLT costruito all'uopo
+(tra le UI di default si può utilizzare, anche a titolo di esempio, la UI
+uis/wa_azioni_sx_edit). Inoltre occorre istruire la classe in questo modo:
+
+<ul>
+	<li>
+		ogni colonna che deve essere editabile deve avere la proprietà
+		{@link waColonna::$inputTipo inputTipo} valorizzata
+	</li>
+	<li>
+		prima di caricare le righe dal DB con il metodo 
+		{@link waTabella::caricaRighe() caricaRighe} occorre chiamare il metodo
+		{@link waTabella::leggiValoriIngresso() leggiValoriIngresso} e verificare
+		tramite il metodo {@link waTabella::daAggiornare() daAggiornare}
+		se effettivamente sono stati inviati dati mediante HTTP/POST (i dati di
+		input devono sempre arrivare alla classe mediante questa modalità del 
+		protocollo) ; se la tabella ha 
+		effettivamente ricevuto una richiesta di aggiornamento da parte del client,
+		questa va gestita mediante chiamata al metodo
+		{@link waTabella::salva() salva}, oppure manualmente. 
+	</li>
+	<li>
+		I dati ricevuti tramite HTTP/POST dal client possono essere organizzati 
+		come si ritiene più opportuno: devono comunque essere convertiti dall'XSLT
+		in un flusso XML comprensibile dalla classe waApplicazione (si vedano
+		gli esempi XML di input, intermedio e finale). Un solo dato
+		deve sempre essere esplicitamente presente, ossia il nome della tabella
+		che ha richiesto il submit, individuato dal parametro
+		<i>watabella_nome_tabella</i>: il meccanismo di aggiornamento viene 
+		innescato solo se questo parametro corrisponde alla proprietà
+		{@link waTabella::$nome nome} dell'oggetto waTabella istanziato
+	</li>
+</ul>
+
+</p>
+<p style='margin-top: 40px'>
+
+<h3 style='text-align: center'>RPC mediante HTTP/POST</h3>
+
+La classe è in grado di fornire un servizio di RPC; per innescare il meccanismo
+è necessario inviare tramite HTTP/POST i seguenti parametri:
+<ul>
+	<li>
+		<b>watabella_nome_tabella</b> questo parametro deve corrispondere alla proprietà
+		{@link waTabella::$nome nome} dell'oggetto waTabella istanziato
+	</li>
+	<li>
+		<b>watabella_rpc</b> valorizzato a 1
+	</li>
+	<li>
+		<b>watabella_funzione_rpc</b> nome della funzione PHP che si intende richiamare;
+		il nome può anche essere un metodo dell'oggetto 
+		{@link waTabella::$applicazione applicazione} se la proprietà è stata
+		opportunamente valorizzata
+	</li>
+	<li>
+		<b>watabella_dati_rpc</b> array dei parametri che si intendono passare
+		alla funzione/metodo di cui al punto precedente; i parametri saranno 
+		passati in ordine posizionale
+	</li>
+	
+</ul>
+
+Anche in questo caso, come nel precedente, dovrà essere invocato il metodo
+{@link waTabella::leggiValoriIngresso() leggiValoriIngresso}
+affinchè la classe possa accorgersi che le è giunto un input da gestire.
+</p>
+<p>
+Il risultato della funzione/metodo PHP può essere di un qualunque tipo
+semplice oppure un array. Al client sarà inviato in risposta un flusso XML così
+definito:
+<ul>
+	<li>
+		<b>watabella_esito_rpc</b> può valere {@link WATBL_RPC_OK} oppure
+		{@link WATBL_RPC_KO}
+	</li>
+	<li>
+		<b>watabella_messaggio_rpc</b> eventuale messaggio di errore
+	</li>
+	<li>
+		<b>watabella_dati_rpc</b> dati in risposta (valore ritornato dalla
+		funzione/metodo). In caso di array ogni elemento sarà contenuto in un
+		elemento XML di nome <b>item</b>
+	</li>
+</ul>
+
+<p>
+
+<p style='margin-top: 40px'>
+
+<h3 style='text-align: center'>Editing in RPC mediante HTTP/POST</h3>
+
+Combinando le funzionalità descritte nei due capoversi precedenti, è possibile
+innescare un ulteriore meccanismo: quello del consolidamento immediato su base
+dati di un editing inviato tramite RPC (tipicamente alla perdita del focus 
+di un controllo). Tra le UI di default si può utilizzare, anche a titolo di esempio, la UI
+uis/wa_azioni_sx_quick_edit
+</p>
+<p>
+	Per innescare il meccanismo:
+	<ul>
+		<li>
+			inviare i medesimi parametri previsti per la funzionalità RPC, ad
+			eccezione del parametro <b>watabella_dati_rpc</b>
+		</li>
+		<li>
+			valorizzare il parametro <b>watabella_funzione_rpc</b> col valore
+			speciale <b>"watabella_rpc_aggiornamento_immediato"</b>
+		</li>
+		<li>
+			passare i parametri da consolidare tramite HTTP/POST nello stesso 
+			modo in cui sarebbero inviati durante la funzionalità di editing:
+			questi parametri saranno passati all'XSLT che provvederà a trasformarli
+			nell'XML comprensibile dalla classe.
+		</li>
+	</ul>
+
+I dati così inviati saranno automaticamente consolidati su database mediante
+chaimata al metodo {@link waTabella::salva() salva} e sarà automaticamente
+inviata al client un esito di tipo RPC.
+</p>
+
+<hr>
+Buon lavoro,
+<p>
+Bicio, Boka.
+
+</div>
+</BODY>
+</HTML>

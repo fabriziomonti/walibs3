@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+Esempio di flusso XML che la classe waModulo costruisce a partire dal contenuto
+di $_POST e $_FILES; il flusso viene dato in pasto al template XSLT di input
+per la trasformazione nell'XML definitivo che la classe è in grado di 
+interpretare (vedi "esempio.input.finale.xml").
+
+La descrizione degli elementi di questo flusso è in "wamodulo.input.intermedio.xsd"
+(XSD input intermedio).
+-->
+
+<wamodulo.input>
+	<nome>modulo0</nome>
+	<wamodulo_path>/wamodulo</wamodulo_path>
+	<mod_id>
+		<nome/>
+	</mod_id>
+	<post>
+		<item id="wamodulo_nome_modulo">modulo0</item>
+		<item id="wamodulo_operazione">3</item>
+		<item id="id_corso">85</item>
+		<item id="id_organismo">1</item>
+		<item id="id_amministrazione">1</item>
+		<item id="rifpa">2012-698/RER</item>
+		<item id="nome">fare e disfare</item>
+		<item id="nr_ore">345</item>
+		<item id="wamodulo_giorno_data_inizio">30</item>
+		<item id="wamodulo_mese_data_inizio">05</item>
+		<item id="wamodulo_anno_data_inizio">2012</item>
+		<item id="pass_data_inizio">2012-05-30</item>
+		<item id="wamodulo_giorno_data_fine">04</item>
+		<item id="wamodulo_mese_data_fine">03</item>
+		<item id="wamodulo_anno_data_fine">2013</item>
+		<item id="pass_data_fine">2013-03-04</item>
+		<item id="wamodulo_ora_data_fine">00</item>
+		<item id="wamodulo_min_data_fine">00</item>
+		<item id="importo">2.500,56</item>
+		<item id="area">prova area</item>
+		<item id="check">on</item>
+		<item id="multiselect">	
+			<item id="0">5</item>
+			<item id="1">20</item>
+		</item>
+		<item id="wamodulo_ora_soloora">17</item>
+		<item id="wamodulo_min_soloora">19</item>
+		<item id="btnInvia">REGISTRA</item>
+	</post>
+	<files>
+		<item id="file">	
+			<item id="name">jethro.pdf</item>
+			<item id="type">application/pdf</item>
+			<item id="tmp_name">/tmp/phpaPbPHM</item>
+			<item id="error">0</item>
+			<item id="size">221882</item>
+		</item>
+	</files>
+	<wamodulo_controlli.input>
+		<selezione.input id="id_organismo"/>
+		<selezione.input id="id_amministrazione"/>
+		<testo.input id="rifpa"/>
+		<testo.input id="nome"/>
+		<intero.input id="nr_ore"/>
+		<data.input id="data_inizio"/>
+		<dataora.input id="data_fine"/>
+		<valuta.input id="importo"/>
+		<areatesto.input id="area"/>
+		<logico.input id="check"/>
+		<multiselezione.input id="multiselect"/>
+		<caricafile.input id="file"/>
+		<ora.input id="soloora"/>
+		<bottone.input id="btnInvia"/>
+		<bottone.input id="btnElimina"/>
+	</wamodulo_controlli.input>
+</wamodulo.input>

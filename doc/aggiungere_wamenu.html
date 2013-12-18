@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title></title>
+		<link href="css/documentazione_walibs3.css" rel="stylesheet" />
+	</head>
+
+	<body>
+
+		<div class='titolo'>waLibs 3.x</div>
+		<div class='titolo'>Aggiungere un waMenu</div>
+
+		<div>
+			Ogni applicazione gestionale, web-based o meno, ha almeno un menu 
+			che permetta di passare da una funzionalità all'altra del programma.
+		</div>
+
+		<div>
+			Lo strumento per generare menu all'interno delle waLibs si chiama
+			waMenu, è molto semplice e ha una propria UI di default che come
+			sempre può essere stravolta a piacere. Una volta preparato 
+			l'oggetto da istanziare lo si aggiunge come elemento alla 
+			waApplicazione e lo si manda in output.
+		</div>
+
+		<div>
+			Potremmo generare il menu all'interno della singola pagina, ma,
+			tipicamente, un menu è un oggetto condiviso da più pagine, ossia
+			che più pagine (se non tutte) desiderano esporre. Quindi il menu
+			appartiene all'applicazione, più che alla singola pagina. Per questo
+			motivo creeremo un nuovo metodo dell'applicazione che istanzierà
+			l'oggetto di classe waMenu e lasceremo alla singola pagina la 
+			decisione se mandarlo in output o meno:
+		</div>
+
+		<div>
+			<pre class='php-code'>
+&lt;?php
+<span class="php-comment">
+//****************** testwalibs.inc.php ***************************************
+</span>
+include dirname(__FILE__) . "/walibs3/waapplicazione/waapplicazione.inc.php";
+
+class testwalibs extends waApplicazione
+	{
+
+	function __construct()
+		{			
+		$this->nome = "testwalibs";
+		$this->titolo = "Voglio testare le waLibs";
+		$this->xslt = dirname(__FILE__) . "/ui/xslt/testwalibs.xsl";
+		$this->inizializza();
+		}
+
+<span style="color: red">
+	function dammiMenu()
+		{
+		$m = new waMenu();
+		$m->apri();
+		
+		$m->apriSezione("Pagina 1", "pagina1.php");
+		$m->chiudiSezione();
+		$m->apriSezione("Pagina 2", "pagina2.php.php");
+		$m->chiudiSezione();
+		$m->apriSezione("Pagina N", "paginaN.php.php");
+		$m->chiudiSezione();
+
+		$m->chiudi();
+		return $m;
+		}
+</span>
+
+	}
+?&gt;
+			</pre>
+		</div>
+
+
+		<div>
+			<pre class='php-code'>
+&lt;?php
+<span class="php-comment">
+//****************** pagina1.php ***************************************
+</span>
+include dirname(__FILE__) . "/testwalibs.inc.php";
+
+class pagina extends testwalibs
+	{
+	function faiQualcosa()
+		{			
+		<span style="color: red">$this->aggiungiElemento($this->dammiMenu());</span>
+		$corpo = "Lorem Ipsum è un testo segnaposto utilizzato nel settore della 
+			tipografia e della stampa. Lorem Ipsum è considerato il testo segnaposto standard 
+			sin dal sedicesimo secolo, quando un anonimo tipografo prese una cassetta di 
+			caratteri e li assemblò per preparare un testo campione. È sopravvissuto non solo 
+			a più di cinque secoli, ma anche al passaggio alla videoimpaginazione, pervenendoci 
+			sostanzialmente inalterato. Fu reso popolare, negli anni ’60, con la diffusione 
+			dei fogli di caratteri trasferibili “Letraset”, che contenevano passaggi del 
+			Lorem Ipsum, e più recentemente da software di impaginazione come Aldus PageMaker, 
+			che includeva versioni del Lorem Ipsum.";
+		$this->aggiungiElemento($corpo, "corpo");
+		$this->aggiungiElemento("ciao mondo", "titolo");
+		$this->mostra();
+		}
+
+	}
+
+$pagina = new pagina();
+$pagina->faiQualcosa();
+?&gt;
+			</pre>
+		</div>
+		
+		<div>
+			Ok, il rendering non è da award, ma voi già sapete che potete modificare
+			ciò che vi pare applicando stili CSS al vostro nuovo menu (nella 
+			directory del package <i>walibs3/wamenu/uis/wa_file_comuni/css</i>
+			c'e' un template), oppure cambiando la funzionalità tramite XSLT
+			(in <i>walibs3/wamenu/uis</i> ci sono diversi tipi di menu, da 
+			utilizzare anche come base di partenza per un menu funzionalmente 
+			del tutto nuovo: basta valorizzare opportunamente la proprietà 
+			<i>xslt</i> della classe waMenu affinchè punti al foglio XSLT da voi 
+			generato).
+		</div>
+		
+		<div>
+			Si noti che alla chiamata <i>aggiungiElemento</i> di waApplicazione
+			non viene in questo caso passato il nome dell'elemento che si intende
+			mandare in output. waApplicazione, infatti, riconosce gli oggetti di 
+			classe waMenu, waModulo e waTabella, sa come recuperare da loro la
+			proprietà <i>nome</i> e sa come estrarre da questi oggetti ciò che
+			va mandato in output.
+		</div>
+		
+		
+		
+		<div>
+			<table class="navbar">
+				<tr>
+					<td align="left"><a href="personalizzare_ui_2.html"><< Personalizzare la UI - 1</a></td>
+					<td align="right"><a href="aggiungere_wadb.html">Aggiungere waDB >></a></td>
+				</tr>
+			</table>
+		</div>
+
+	</body>
+</html>

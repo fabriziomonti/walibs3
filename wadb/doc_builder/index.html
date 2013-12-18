@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN' 'http://www.w3.org/TR/REC-html40/loose.dtd'>
+<!--NewPage-->
+<HTML>
+<HEAD>
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+	<TITLE>waDB 3.0</TITLE>
+<LINK REL ='stylesheet' TYPE='text/css' HREF='../media/layout.css' TITLE='Style'>
+<LINK REL ='stylesheet' TYPE='text/css' HREF='../media/stylesheet.css' TITLE='Style'>
+</HEAD>
+<BODY>
+<p>&nbsp;</p>
+<div align="center">
+<h1>waDB 3.0</h1>
+</div>
+<p>&nbsp;</p>
+<div align="justify">
+Il package waDB e' lo strumento che fornisce ai programmatori 
+una interfaccia programmatica unica di accesso ai database. Allo stato, i database gestiti 
+possono essere MySql/i (versioni 4/5), FileMaker (7-12) e, in via sperimentale, MSSQL e Oracle.
+<p>
+	Lo scopo del package non è tanto quello di poter sfilare da un'applicazione
+	il proprio database originale e sostituirlo con un altro di tipo diverso
+	(situazioni reali del genere sono abbastanza rare), quanto piuttosto
+	mantenere la programmazione identica a fronte di database di tipo diverso.
+	In ogni caso, raggiungendo il secondo obiettivo ci si avvicina molto anche
+	al primo.
+</p>
+	
+
+Il package e' composto da tre classi, ognuna con un proprio specifico compito e 
+quindi proprie funzionalita':
+<ul>
+<li><a href='waDB/waConnessioneDB.html'>waConnessioneDB</a>: 
+e' il driver che effettua la connessione fisica al database, ed e' quindi 
+dipendente dal database stesso; cio' nonostante, i driver creati offrono la 
+stessa interfaccia al programmatore, che puo' quindi mantenere inalterato il 
+proprio modo di lavorare indipendentemente dal database utilizzato dalla 
+procedura
+<li><a href='waDB/waRigheDB.html'>waRigheDB</a>: questa classe gestisce un 
+insieme di righe (record) ritornate da una query rivolta al database. 
+Mantiene quindi le informazioni relative alle colonne (campi) ritornate 
+dalla query oltreche' ai dati ritornati dalla query stessa. In pratica e' 
+una raccolta a fattor comune di tutte le funzionalita' che ogni programmatore 
+deve necessariamente realizzare all'interno del proprio programma se avesse a 
+disposizione solamente un accesso "nudo" al database, cosi' come e' quello 
+offerto dalla classe <a href='waDB/waConnessioneDB.html'>waConnessioneDB</a> 
+descritta al punto precedente
+<li><a href='waDB/waRecord.html'>waRecord</a>: questa classe gestisce un singolo 
+record tra quelli ritornati da una query invocata tramite la classe 
+<a href='waDB/waRigheDB.html'>waRigheDB</a> descritta al punto precedente. 
+Gli oggetti di questa classe non devono essere generati dal programmatore, ma 
+vengono sempre ritornati a fronte di metodi invocati all'interno della classe 
+<a href='waDB/waRigheDB.html'>waRigheDB</a>
+</ul>
+<p>
+Come si usa il package? Innanzitutto occorre creare un file di configurazione
+contenente i parametri di connessione al database, prendendo ad esempio 
+il file <a href='waDB/_config.inc.php.html'>config.inc.php</a>. 
+<p>
+A questo punto e' possibile scrivere il codice PHP, come nel seguente esempio:
+
+<pre class='src-code'>
+&lt;?php
+
+<span class='src-comm'>// includete il package waDB</span>
+include("wadb.inc.php");
+
+<span class='src-comm'>// definite il nome del file di configurazione della 
+connessione che avete creato</span>
+$file_config_db = "./file_config_db.inc.php";
+
+<span class='src-comm'>// fatevi restituire la connessione tramite la 
+// funzione di utilita' contenuta nel package</span>
+$connessioneDB = wadb_dammiConnessione($file_config_db);
+if ($connessioneDB->nrErrore())
+	exit("Errore connessione DB: " . 
+		$connessioneDB->nrErrore() . " - " . 
+		$connessioneDB->messaggioErrore());
+
+<span class='src-comm'>// create la stringa sql che determinera' la vostra query</span>
+$sql = "SELECT * FROM Ordini WHERE IDOrdine>" . $connessioneDB->interoSql(1000);
+
+<span class='src-comm'>// create l'oggetto di classe waRigheDB che conterra' le righe ritornate dalla query</span>
+$righeDB = new waRigheDB($connessioneDB);
+
+<span class='src-comm'>// invocate la query</span>
+$righe = $righeDB->caricaDaSql($sql);
+if ($righeDB->nrErrore())
+	exit("Errore caricaDaSql: " . 
+			$righeDB->nrErrore() . " - " . 
+			$righeDB->messaggioErrore());
+
+<span class='src-comm'>// a questo punto potete fare cio' che volete con le righe: 
+// visualizzarle, modificarle, cancellarle o creane di nuove; 
+// in questo caso le visualizzeremo tutte in modo molto semplice</span>
+foreach ($righe as $riga)
+	{
+	for($i = 0; $i &lt; $righeDB->nrCampi(); $i++)
+		echo $righeDB->nomeCampo($i) . "=" . $riga->valore($i) . "; ";
+	echo "&lt;hr>";
+	}
+?>
+</pre>
+<p>
+Naturalmente potete fare molto di piu' che visualizzare unicamente le righe. 
+Per scoprire come vi invitiamo a scorrere le descrizioni dei diversi metodi 
+che le classi componenti il package vi mettono a disposizione.
+<p>
+Buon lavoro,
+<p>
+Bicio, Boka.
+
+
+</div>
+</BODY>
+</HTML>

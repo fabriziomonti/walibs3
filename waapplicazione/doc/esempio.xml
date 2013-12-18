@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+Esempio di flusso XML che la classe waApplicazione costruisce a fronte delle istruzioni
+programmatiche ricevute; il flusso viene dato in pasto al template XSLT di output
+per la trasformazione; cosa salta fuori dipende da cosa è scritto nel template XSLT
+
+La descrizione degli elementi di questo flusso è in "waapplicazione.xsd"
+(XSD output).
+-->
+<waapplicazione>
+	<waapplicazione_path>/waapplicazione</waapplicazione_path>
+	<dominio>walibs3.loc</dominio>
+	<nome>app_prova</nome>
+	<titolo>applicazione di prova</titolo>
+	<directory_lavoro>/waapplicazione/test</directory_lavoro>
+	<modalita_navigazione>1</modalita_navigazione>
+	<pagina>
+		<uri>/waapplicazione/test/tabellacorsi.php</uri>
+		<uri_precedente>http://walibs3.loc/waapplicazione/test/tabellaallievi.php</uri_precedente>
+		<nome>tabellacorsi</nome>
+		<elementi>
+			<elemento>
+				<nome>wamenu</nome>
+				<tipo>wamenu</tipo>
+				<valore><![CDATA[
+<link href="/wamenu/uis/wa_file_comuni/css/wamenu.css" rel="stylesheet" /><script type="text/javascript" src="/wamenu/uis/wa_file_comuni/js/ddmenu.js"></script><table cellpadding="0" cellspacing="0" id="wamenu" class="ddmx">
+  <tr><td><a href="tabellaamministrazioni.php" class="item1" id="a_wamenu_0">amministrazioni</a><div class="section" id="wamenu_0"></div></td><td><a href="tabellaorganismi.php" class="item1" id="a_wamenu_1">organismi</a><div class="section" id="wamenu_1"></div></td><td><a href="tabellacorsi.php" class="item1" id="a_wamenu_2">corsi</a><div class="section" id="wamenu_2"></div></td><td><a href="tabellaallievi.php" class="item1" id="a_wamenu_3">allievi</a><div class="section" id="wamenu_3"></div></td><td><a href="javascript:void(0)" class="item1" id="a_wamenu_4">navigazione</a><div class="section" id="wamenu_4"><a href="index.php?navigazione=1" class="item2">nella stessa pagina</a><a href="index.php?navigazione=2" class="item2">a finestre</a><a href="index.php?navigazione=3" class="item2">iframe</a></div></td><td><a href="?APPL_AVVIA_WADOC=1" class="item1" id="a_wamenu_5">waDoc</a><div class="section" id="wamenu_5"></div></td></tr>
+</table><script type="text/javascript">
+    var a= '';
+	
+		a = document.getElementById('a_');
+		if (a)
+			a.className = a.className + ' selected';
+	
+    var ddmx = new DropDownMenuX('wamenu');
+    ddmx.type = 'horizontal';
+    ddmx.delay.show = 0;
+    ddmx.delay.hide = 600;
+	ddmx.position.level1.left = 0;
+	ddmx.position.level1.top = 0;
+	ddmx.position.levelX.left = 0;
+    ddmx.position.levelX.top = 0;
+	ddmx.init();
+	
+	</script>
+]]>
+				</valore>
+			</elemento>
+			<elemento>
+				<nome>titolo</nome>
+				<tipo>stringa</tipo>
+				<valore><![CDATA[Tabella corsi]]>
+				</valore>
+			</elemento>
+			<elemento>
+				<nome>watabella</nome>
+				<tipo>watabella</tipo>
+				<valore><![CDATA[
+
+<link href="/watabella/uis/wa_file_comuni/css/watabella.css" rel="stylesheet" />
+<script type="text/javascript" src="/watabella/uis/wa_file_comuni/js/strmanage.js"></script>
+<script type="text/javascript" src="/watabella/uis/wa_file_comuni/js/moo1.2.js"></script>
+<script type="text/javascript" src="/watabella/uis/wa_file_comuni/js/watabella.js"></script>
+<div id="watabella_finestra_ordinamento_filtro" class="watabella_finestra_ordinamento_filtro" style="visibility: hidden;">
+  <p>Ordinamento/Filtro corsi</p>
+  <form action="" id="watabella_modulo_ordinamento_filtro" onsubmit="return document.watabella.filtra(this)">
+    <table border="0"><tr><td style="width: 50%; text-align: center;">Ordina per</td><td style="width: 50%; text-align: center;">In modalità</td></tr><tr><td style="width: 50%; text-align: center;"><select name="watbl_oc[watabella][0]"><option value=""></option><option value="id_corso">ID</option><option value="rifpa">Rif. P.A.</option><option value="nome">Corso</option><option value="id_organismo">Cod. org.</option><option value="nomeorgan">Organismo</option><option value="sigla">Amministrazione</option><option value="data_inizio">Data inizio</option><option value="importo">Importo</option></select></td><td style="width: 50%; text-align: center;"><select name="watbl_om[watabella][0]"><option value=""></option><option value="asc">Crescente</option><option value="desc">Decrescente</option></select></td></tr><tr><td style="width: 50%; text-align: center;"><select name="watbl_oc[watabella][1]"><option value=""></option><option value="id_corso">ID</option><option value="rifpa">Rif. P.A.</option><option value="nome">Corso</option><option value="id_organismo">Cod. org.</option><option value="nomeorgan">Organismo</option><option value="sigla">Amministrazione</option><option value="data_inizio">Data inizio</option><option value="importo">Importo</option></select></td><td style="width: 50%; text-align: center;"><select name="watbl_om[watabella][1]"><option value=""></option><option value="asc">Crescente</option><option value="desc">Decrescente</option></select></td></tr><tr><td style="width: 50%; text-align: center;"><select name="watbl_oc[watabella][2]"><option value=""></option><option value="id_corso">ID</option><option value="rifpa">Rif. P.A.</option><option value="nome">Corso</option><option value="id_organismo">Cod. org.</option><option value="nomeorgan">Organismo</option><option value="sigla">Amministrazione</option><option value="data_inizio">Data inizio</option><option value="importo">Importo</option></select></td><td style="width: 50%; text-align: center;"><select name="watbl_om[watabella][2]"><option value=""></option><option value="asc">Crescente</option><option value="desc">Decrescente</option></select></td></tr>
+</table>
+    <table border="0"><tr><td style="width: 33%; text-align: center;">Filtro</td><td style="width: 33%; text-align: center;">Modo</td><td style="width: 33%; text-align: center;">Valore</td></tr><tr><td style="width: 33%; text-align: center;"><select name="watbl_fc[watabella][0]"><option value=""></option><option value="id_corso">ID</option><option value="rifpa">Rif. P.A.</option><option value="nome">Corso</option><option value="id_organismo">Cod. org.</option><option value="nomeorgan">Organismo</option><option value="sigla">Amministrazione</option><option value="data_inizio">Data inizio</option><option value="importo">Importo</option></select></td><td style="width: 34%; text-align: center;"><select name="watbl_fm[watabella][0]"><option value=""></option><option value="lt">minore</option><option value="le">minore uguale</option><option value="eq">uguale</option><option value="ge">maggiore uguale</option><option value="gt">maggiore</option><option value="ne">diverso</option><option value="like">contiene</option></select></td><td style="width: 33%; text-align: center;"><input name="watbl_fv[watabella][0]" value="" /></td></tr><tr><td style="width: 33%; text-align: center;"><select name="watbl_fc[watabella][1]"><option value=""></option><option value="id_corso">ID</option><option value="rifpa">Rif. P.A.</option><option value="nome">Corso</option><option value="id_organismo">Cod. org.</option><option value="nomeorgan">Organismo</option><option value="sigla">Amministrazione</option><option value="data_inizio">Data inizio</option><option value="importo">Importo</option></select></td><td style="width: 34%; text-align: center;"><select name="watbl_fm[watabella][1]"><option value=""></option><option value="lt">minore</option><option value="le">minore uguale</option><option value="eq">uguale</option><option value="ge">maggiore uguale</option><option value="gt">maggiore</option><option value="ne">diverso</option><option value="like">contiene</option></select></td><td style="width: 33%; text-align: center;"><input name="watbl_fv[watabella][1]" value="" /></td></tr><tr><td style="width: 33%; text-align: center;"><select name="watbl_fc[watabella][2]"><option value=""></option><option value="id_corso">ID</option><option value="rifpa">Rif. P.A.</option><option value="nome">Corso</option><option value="id_organismo">Cod. org.</option><option value="nomeorgan">Organismo</option><option value="sigla">Amministrazione</option><option value="data_inizio">Data inizio</option><option value="importo">Importo</option></select></td><td style="width: 34%; text-align: center;"><select name="watbl_fm[watabella][2]"><option value=""></option><option value="lt">minore</option><option value="le">minore uguale</option><option value="eq">uguale</option><option value="ge">maggiore uguale</option><option value="gt">maggiore</option><option value="ne">diverso</option><option value="like">contiene</option></select></td><td style="width: 33%; text-align: center;"><input name="watbl_fv[watabella][2]" value="" /></td></tr><tr><td style="width: 33%; text-align: center;"><select name="watbl_fc[watabella][3]"><option value=""></option><option value="id_corso">ID</option><option value="rifpa">Rif. P.A.</option><option value="nome">Corso</option><option value="id_organismo">Cod. org.</option><option value="nomeorgan">Organismo</option><option value="sigla">Amministrazione</option><option value="data_inizio">Data inizio</option><option value="importo">Importo</option></select></td><td style="width: 34%; text-align: center;"><select name="watbl_fm[watabella][3]"><option value=""></option><option value="lt">minore</option><option value="le">minore uguale</option><option value="eq">uguale</option><option value="ge">maggiore uguale</option><option value="gt">maggiore</option><option value="ne">diverso</option><option value="like">contiene</option></select></td><td style="width: 33%; text-align: center;"><input name="watbl_fv[watabella][3]" value="" /></td></tr><tr><td style="width: 33%; text-align: center;"><select name="watbl_fc[watabella][4]"><option value=""></option><option value="id_corso">ID</option><option value="rifpa">Rif. P.A.</option><option value="nome">Corso</option><option value="id_organismo">Cod. org.</option><option value="nomeorgan">Organismo</option><option value="sigla">Amministrazione</option><option value="data_inizio">Data inizio</option><option value="importo">Importo</option></select></td><td style="width: 34%; text-align: center;"><select name="watbl_fm[watabella][4]"><option value=""></option><option value="lt">minore</option><option value="le">minore uguale</option><option value="eq">uguale</option><option value="ge">maggiore uguale</option><option value="gt">maggiore</option><option value="ne">diverso</option><option value="like">contiene</option></select></td><td style="width: 33%; text-align: center;"><input name="watbl_fv[watabella][4]" value="" /></td></tr><tr><td style="width: 33%; text-align: center;"><select name="watbl_fc[watabella][5]"><option value=""></option><option value="id_corso">ID</option><option value="rifpa">Rif. P.A.</option><option value="nome">Corso</option><option value="id_organismo">Cod. org.</option><option value="nomeorgan">Organismo</option><option value="sigla">Amministrazione</option><option value="data_inizio">Data inizio</option><option value="importo">Importo</option></select></td><td style="width: 34%; text-align: center;"><select name="watbl_fm[watabella][5]"><option value=""></option><option value="lt">minore</option><option value="le">minore uguale</option><option value="eq">uguale</option><option value="ge">maggiore uguale</option><option value="gt">maggiore</option><option value="ne">diverso</option><option value="like">contiene</option></select></td><td style="width: 33%; text-align: center;"><input name="watbl_fv[watabella][5]" value="" /></td></tr>
+</table>
+    <table border="0">
+      <tr>
+        <td style="width: 50%; text-align: right;">
+          <input type="submit" value="Ordina/Filtra" />
+        </td>
+        <td style="width: 50%; text-align: left;">
+          <input type="button" value="Annulla" onclick="document.watabella.chiudiOrdinamentoFiltro()" />
+        </td>
+      </tr>
+    </table>
+  </form>
+</div><form action="" id="watabella_bottoniera" class="watabella">
+<div><button type="button" name="Nuovo" id="Nuovo" title="Nuovo" value="Nuovo" onclick="document.watabella.azione_watabella_Nuovo()">Nuovo</button><button type="button" name="Filtro" id="Filtro" title="Filtro" value="Filtro" onclick="document.watabella.azione_watabella_Filtro()">Filtro</button><button type="button" title="CSV" value="CSV" onclick="document.location.href=&quot;?watbl_esporta_csv[watabella]=1&quot;">
+			CSV
+		</button><button type="button" title="XLS" value="XLS" onclick="document.location.href=&quot;?watbl_esporta_xls[watabella]=1&quot;">
+			XLS
+		</button><button type="button" title="PDF" value="PDF" onclick="document.location.href=&quot;?watbl_esporta_pdf[watabella]=1&quot;">
+			PDF
+		</button>
+<br /><input name="watbl_rr[watabella]" value="" /><span><button type="submit" title="Cerca" value="Cerca">Cerca</button></span></div></form>
+<table style="width: 100%" class="watabella">
+  <tr>
+    <td style="width: 20%; text-align: left"></td>
+    <td style="width: 60%; text-align: center">
+				pagina 1 di 3
+				-
+				registrazioni dalla 1 alla 20 di 41</td>
+    <td style="width: 20%; text-align: right"><button type="button" name="paginasuccessiva" id="paginasuccessiva" title="Pagina successiva" value="Pagina successiva &gt;&gt;" onclick="document.watabella.cambiaPagina(&quot;?watbl_pg[watabella]=1&quot;)">
+						Pagina successiva &gt;&gt;
+					</button>
+</td>
+  </tr>
+</table><form id="watabella" action="" method="post" class="watabella">
+  <table style="width: 100%">
+    <thead>
+      <tr id="watabella_intestazioni">
+        <th></th>
+        <th style="text-align: right" id="watabella_id_corso">
+          <a href="?watbl_or[watabella]=id_corso&amp;watbl_orm[watabella]=asc">ID</a>
+        </th>
+        <th style="text-align: left" id="watabella_rifpa">
+          <a href="?watbl_or[watabella]=rifpa&amp;watbl_orm[watabella]=asc">Rif. P.A.</a>
+        </th>
+        <th style="text-align: left" id="watabella_nome">
+          <a href="?watbl_or[watabella]=nome&amp;watbl_orm[watabella]=asc">Corso</a>
+        </th>
+        <th style="text-align: right" id="watabella_id_organismo">
+          <a href="?watbl_or[watabella]=id_organismo&amp;watbl_orm[watabella]=asc">Cod. org.</a>
+        </th>
+        <th style="text-align: left" id="watabella_nomeorgan">
+          <a href="?watbl_or[watabella]=nomeorgan&amp;watbl_orm[watabella]=asc">Organismo</a>
+        </th>
+        <th style="text-align: left" id="watabella_sigla">
+          <a href="?watbl_or[watabella]=sigla&amp;watbl_orm[watabella]=asc">Amministrazione</a>
+        </th>
+        <th style="text-align: center" id="watabella_data_inizio">
+          <a href="?watbl_or[watabella]=data_inizio&amp;watbl_orm[watabella]=asc">Data inizio</a>
+        </th>
+        <th style="text-align: right" id="watabella_importo">
+          <a href="?watbl_or[watabella]=importo&amp;watbl_orm[watabella]=asc">Importo</a>
+        </th>
+        <th style="text-align: center" id="watabella_eliminabile">Eliminabile</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th></th>
+        <th style="text-align: right"></th>
+        <th style="text-align: left"></th>
+        <th style="text-align: left"></th>
+        <th style="text-align: right"></th>
+        <th style="text-align: left"></th>
+        <th style="text-align: left"></th>
+        <th style="text-align: center"></th>
+        <th style="text-align: right">3.802.864,59</th>
+        <th style="text-align: center"></th>
+      </tr>
+    </tfoot>
+    <tbody>
+      <tr id="row_watabella_81" onclick="document.watabella.righe['81'].cambiaStato()">
+<td style="width: 1%"><button type="button" onclick="document.watabella.azione_watabella_Modifica(&quot;81&quot;)">Modifica</button><button type="button" onclick="document.watabella.azione_watabella_Elimina(&quot;81&quot;)">Elimina</button><button type="button" onclick="document.watabella.azione_watabella_Test(&quot;81&quot;)">Test</button></td>
+<td style="text-align: right">81</td><td style="text-align: left">salame</td><td style="text-align: left">di gatto</td><td style="text-align: right">1</td><td style="text-align: left">FormArt</td><td style="text-align: left"><a href="javascript:document.watabella.link_watabella_sigla(&quot;81&quot;)">RER</a></td><td style="text-align: center">11/10/2010</td><td style="text-align: right">56.345,87</td><td style="text-align: center">si</td></tr>
+      <tr id="row_watabella_85" onclick="document.watabella.righe['85'].cambiaStato()">
+<td style="width: 1%"><button type="button" onclick="document.watabella.azione_watabella_Modifica(&quot;85&quot;)">Modifica</button><button type="button" onclick="document.watabella.azione_watabella_Elimina(&quot;85&quot;)">Elimina</button><button type="button" onclick="document.watabella.azione_watabella_Test(&quot;85&quot;)">Test</button></td>
+<td style="text-align: right">85</td><td style="text-align: left">2012-698/RER</td><td style="text-align: left">fare e disfare</td><td style="text-align: right">1</td><td style="text-align: left">FormArt</td><td style="text-align: left"><a href="javascript:document.watabella.link_watabella_sigla(&quot;85&quot;)">RER</a></td><td style="text-align: center">30/05/2012</td><td style="text-align: right">2.500,56</td><td style="text-align: center">si</td></tr>
+      <tr id="row_watabella_95" onclick="document.watabella.righe['95'].cambiaStato()">
+<td style="width: 1%"><button type="button" onclick="document.watabella.azione_watabella_Modifica(&quot;95&quot;)">Modifica</button><button type="button" onclick="document.watabella.azione_watabella_Test(&quot;95&quot;)">Test</button></td>
+<td style="text-align: right">95</td><td style="text-align: left">1221</td><td style="text-align: left">titolazzo</td><td style="text-align: right">1</td><td style="text-align: left">FormArt</td><td style="text-align: left"><a href="javascript:document.watabella.link_watabella_sigla(&quot;95&quot;)">RER</a></td><td style="text-align: center">12/12/2012</td><td style="text-align: right">145.666,44</td><td style="text-align: center">no</td></tr>
+      <tr id="row_watabella_99" onclick="document.watabella.righe['99'].cambiaStato()">
+<td style="width: 1%"><button type="button" onclick="document.watabella.azione_watabella_Modifica(&quot;99&quot;)">Modifica</button><button type="button" onclick="document.watabella.azione_watabella_Test(&quot;99&quot;)">Test</button></td>
+<td style="text-align: right">99</td><td style="text-align: left">sdadas</td><td style="text-align: left">sadasdas</td><td style="text-align: right">1</td><td style="text-align: left">FormArt</td><td style="text-align: left"><a href="javascript:document.watabella.link_watabella_sigla(&quot;99&quot;)">RER</a></td><td style="text-align: center">11/10/2010</td><td style="text-align: right">1.212.112,98</td><td style="text-align: center">no</td></tr>
+      <tr id="row_watabella_103" onclick="document.watabella.righe['103'].cambiaStato()">
+<td style="width: 1%"><button type="button" onclick="document.watabella.azione_watabella_Modifica(&quot;103&quot;)">Modifica</button><button type="button" onclick="document.watabella.azione_watabella_Test(&quot;103&quot;)">Test</button></td>
+<td style="text-align: right">103</td><td style="text-align: left">1221</td><td style="text-align: left">titola</td><td style="text-align: right">1</td><td style="text-align: left">FormArt</td><td style="text-align: left"><a href="javascript:document.watabella.link_watabella_sigla(&quot;103&quot;)">RER</a></td><td style="text-align: center">30/05/2012</td><td style="text-align: right">145.666,44</td><td style="text-align: center">no</td></tr>
+      <tr id="row_watabella_104" onclick="document.watabella.righe['104'].cambiaStato()">
+<td style="width: 1%"><button type="button" onclick="document.watabella.azione_watabella_Modifica(&quot;104&quot;)">Modifica</button><button type="button" onclick="document.watabella.azione_watabella_Test(&quot;104&quot;)">Test</button></td>
+<td style="text-align: right">104</td><td style="text-align: left">1221</td><td style="text-align: left">titola</td><td style="text-align: right">1</td><td style="text-align: left">FormArt</td><td style="text-align: left"><a href="javascript:document.watabella.link_watabella_sigla(&quot;104&quot;)">RER</a></td><td style="text-align: center">12/12/2012</td><td style="text-align: right">145.666,44</td><td style="text-align: center">no</td></tr>
+      <tr id="row_watabella_111" onclick="document.watabella.righe['111'].cambiaStato()">
+<td style="width: 1%"><button type="button" onclick="document.watabella.azione_watabella_Modifica(&quot;111&quot;)">Modifica</button><button type="button" onclick="document.watabella.azione_watabella_Elimina(&quot;111&quot;)">Elimina</button><button type="button" onclick="document.watabella.azione_watabella_Test(&quot;111&quot;)">Test</button></td>
+<td style="text-align: right">111</td><td style="text-align: left">258</td><td style="text-align: left">questo corsono</td><td style="text-align: right">1</td><td style="text-align: left">FormArt</td><td style="text-align: left"><a href="javascript:document.watabella.link_watabella_sigla(&quot;111&quot;)">RER</a></td><td style="text-align: center">12/10/2010</td><td style="text-align: right">1.256,32</td><td style="text-align: center">si</td></tr>
+      <tr id="row_watabella_112" onclick="document.watabella.righe['112'].cambiaStato()">
+<td style="width: 1%"><button type="button" onclick="document.watabella.azione_watabella_Modifica(&quot;112&quot;)">Modifica</button><button type="button" onclick="document.watabella.azione_watabella_Test(&quot;112&quot;)">Test</button></td>
+<td style="text-align: right">112</td><td style="text-align: left">1221</td><td style="text-align: left">titola</td><td style="text-align: right">1</td><td style="text-align: left">FormArt</td><td style="text-align: left"><a href="javascript:document.watabella.link_watabella_sigla(&quot;112&quot;)">RER</a></td><td style="text-align: center">30/05/2012</td><td style="text-align: right">145.666,44</td><td style="text-align: center">no</td></tr>
+      <tr id="row_watabella_113" onclick="document.watabella.righe['113'].cambiaStato()">
+<td style="width: 1%"><button type="button" onclick="document.watabella.azione_watabella_Modifica(&quot;113&quot;)">Modifica</button><button type="button" onclick="document.watabella.azione_watabella_Test(&quot;113&quot;)">Test</button></td>
+<td style="text-align: right">113</td><td style="text-align: left">1221</td><td style="text-align: left">titola</td><td style="text-align: right">1</td><td style="text-align: left">FormArt</td><td style="text-align: left"><a href="javascript:document.watabella.link_watabella_sigla(&quot;113&quot;)">RER</a></td><td style="text-align: center">12/12/2012</td><td style="text-align: right">145.666,44</td><td style="text-align: center">no</td></tr>
+      <tr id="row_watabella_114" onclick="document.watabella.righe['114'].cambiaStato()">
+<td style="width: 1%"><button type="button" onclick="document.watabella.azione_watabella_Modifica(&quot;114&quot;)">Modifica</button><button type="button" onclick="document.watabella.azione_watabella_Elimina(&quot;114&quot;)">Elimina</button><button type="button" onclick="document.watabella.azione_watabella_Test(&quot;114&quot;)">Test</button></td>
+<td style="text-align: right">114</td><td style="text-align: left">257</td><td style="text-align: left">questo corso</td><td style="text-align: right">1</td><td style="text-align: left">FormArt</td><td style="text-align: left"><a href="javascript:document.watabella.link_watabella_sigla(&quot;114&quot;)">RER</a></td><td style="text-align: center">12/10/2010</td><td style="text-align: right">1.256,32</td><td style="text-align: center">si</td></tr>
+      <tr id="row_watabella_116" onclick="document.watabella.righe['116'].cambiaStato()">
+<td style="width: 1%"><button type="button" onclick="document.watabella.azione_watabella_Modifica(&quot;116&quot;)">Modifica</button><button type="button" onclick="document.watabella.azione_watabella_Elimina(&quot;116&quot;)">Elimina</button><button type="button" onclick="document.watabella.azione_watabella_Test(&quot;116&quot;)">Test</button></td>
+<td style="text-align: right">116</td><td style="text-align: left">25</td><td style="text-align: left">questo corsacchioneaaa</td><td style="text-align: right">1</td><td style="text-align: left">FormArt</td><td style="text-align: left"><a href="javascript:document.watabella.link_watabella_sigla(&quot;116&quot;)">RER</a></td><td style="text-align: center">12/10/2010</td><td style="text-align: right">1.256,32</td><td style="text-align: center">si</td></tr>
+      <tr id="row_watabella_120" onclick="document.watabella.righe['120'].cambiaStato()">
+<td style="width: 1%"><button type="button" onclick="document.watabella.azione_watabella_Modifica(&quot;120&quot;)">Modifica</button><button type="button" onclick="document.watabella.azione_watabella_Elimina(&quot;120&quot;)">Elimina</button><button type="button" onclick="document.watabella.azione_watabella_Test(&quot;120&quot;)">Test</button></td>
+<td style="text-align: right">120</td><td style="text-align: left">258</td><td style="text-align: left">questo corsonomo</td><td style="text-align: right">1</td><td style="text-align: left">FormArt</td><td style="text-align: left"><a href="javascript:document.watabella.link_watabella_sigla(&quot;120&quot;)">RER</a></td><td style="text-align: center">12/10/2010</td><td style="text-align: right">1.256,32</td><td style="text-align: center">si</td></tr>
+      <tr id="row_watabella_121" onclick="document.watabella.righe['121'].cambiaStato()">
+<td style="width: 1%"><button type="button" onclick="document.watabella.azione_watabella_Modifica(&quot;121&quot;)">Modifica</button><button type="button" onclick="document.watabella.azione_watabella_Test(&quot;121&quot;)">Test</button></td>
+<td style="text-align: right">121</td><td style="text-align: left">1221</td><td style="text-align: left">titola44</td><td style="text-align: right">1</td><td style="text-align: left">FormArt</td><td style="text-align: left"><a href="javascript:document.watabella.link_watabella_sigla(&quot;121&quot;)">RER</a></td><td style="text-align: center">30/05/2012</td><td style="text-align: right">145.666,44</td><td style="text-align: center">no</td></tr>
+      <tr id="row_watabella_122" onclick="document.watabella.righe['122'].cambiaStato()">
+<td style="width: 1%"><button type="button" onclick="document.watabella.azione_watabella_Modifica(&quot;122&quot;)">Modifica</button><button type="button" onclick="document.watabella.azione_watabella_Test(&quot;122&quot;)">Test</button></td>
+<td style="text-align: right">122</td><td style="text-align: left">1221</td><td style="text-align: left">titola</td><td style="text-align: right">1</td><td style="text-align: left">FormArt</td><td style="text-align: left"><a href="javascript:document.watabella.link_watabella_sigla(&quot;122&quot;)">RER</a></td><td style="text-align: center">12/12/2012</td><td style="text-align: right">145.666,44</td><td style="text-align: center">no</td></tr>
+      <tr id="row_watabella_123" onclick="document.watabella.righe['123'].cambiaStato()">
+<td style="width: 1%"><button type="button" onclick="document.watabella.azione_watabella_Modifica(&quot;123&quot;)">Modifica</button><button type="button" onclick="document.watabella.azione_watabella_Elimina(&quot;123&quot;)">Elimina</button><button type="button" onclick="document.watabella.azione_watabella_Test(&quot;123&quot;)">Test</button></td>
+<td style="text-align: right">123</td><td style="text-align: left">257</td><td style="text-align: left">questo corso</td><td style="text-align: right">1</td><td style="text-align: left">FormArt</td><td style="text-align: left"><a href="javascript:document.watabella.link_watabella_sigla(&quot;123&quot;)">RER</a></td><td style="text-align: center">12/10/2010</td><td style="text-align: right">1.256,32</td><td style="text-align: center">si</td></tr>
+      <tr id="row_watabella_124" onclick="document.watabella.righe['124'].cambiaStato()">
+<td style="width: 1%"><button type="button" onclick="document.watabella.azione_watabella_Modifica(&quot;124&quot;)">Modifica</button><button type="button" onclick="document.watabella.azione_watabella_Elimina(&quot;124&quot;)">Elimina</button><button type="button" onclick="document.watabella.azione_watabella_Test(&quot;124&quot;)">Test</button></td>
+<td style="text-align: right">124</td><td style="text-align: left">257</td><td style="text-align: left">questo corso</td><td style="text-align: right">1</td><td style="text-align: left">FormArt</td><td style="text-align: left"><a href="javascript:document.watabella.link_watabella_sigla(&quot;124&quot;)">RER</a></td><td style="text-align: center">12/10/2010</td><td style="text-align: right">1.256,32</td><td style="text-align: center">si</td></tr>
+      <tr id="row_watabella_125" onclick="document.watabella.righe['125'].cambiaStato()">
+<td style="width: 1%"><button type="button" onclick="document.watabella.azione_watabella_Modifica(&quot;125&quot;)">Modifica</button><button type="button" onclick="document.watabella.azione_watabella_Elimina(&quot;125&quot;)">Elimina</button><button type="button" onclick="document.watabella.azione_watabella_Test(&quot;125&quot;)">Test</button></td>
+<td style="text-align: right">125</td><td style="text-align: left">25</td><td style="text-align: left">questo corsacchioneaaa</td><td style="text-align: right">1</td><td style="text-align: left">FormArt</td><td style="text-align: left"><a href="javascript:document.watabella.link_watabella_sigla(&quot;125&quot;)">RER</a></td><td style="text-align: center">12/10/2010</td><td style="text-align: right">1.256,32</td><td style="text-align: center">si</td></tr>
+      <tr id="row_watabella_130" onclick="document.watabella.righe['130'].cambiaStato()">
+<td style="width: 1%"><button type="button" onclick="document.watabella.azione_watabella_Modifica(&quot;130&quot;)">Modifica</button><button type="button" onclick="document.watabella.azione_watabella_Test(&quot;130&quot;)">Test</button></td>
+<td style="text-align: right">130</td><td style="text-align: left">1221</td><td style="text-align: left">titola</td><td style="text-align: right">1</td><td style="text-align: left">FormArt</td><td style="text-align: left"><a href="javascript:document.watabella.link_watabella_sigla(&quot;130&quot;)">RER</a></td><td style="text-align: center">30/05/2012</td><td style="text-align: right">145.666,44</td><td style="text-align: center">no</td></tr>
+      <tr id="row_watabella_131" onclick="document.watabella.righe['131'].cambiaStato()">
+<td style="width: 1%"><button type="button" onclick="document.watabella.azione_watabella_Modifica(&quot;131&quot;)">Modifica</button><button type="button" onclick="document.watabella.azione_watabella_Test(&quot;131&quot;)">Test</button></td>
+<td style="text-align: right">131</td><td style="text-align: left">1221</td><td style="text-align: left">titola</td><td style="text-align: right">1</td><td style="text-align: left">FormArt</td><td style="text-align: left"><a href="javascript:document.watabella.link_watabella_sigla(&quot;131&quot;)">RER</a></td><td style="text-align: center">12/12/2012</td><td style="text-align: right">145.666,44</td><td style="text-align: center">no</td></tr>
+      <tr id="row_watabella_135" onclick="document.watabella.righe['135'].cambiaStato()">
+<td style="width: 1%"><button type="button" onclick="document.watabella.azione_watabella_Modifica(&quot;135&quot;)">Modifica</button><button type="button" onclick="document.watabella.azione_watabella_Test(&quot;135&quot;)">Test</button></td>
+<td style="text-align: right">135</td><td style="text-align: left">sdadas</td><td style="text-align: left">sadasdas</td><td style="text-align: right">1</td><td style="text-align: left">FormArt</td><td style="text-align: left"><a href="javascript:document.watabella.link_watabella_sigla(&quot;135&quot;)">RER</a></td><td style="text-align: center">11/10/2010</td><td style="text-align: right">1.212.112,98</td><td style="text-align: center">no</td></tr>
+    </tbody>
+  </table>
+</form><script type="text/javascript">
+		// inizializzazione parametri tabella watabella
+		document.watabella = new watabella('watabella', 'id_corso', '1', 'modulocorsi.php');
+		
+			new wariga(document.watabella, '81', {"id_corso":"81","rifpa":"salame","nome":"di gatto","id_organismo":"1","nomeorgan":"FormArt","sigla":"RER","data_inizio":"2010-10-11","importo":"56345.87","eliminabile":"si","nomeamm":"Regione Emilia Romagna"});
+		
+			new wariga(document.watabella, '85', {"id_corso":"85","rifpa":"2012-698/RER","nome":"fare e disfare","id_organismo":"1","nomeorgan":"FormArt","sigla":"RER","data_inizio":"2012-05-30","importo":"2500.56","eliminabile":"si","nomeamm":"Regione Emilia Romagna"});
+		
+			new wariga(document.watabella, '95', {"id_corso":"95","rifpa":"1221","nome":"titolazzo","id_organismo":"1","nomeorgan":"FormArt","sigla":"RER","data_inizio":"2012-12-12","importo":"145666.44","eliminabile":"no","nomeamm":"Regione Emilia Romagna"});
+		
+			new wariga(document.watabella, '99', {"id_corso":"99","rifpa":"sdadas","nome":"sadasdas","id_organismo":"1","nomeorgan":"FormArt","sigla":"RER","data_inizio":"2010-10-11","importo":"1212112.98","eliminabile":"no","nomeamm":"Regione Emilia Romagna"});
+		
+			new wariga(document.watabella, '103', {"id_corso":"103","rifpa":"1221","nome":"titola","id_organismo":"1","nomeorgan":"FormArt","sigla":"RER","data_inizio":"2012-05-30","importo":"145666.44","eliminabile":"no","nomeamm":"Regione Emilia Romagna"});
+		
+			new wariga(document.watabella, '104', {"id_corso":"104","rifpa":"1221","nome":"titola","id_organismo":"1","nomeorgan":"FormArt","sigla":"RER","data_inizio":"2012-12-12","importo":"145666.44","eliminabile":"no","nomeamm":"Regione Emilia Romagna"});
+		
+			new wariga(document.watabella, '111', {"id_corso":"111","rifpa":"258","nome":"questo corsono","id_organismo":"1","nomeorgan":"FormArt","sigla":"RER","data_inizio":"2010-10-12","importo":"1256.32","eliminabile":"si","nomeamm":"Regione Emilia Romagna"});
+		
+			new wariga(document.watabella, '112', {"id_corso":"112","rifpa":"1221","nome":"titola","id_organismo":"1","nomeorgan":"FormArt","sigla":"RER","data_inizio":"2012-05-30","importo":"145666.44","eliminabile":"no","nomeamm":"Regione Emilia Romagna"});
+		
+			new wariga(document.watabella, '113', {"id_corso":"113","rifpa":"1221","nome":"titola","id_organismo":"1","nomeorgan":"FormArt","sigla":"RER","data_inizio":"2012-12-12","importo":"145666.44","eliminabile":"no","nomeamm":"Regione Emilia Romagna"});
+		
+			new wariga(document.watabella, '114', {"id_corso":"114","rifpa":"257","nome":"questo corso","id_organismo":"1","nomeorgan":"FormArt","sigla":"RER","data_inizio":"2010-10-12","importo":"1256.32","eliminabile":"si","nomeamm":"Regione Emilia Romagna"});
+		
+			new wariga(document.watabella, '116', {"id_corso":"116","rifpa":"25","nome":"questo corsacchioneaaa","id_organismo":"1","nomeorgan":"FormArt","sigla":"RER","data_inizio":"2010-10-12","importo":"1256.32","eliminabile":"si","nomeamm":"Regione Emilia Romagna"});
+		
+			new wariga(document.watabella, '120', {"id_corso":"120","rifpa":"258","nome":"questo corsonomo","id_organismo":"1","nomeorgan":"FormArt","sigla":"RER","data_inizio":"2010-10-12","importo":"1256.32","eliminabile":"si","nomeamm":"Regione Emilia Romagna"});
+		
+			new wariga(document.watabella, '121', {"id_corso":"121","rifpa":"1221","nome":"titola44","id_organismo":"1","nomeorgan":"FormArt","sigla":"RER","data_inizio":"2012-05-30","importo":"145666.44","eliminabile":"no","nomeamm":"Regione Emilia Romagna"});
+		
+			new wariga(document.watabella, '122', {"id_corso":"122","rifpa":"1221","nome":"titola","id_organismo":"1","nomeorgan":"FormArt","sigla":"RER","data_inizio":"2012-12-12","importo":"145666.44","eliminabile":"no","nomeamm":"Regione Emilia Romagna"});
+		
+			new wariga(document.watabella, '123', {"id_corso":"123","rifpa":"257","nome":"questo corso","id_organismo":"1","nomeorgan":"FormArt","sigla":"RER","data_inizio":"2010-10-12","importo":"1256.32","eliminabile":"si","nomeamm":"Regione Emilia Romagna"});
+		
+			new wariga(document.watabella, '124', {"id_corso":"124","rifpa":"257","nome":"questo corso","id_organismo":"1","nomeorgan":"FormArt","sigla":"RER","data_inizio":"2010-10-12","importo":"1256.32","eliminabile":"si","nomeamm":"Regione Emilia Romagna"});
+		
+			new wariga(document.watabella, '125', {"id_corso":"125","rifpa":"25","nome":"questo corsacchioneaaa","id_organismo":"1","nomeorgan":"FormArt","sigla":"RER","data_inizio":"2010-10-12","importo":"1256.32","eliminabile":"si","nomeamm":"Regione Emilia Romagna"});
+		
+			new wariga(document.watabella, '130', {"id_corso":"130","rifpa":"1221","nome":"titola","id_organismo":"1","nomeorgan":"FormArt","sigla":"RER","data_inizio":"2012-05-30","importo":"145666.44","eliminabile":"no","nomeamm":"Regione Emilia Romagna"});
+		
+			new wariga(document.watabella, '131', {"id_corso":"131","rifpa":"1221","nome":"titola","id_organismo":"1","nomeorgan":"FormArt","sigla":"RER","data_inizio":"2012-12-12","importo":"145666.44","eliminabile":"no","nomeamm":"Regione Emilia Romagna"});
+		
+			new wariga(document.watabella, '135', {"id_corso":"135","rifpa":"sdadas","nome":"sadasdas","id_organismo":"1","nomeorgan":"FormArt","sigla":"RER","data_inizio":"2010-10-11","importo":"1212112.98","eliminabile":"no","nomeamm":"Regione Emilia Romagna"});
+		
+
+		// inizializzazione delle proprieta' delle colonne per gestione input
+		
+			new wacolonna(document.watabella, 'id_corso', 'ID', 'INTERO', '', '');
+		
+			new wacolonna(document.watabella, 'rifpa', 'Rif. P.A.', 'STRINGA', '', '');
+		
+			new wacolonna(document.watabella, 'nome', 'Corso', 'STRINGA', '', '');
+		
+			new wacolonna(document.watabella, 'id_organismo', 'Cod. org.', 'INTERO', '', '');
+		
+			new wacolonna(document.watabella, 'nomeorgan', 'Organismo', 'STRINGA', '', '');
+		
+			new wacolonna(document.watabella, 'sigla', 'Amministrazione', 'STRINGA', '', '');
+		
+			new wacolonna(document.watabella, 'data_inizio', 'Data inizio', 'DATA', '', '');
+		
+			new wacolonna(document.watabella, 'importo', 'Importo', 'DECIMALE', '', '');
+		
+			new wacolonna(document.watabella, 'eliminabile', 'Eliminabile', '', '', '');
+		</script>
+]]>
+				</valore>
+			</elemento>
+		</elementi>
+	</pagina>
+</waapplicazione>

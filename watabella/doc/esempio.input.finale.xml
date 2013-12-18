@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+Esempio di flusso XML che il template XSLT deve restituire alla classe waTabella
+a fronte della trasformazione di "esempio.input.intermedio.xml".
+
+Non ha senso avere una descrizione XSD di questo flusso, perche' per ovvi
+motivi i nomi degli elementi sono in stretta dipendenza dai nomi dei controlli
+attribuiti in fase di costruzione della tabella
+-->
+<watabella.input>
+  <watabella_righe>
+    <riga id="85">
+      <watabella_elimina>1</watabella_elimina>
+    </riga>
+    <riga id="85">
+      <id_organismo></id_organismo>
+      <id_amministrazione></id_amministrazione>
+      <rifpa></rifpa>
+      <nome></nome>
+      <data_inizio>--</data_inizio>
+      <data_fine>-- ::00</data_fine>
+      <nr_ore></nr_ore>
+      <importo></importo>
+      <attivo>0</attivo>
+    </riga>
+    <riga id="86">
+      <id_organismo>2</id_organismo>
+      <id_amministrazione>2</id_amministrazione>
+      <rifpa>2011-588/BO</rifpa>
+      <nome>disfare e fare</nome>
+      <data_inizio>2012-12-12</data_inizio>
+      <data_fine>2013-05-09 00:00:00</data_fine>
+      <nr_ore>855</nr_ore>
+      <importo>145666.44</importo>
+      <attivo>1</attivo>
+    </riga>
+    <riga id="90">
+      <id_organismo>3</id_organismo>
+      <id_amministrazione>3</id_amministrazione>
+      <rifpa>2011-877/RA</rifpa>
+      <nome>vacanze ben organizzate</nome>
+      <data_inizio>2011-10-11</data_inizio>
+      <data_fine>2012-07-08 00:00:00</data_fine>
+      <nr_ore>111</nr_ore>
+      <importo>1212112.98</importo>
+      <attivo>1</attivo>
+    </riga>
+  </watabella_righe>
+</watabella.input>

@@ -1,0 +1,520 @@
+<html>
+	<head>
+		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+		<title>Docs For Class waRigheDB</title>
+		<link rel="stylesheet" type="text/css" href="../media/style.css">
+	</head>
+	<body>
+
+		<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+			<tr>
+				<td class="header_top">waDB</td>
+			</tr>
+			<tr><td class="header_line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+			<tr>
+				<td class="header_menu">
+					
+																		
+																						[ <a href="../classtrees_waDB.html" class="menu">albero delle classi</a> ]
+						[ <a href="../elementindex_waDB.html" class="menu">indice degli elementi</a> ]
+										<!-- [ <a href="../elementindex.html" class="menu">all elements</a> ] -->
+				</td>
+			</tr>
+			<tr><td class="header_line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+		</table>
+
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr valign="top">
+				<td width="200" class="menu">
+															<!-- <b>Packages:</b><br />-->
+											<a href="../li_waDB.html">Introduzione</a><br />
+										<br />
+													
+											<b><a href="../waDB/_wadb.inc.php.html">Defines applicative
+</a><br>
+<br /></b>
+					
+											<b>Classi:</b><br />
+								    		<a href="../waDB/waConnessioneDB.html">waConnessioneDB</a><br />
+	    		<a href="../waDB/waRecord.html">waRecord</a><br />
+	    		<a href="../waDB/waRigheDB.html">waRigheDB</a><br />
+	
+						<br />
+					
+											<b>Files:</b><br />
+						<a href="../waDB/_config.inc.php.html">config.inc.php
+</a><br>
+<a href="../waDB/_wadb.inc.php.html">wadb.inc.php
+</a><br>
+<a href="../waDB/_wadbdriver.class.php.html">wadbdriver.class.php
+</a><br>
+<a href="../waDB/_warecord.class.php.html">warecord.class.php
+</a><br>
+<a href="../waDB/_warighedb.class.php.html">warighedb.class.php
+</a><br>
+<a href="../waDB/_utilita.inc.php.html">utilita.inc.php
+</a><br>
+<br />
+						<br />
+					
+					
+							</td>
+			<td>
+				<table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
+
+																			<h1>Classe waRigheDB</h1>
+							(/warighedb.class.php)<br /><br />
+						
+
+<table width="100%" border="0">
+<tr><td valign="top">
+
+<h3><a href="#class_details"> Panoramica</a></h3>
+<pre></pre><br />
+<div class="description">waRigheDB</div><br /><br />
+
+
+
+
+        
+          
+      
+
+        
+</td>
+
+<td valign="top">
+<h3><a href="#class_vars">Proprietà</a></h3>
+<ul>
+    <li><a href="../waDB/waRigheDB.html#var$connessioneDB">$connessioneDB</a></li>
+    <li><a href="../waDB/waRigheDB.html#var$righe">$righe</a></li>
+  </ul>
+</td>
+
+
+<td valign="top">
+<h3><a href="#class_methods">Metodi</a></h3>
+<ul>
+    <li><a href="../waDB/waRigheDB.html#method__construct">__construct</a></li>
+    <li><a href="../waDB/waRigheDB.html#methodaggiungi">aggiungi</a></li>
+    <li><a href="../waDB/waRigheDB.html#methodcaricaDaSql">caricaDaSql</a></li>
+    <li><a href="../waDB/waRigheDB.html#methodchiavePrimaria">chiavePrimaria</a></li>
+    <li><a href="../waDB/waRigheDB.html#methodindiceCampo">indiceCampo</a></li>
+    <li><a href="../waDB/waRigheDB.html#methodlunghezzaMaxCampo">lunghezzaMaxCampo</a></li>
+    <li><a href="../waDB/waRigheDB.html#methodmessaggioErrore">messaggioErrore</a></li>
+    <li><a href="../waDB/waRigheDB.html#methodnomeCampo">nomeCampo</a></li>
+    <li><a href="../waDB/waRigheDB.html#methodnomeTabella">nomeTabella</a></li>
+    <li><a href="../waDB/waRigheDB.html#methodnrCampi">nrCampi</a></li>
+    <li><a href="../waDB/waRigheDB.html#methodnrErrore">nrErrore</a></li>
+    <li><a href="../waDB/waRigheDB.html#methodnrRigheSenzaLimite">nrRigheSenzaLimite</a></li>
+    <li><a href="../waDB/waRigheDB.html#methodsalva">salva</a></li>
+    <li><a href="../waDB/waRigheDB.html#methodtipoCampo">tipoCampo</a></li>
+    <li><a href="../waDB/waRigheDB.html#methodtipoCampoDB">tipoCampoDB</a></li>
+  </ul>
+</td>
+
+</tr></table>
+
+
+
+
+
+
+<hr />
+
+<a name="class_details"></a>
+<h3>Dettaglio</h3>
+<div class="tags">
+<!-- [line 32]<br />-->
+<div><p style="margin-top: -4px"><b>waRigheDB</b></p></div><div><p>Classe per la gestione di un insieme di righe (recordset).</p></div>	<div class="tags">
+		<table border="0" cellspacing="0" cellpadding="0">
+							<tr>
+					<td><b>
+																																																	</td>
+				</tr>
+							<tr>
+					<td><b>
+																																																	</td>
+				</tr>
+							<tr>
+					<td><b>
+																																																	</td>
+				</tr>
+							<tr>
+					<td><b>
+																																																	</td>
+				</tr>
+					</table>
+	</div>
+</div><br /><br />
+<div class="top">[ <a href="#top">Top</a> ]</div><br />
+
+<hr />
+<a name="class_vars"></a>
+<h3>Proprietà</h3>
+<div class="tags">
+								<p></p>
+			<a name="var$connessioneDB"></a>
+				<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+					<table width="100%" border="0" cellspacing="0" cellpadding="2">
+						<tr>
+							<td class="code">
+								<code>
+									$connessioneDB = <span class="value">&nbsp;null</span>										
+								</code>
+							</td>
+						</tr>
+					</table>
+			</td></tr></table><br />
+
+			<!--<p>[line 39]</p>-->
+			<div><p style="margin-top: -4px"><b>-</b></p></div><div><p>Oggetto di classe <a href="../waDB/waConnessioneDB.html">waConnessioneDB</a> che mantiene la connessione al db</p></div>			<div class="tags">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td><b>Tipo:</b>&nbsp;&nbsp;</td>
+						<td><a href="../waDB/waConnessioneDB.html">waConnessioneDB</a></td>
+					</tr>
+									</table>
+			</div><br />
+			<div class="top" style="margin-left: 4px;">[ <a href="#top">Top</a> ]</div>
+									<p></p>
+			<a name="var$righe"></a>
+				<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+					<table width="100%" border="0" cellspacing="0" cellpadding="2">
+						<tr>
+							<td class="code">
+								<code>
+									$righe = <span class="value">array()</span>										
+								</code>
+							</td>
+						</tr>
+					</table>
+			</td></tr></table><br />
+
+			<!--<p>[line 46]</p>-->
+			<div><p style="margin-top: -4px"><b>-</b></p></div><div><p>Array di oggetti di classe <a href="../waDB/waRecord.html">waRecord</a> che compongono il recordset</p></div>			<div class="tags">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td><b>Tipo:</b>&nbsp;&nbsp;</td>
+						<td>array</td>
+					</tr>
+									</table>
+			</div><br />
+			<div class="top" style="margin-left: 4px;">[ <a href="#top">Top</a> ]</div>
+			</div><br />
+
+<hr />
+<a name="class_methods"></a>
+<h3>Metodi</h3>
+<div class="tags">
+															
+						<hr />
+			<a name="method__construct"></a>
+			<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+							<table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+										<code>waRigheDB __construct(
+																																														<a href="../waDB/waConnessioneDB.html">waConnessioneDB</a>
+										$connessioneDB																	)</code>
+						</td></tr></table>
+			</td></tr></table><br />
+
+	<div><p style="margin-top: -4px"><b>-</b></p></div><div><p>Costruttore.</p></div>
+		
+    <h4>Parametri:</h4>
+    <div class="tags">
+		<table border="0" cellspacing="0" cellpadding="0">
+							<tr>
+					<td class="type"><a href="../waDB/waConnessioneDB.html">waConnessioneDB</a>&nbsp;&nbsp;</td>
+					<td><b>$connessioneDB</b>&nbsp;&nbsp;</td>
+					<td>istanza della classe per la   connessione al database</td>
+				</tr>
+					</table>
+    </div><br />
+<div class="top" style="margin-left: 16px; margin-bottom: 10px;">[ <a href="#top">Top</a> ]</div>
+						<hr />
+			<a name="methodaggiungi"></a>
+			<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+							<table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+										<code><a href="../waDB/waRecord.html">waRecord</a> aggiungi(
+											)</code>
+						</td></tr></table>
+			</td></tr></table><br />
+
+	<div><p style="margin-top: -4px"><b>-</b></p></div><div><p>Inserisce una nuova riga vuota nel recordset e ritorna il relativo oggetto  di classe waRecord</p></div>
+		
+<div class="top" style="margin-left: 16px; margin-bottom: 10px;">[ <a href="#top">Top</a> ]</div>
+						<hr />
+			<a name="methodcaricaDaSql"></a>
+			<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+							<table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+										<code>mixed caricaDaSql(
+																																														string
+										$sql																					, 											[int
+										$nrRighe = null]																					, 											[int
+										$rigaIniziale = 0]																	)</code>
+						</td></tr></table>
+			</td></tr></table><br />
+
+	<div><p style="margin-top: -4px"><b>-</b></p></div><div><p>Esegue una query SQL, costruisce le strutture dati relative alle colonne  e alle righe e restituisce un array di righe waRecord.</p></div>	<div class="tags">
+		<table border="0" cellspacing="0" cellpadding="0">
+							<tr>
+					<td><b>
+																																			ritorna:</b>&nbsp;&nbsp;</td><td>(boolean | array) : se esito positivo ritorna l'array delle righe restituite  dalla query; se esito negativo torna false; per conoscere l'esatto esito  della query occorre invocare il metodo <a href="../waDB/waRigheDB.html#methodnrErrore">nrErrore</a>														</td>
+				</tr>
+					</table>
+	</div>
+
+		
+    <h4>Parametri:</h4>
+    <div class="tags">
+		<table border="0" cellspacing="0" cellpadding="0">
+							<tr>
+					<td class="type">string&nbsp;&nbsp;</td>
+					<td><b>$sql</b>&nbsp;&nbsp;</td>
+					<td>SQL da eseguire</td>
+				</tr>
+							<tr>
+					<td class="type">int&nbsp;&nbsp;</td>
+					<td><b>$nrRighe</b>&nbsp;&nbsp;</td>
+					<td>numero max di righe che la query deve restituire</td>
+				</tr>
+							<tr>
+					<td class="type">int&nbsp;&nbsp;</td>
+					<td><b>$rigaIniziale</b>&nbsp;&nbsp;</td>
+					<td>numero di righe di cui effettuare lo skip (offset)</td>
+				</tr>
+					</table>
+    </div><br />
+<div class="top" style="margin-left: 16px; margin-bottom: 10px;">[ <a href="#top">Top</a> ]</div>
+						<hr />
+			<a name="methodchiavePrimaria"></a>
+			<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+							<table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+										<code>string chiavePrimaria(
+											)</code>
+						</td></tr></table>
+			</td></tr></table><br />
+
+	<div><p style="margin-top: -4px"><b>-</b></p></div><div><p>Ritorna il nome del campo che e' chiave primaria del record  attenzione: potrebbero darsi casi in cui esistono piu' chiavi  primarie (viste) o in cui non sia stata selezionata nessuna chiave  primaria; questo metodo ritorna il nome del primo campo che e'  chiave primaria, se esistente. Sta al programmatore calare correttamente  la chiamata a questo metodo nel contesto in cui viene chiamato</p></div>
+		
+<div class="top" style="margin-left: 16px; margin-bottom: 10px;">[ <a href="#top">Top</a> ]</div>
+						<hr />
+			<a name="methodindiceCampo"></a>
+			<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+							<table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+										<code>int indiceCampo(
+																																														string
+										$nomeCampo																	)</code>
+						</td></tr></table>
+			</td></tr></table><br />
+
+	<div><p style="margin-top: -4px"><b>-</b></p></div><div><p>Dato il nome di un campo tra quelli ritornati dalla query, restituisce  l'ordinale della colonna</p></div>
+		
+    <h4>Parametri:</h4>
+    <div class="tags">
+		<table border="0" cellspacing="0" cellpadding="0">
+							<tr>
+					<td class="type">string&nbsp;&nbsp;</td>
+					<td><b>$nomeCampo</b>&nbsp;&nbsp;</td>
+					<td>nome del campo (case-insensitive)</td>
+				</tr>
+					</table>
+    </div><br />
+<div class="top" style="margin-left: 16px; margin-bottom: 10px;">[ <a href="#top">Top</a> ]</div>
+						<hr />
+			<a name="methodlunghezzaMaxCampo"></a>
+			<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+							<table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+										<code>int lunghezzaMaxCampo(
+																																														mixed
+										$nomeOIndiceCampo																	)</code>
+						</td></tr></table>
+			</td></tr></table><br />
+
+	<div><p style="margin-top: -4px"><b>-</b></p></div><div><p>Dato, indifferentemente, il nome o l'indice numerico di un campo tra quelli  ritornati dalla query, restituisce la lunghezza massima che il campo puo'  ospitare</p></div>
+		
+    <h4>Parametri:</h4>
+    <div class="tags">
+		<table border="0" cellspacing="0" cellpadding="0">
+							<tr>
+					<td class="type">mixed&nbsp;&nbsp;</td>
+					<td><b>$nomeOIndiceCampo</b>&nbsp;&nbsp;</td>
+					<td>(string | int) $nomeOIndiceCampo nome o indice del campo</td>
+				</tr>
+					</table>
+    </div><br />
+<div class="top" style="margin-left: 16px; margin-bottom: 10px;">[ <a href="#top">Top</a> ]</div>
+						<hr />
+			<a name="methodmessaggioErrore"></a>
+			<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+							<table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+										<code>string messaggioErrore(
+											)</code>
+						</td></tr></table>
+			</td></tr></table><br />
+
+	<div><p style="margin-top: -4px"><b>-</b></p></div><div><p>Ritorna l'ultimo messaggio di errore restituito dal database.</p></div>
+		
+<div class="top" style="margin-left: 16px; margin-bottom: 10px;">[ <a href="#top">Top</a> ]</div>
+						<hr />
+			<a name="methodnomeCampo"></a>
+			<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+							<table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+										<code>string nomeCampo(
+																																														int
+										$indiceCampo																	)</code>
+						</td></tr></table>
+			</td></tr></table><br />
+
+	<div><p style="margin-top: -4px"><b>-</b></p></div><div><p>Dato l'indice di una colonna tra quelle ritornate dalla query, restituisce  il nome del campo</p></div>
+		
+    <h4>Parametri:</h4>
+    <div class="tags">
+		<table border="0" cellspacing="0" cellpadding="0">
+							<tr>
+					<td class="type">int&nbsp;&nbsp;</td>
+					<td><b>$indiceCampo</b>&nbsp;&nbsp;</td>
+					<td>indice del campo</td>
+				</tr>
+					</table>
+    </div><br />
+<div class="top" style="margin-left: 16px; margin-bottom: 10px;">[ <a href="#top">Top</a> ]</div>
+						<hr />
+			<a name="methodnomeTabella"></a>
+			<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+							<table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+										<code>string nomeTabella(
+																																														
+										$nomeOIndiceCampo																	)</code>
+						</td></tr></table>
+			</td></tr></table><br />
+
+	<div><p style="margin-top: -4px"><b>-</b></p></div><div><p>Ritorna il nome della tabella a cui appartiene un campo</p></div>
+		
+    <h4>Parametri:</h4>
+    <div class="tags">
+		<table border="0" cellspacing="0" cellpadding="0">
+							<tr>
+					<td class="type">&nbsp;&nbsp;</td>
+					<td><b>$nomeOIndiceCampo</b>&nbsp;&nbsp;</td>
+					<td></td>
+				</tr>
+					</table>
+    </div><br />
+<div class="top" style="margin-left: 16px; margin-bottom: 10px;">[ <a href="#top">Top</a> ]</div>
+						<hr />
+			<a name="methodnrCampi"></a>
+			<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+							<table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+										<code>int nrCampi(
+											)</code>
+						</td></tr></table>
+			</td></tr></table><br />
+
+	<div><p style="margin-top: -4px"><b>-</b></p></div><div><p>Ritorna il numero di campi (colonne) restituiti dalla query</p></div>
+		
+<div class="top" style="margin-left: 16px; margin-bottom: 10px;">[ <a href="#top">Top</a> ]</div>
+						<hr />
+			<a name="methodnrErrore"></a>
+			<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+							<table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+										<code>string nrErrore(
+											)</code>
+						</td></tr></table>
+			</td></tr></table><br />
+
+	<div><p style="margin-top: -4px"><b>-</b></p></div><div><p>Ritorna l'ultimo codice di errore restituito dal database.</p></div>
+		
+<div class="top" style="margin-left: 16px; margin-bottom: 10px;">[ <a href="#top">Top</a> ]</div>
+						<hr />
+			<a name="methodnrRigheSenzaLimite"></a>
+			<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+							<table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+										<code>int nrRigheSenzaLimite(
+											)</code>
+						</td></tr></table>
+			</td></tr></table><br />
+
+	<div><p style="margin-top: -4px"><b>-</b></p></div><div><p>Ritorna il numero di righe che soddisfano la condizione impostata dalla  query, indipendentemente da una eventuale richiesta di limitazione delle  righe da restituire</p></div>
+		
+<div class="top" style="margin-left: 16px; margin-bottom: 10px;">[ <a href="#top">Top</a> ]</div>
+						<hr />
+			<a name="methodsalva"></a>
+			<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+							<table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+										<code>boolean salva(
+											)</code>
+						</td></tr></table>
+			</td></tr></table><br />
+
+	<div><p style="margin-top: -4px"><b>-</b></p></div><div><p>Esegue tutte le operazioni di inseRimento, modifica, cancellazione  pendenti sull'intero insieme di oggetti di classe waRecord che compongono  l'array <a href="../waDB/waRigheDB.html#var$righe">righe</a>.</p></div>	<div class="tags">
+		<table border="0" cellspacing="0" cellpadding="0">
+							<tr>
+					<td><b>
+																																			ritorna:</b>&nbsp;&nbsp;</td><td>: true = ok; false = errore; per conoscere l'esatto esito  dell'operazione occorre invocare il metodo <a href="../waDB/waRigheDB.html#methodnrErrore">nrErrore</a>														</td>
+				</tr>
+					</table>
+	</div>
+
+		
+<div class="top" style="margin-left: 16px; margin-bottom: 10px;">[ <a href="#top">Top</a> ]</div>
+						<hr />
+			<a name="methodtipoCampo"></a>
+			<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+							<table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+										<code>string tipoCampo(
+																																														mixed
+										$nomeOIndiceCampo																	)</code>
+						</td></tr></table>
+			</td></tr></table><br />
+
+	<div><p style="margin-top: -4px"><b>-</b></p></div><div><p>Dato, indifferentemente, il nome o l'indice numerico di un campo tra quelli  ritornati dalla query, restituisce il tipo del campo applicativo (si vedano  le define relative ai tipi campo applicativi contenute in  <a href="../waDB/_wadb.inc.php.html">wadb.inc.php</a>).</p></div>
+		
+    <h4>Parametri:</h4>
+    <div class="tags">
+		<table border="0" cellspacing="0" cellpadding="0">
+							<tr>
+					<td class="type">mixed&nbsp;&nbsp;</td>
+					<td><b>$nomeOIndiceCampo</b>&nbsp;&nbsp;</td>
+					<td>(string | int) $nomeOIndiceCampo nome o indice del campo</td>
+				</tr>
+					</table>
+    </div><br />
+<div class="top" style="margin-left: 16px; margin-bottom: 10px;">[ <a href="#top">Top</a> ]</div>
+						<hr />
+			<a name="methodtipoCampoDB"></a>
+			<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+							<table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+										<code>string tipoCampoDB(
+																																														mixed
+										$nomeOIndiceCampo																	)</code>
+						</td></tr></table>
+			</td></tr></table><br />
+
+	<div><p style="margin-top: -4px"><b>-</b></p></div><div><p>Dato, indifferentemente, il nome o l'indice numerico di un campo tra quelli  ritornati dalla query, restituisce il tipo del campo nativo sul DB</p></div>
+		
+    <h4>Parametri:</h4>
+    <div class="tags">
+		<table border="0" cellspacing="0" cellpadding="0">
+							<tr>
+					<td class="type">mixed&nbsp;&nbsp;</td>
+					<td><b>$nomeOIndiceCampo</b>&nbsp;&nbsp;</td>
+					<td>(string | int) $nomeOIndiceCampo nome o indice del campo</td>
+				</tr>
+					</table>
+    </div><br />
+<div class="top" style="margin-left: 16px; margin-bottom: 10px;">[ <a href="#top">Top</a> ]</div>
+</div><br />
+
+
+        <div class="credit">
+		    <hr />
+		    Documentation generated on Fri, 08 Mar 2013 12:10:04 +0100 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.4</a>
+	      </div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">//*****************************************************************************</span><span class="WHIT">
+<span class='line'>  2</span> </span><span class="COMM">//*****************************************************************************</span><span class="WHIT">
+<span class='line'>  3</span> </span><span class="COMM">//*****************************************************************************</span><span class="WHIT">
+<span class='line'>  4</span> </span><span class="COMM">/**
+<span class='line'>  5</span> * classe wacaptcha: controllo di input di un codice di controllo captcha
+<span class='line'>  6</span> * 
+<span class='line'>  7</span> * @class wacaptcha
+<span class='line'>  8</span> * @extends wacontrollo
+<span class='line'>  9</span> */</span><span class="WHIT">
+<span class='line'> 10</span> </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">wacaptcha</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Class</span><span class="WHIT">
+<span class='line'> 11</span> </span><span class="PUNC">(</span><span class="WHIT">
+<span class='line'> 12</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 13</span> </span><span class="WHIT">	</span><span class="COMM">//-------------------------------------------------------------------------</span><span class="WHIT">
+<span class='line'> 14</span> </span><span class="WHIT">	</span><span class="COMM">// extends</span><span class="WHIT">
+<span class='line'> 15</span> </span><span class="WHIT">	</span><span class="NAME">Extends</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">wacontrollo</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 16</span> 
+<span class='line'> 17</span> </span><span class="WHIT">	</span><span class="COMM">//-------------------------------------------------------------------------</span><span class="WHIT">
+<span class='line'> 18</span> </span><span class="WHIT">	</span><span class="COMM">// proprieta'</span><span class="WHIT">
+<span class='line'> 19</span> </span><span class="WHIT">	</span><span class="NAME">tipo</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">'captcha'</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 20</span> </span><span class="WHIT">	</span><span class="NAME">imgObj</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">		</span><span class="COMM">// e' l'immagine contenent la chiave</span><span class="WHIT">
+<span class='line'> 21</span> </span><span class="WHIT">		
+<span class='line'> 22</span> 	</span><span class="COMM">//-------------------------------------------------------------------------</span><span class="WHIT">
+<span class='line'> 23</span> </span><span class="WHIT">	</span><span class="COMM">//initialization</span><span class="WHIT">
+<span class='line'> 24</span> </span><span class="WHIT">	</span><span class="NAME">initialize</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">modulo</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">nome</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">valore</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">visibile</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">solaLettura</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">obbligatorio</span><span class="PUNC">)</span><span class="WHIT"> 
+<span class='line'> 25</span> 		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 26</span> </span><span class="WHIT">		</span><span class="COMM">// definizione iniziale delle proprieta'</span><span class="WHIT">
+<span class='line'> 27</span> </span><span class="WHIT">		</span><span class="NAME">this.parent</span><span class="PUNC">(</span><span class="NAME">modulo</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">nome</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">valore</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">visibile</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">solaLettura</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">obbligatorio</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 28</span> </span><span class="WHIT">		</span><span class="NAME">this.imgObj</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">document.getElementById</span><span class="PUNC">(</span><span class="NAME">this.modulo.nome</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"_captcha_img_"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">this.nome</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 29</span> </span><span class="WHIT">		
+<span class='line'> 30</span> 		</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 31</span> </span><span class="WHIT">		
+<span class='line'> 32</span> 	</span><span class="COMM">//-------------------------------------------------------------------------</span><span class="WHIT">
+<span class='line'> 33</span> </span><span class="WHIT">	</span><span class="COMM">// a seconda dello stato definisce la classe css di un controllo</span><span class="WHIT">
+<span class='line'> 34</span> </span><span class="WHIT">	</span><span class="NAME">renderizza</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> 
+<span class='line'> 35</span> 		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 36</span> </span><span class="WHIT">		</span><span class="COMM">// oggetto principale</span><span class="WHIT">
+<span class='line'> 37</span> </span><span class="WHIT">		</span><span class="NAME">this.parent</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 38</span> 
+<span class='line'> 39</span> </span><span class="WHIT">		</span><span class="COMM">// immagine</span><span class="WHIT">
+<span class='line'> 40</span> </span><span class="WHIT">		</span><span class="NAME">this.imgObj.style.visibility</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.visibile</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="STRN">''</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">'hidden'</span><span class="PUNC">;</span><span class="WHIT"> 
+<span class='line'> 41</span> 		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 42</span> </span><span class="WHIT">		
+<span class='line'> 43</span> 
+<span class='line'> 44</span> 	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 45</span> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 46</span> </span></pre></body></html>

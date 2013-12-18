@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title></title>
+		<link href="css/documentazione_walibs3.css" rel="stylesheet" />
+	</head>
+
+	<body>
+
+		<div class='titolo'>waLibs 3.x</div>
+		<div class='titolo'>La mia prima waApplicazione</div>
+
+		<div>
+			Come già detto, ognuno dei package che compongno le waLibs può
+			essere usato separatamente come semplice libreria di codice. Potete
+			trovare degli esempi di utilizzo separato all'interno della 
+			documentazione di ogni singolo package.
+		</div>
+		
+		<div>
+			Qui invece andiamo vedere come si imposta un'intera applicazione
+			secondo le linee guida del framework, e per i dettagli di 
+			funzionamento di ogni singolo oggetto si farà poi riferimento alla
+			specifica documentazione.
+		</div>
+
+		<div>
+			Innanzitutto dobbiamo avere una document-root configurata 
+			correttamente; supponiamo, per il nostro esempio, che questa 
+			document-root corrisponda al filesystem <i>/var/www</i> , che risponda
+			al dominio <i>localhost</i> e che vogliamo creare l'applicazione
+			<i>testwalibs</i> all'interno della directory <i>/var/www</i> .
+			Creiamo quindi la directory <i>/var/www/testwalibs</i> e copiamo 
+			la directory <i>walibs3</i>
+			all'interno di <i>/var/www/testwalibs</i>:
+		</div>
+		
+		<div>
+			<pre class='shell-code'>
+$ cd /var/www
+$ mkdir testwalibs
+$ cd testwalibs
+$ cp -r /home/me/walibs3 .
+			</pre>
+		</div>
+		
+		<div>
+			Con il vostro editor preferito create un file PHP che chiamerete 
+			come vi pare, diciamo <i>testwalibs.inc.php</i> , includete il file
+			di definizione della classe  waApplicazione e create la classe della
+			vostra applicazione, che chiamerete <i>testwalibs</i> e che estende
+			<i>waApplicazione</i>. Crate il costruttore e all'interno di questo 
+			valorizzate le proprietà della classe che vi interessano e richiamate 
+			il metodo <i>inizializza</i> definito dalla classe parent. 
+		</div>
+		
+		<div>
+			<pre class='php-code'>
+&lt;?php
+<span class="php-comment">
+//****************** testwalibs.inc.php ***************************************
+</span>
+include dirname(__FILE__) . "/walibs3/waapplicazione/waapplicazione.inc.php";
+
+class testwalibs extends waApplicazione
+	{
+
+	function __construct()
+		{			
+		$this->nome = "testwalibs";
+		$this->titolo = "Voglio testare le waLibs";
+		$this->inizializza();
+		}
+	}
+?&gt;
+			</pre>
+		</div>
+
+		<div>
+			E' un po' scarna, ma avete creato la vostra waApplicazione! 
+			Ovviamente per ora non fa un amatissimo nulla, perchè deve essere
+			istanziata...
+		</div>
+		
+		<div>
+			<table class="navbar">
+				<tr>
+					<td align="left"><a href="requisiti.html"><< Requisiti</a></td>
+					<td align="right"><a href="prima_pagina.html">La mia prima pagina >></a></td>
+				</tr>
+			</table>
+		</div>
+
+	</body>
+</html>

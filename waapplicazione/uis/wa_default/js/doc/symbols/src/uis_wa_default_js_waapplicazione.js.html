@@ -1,0 +1,718 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">//*****************************************************************************</span><span class="WHIT">
+<span class='line'>  2</span> </span><span class="COMM">//*****************************************************************************</span><span class="WHIT">
+<span class='line'>  3</span> </span><span class="COMM">//*****************************************************************************</span><span class="WHIT">
+<span class='line'>  4</span> </span><span class="COMM">/**
+<span class='line'>  5</span>  * classe di base delle procedure di controllo di una applicazione waLibs.
+<span class='line'>  6</span>  * 
+<span class='line'>  7</span>  * L'XSLT di default, una volta caricato questo file,  cercherà di caricare un 
+<span class='line'>  8</span>  * modulo (file) javascript con nome [nome_pagina].js. Dopodichè verificherà se
+<span class='line'>  9</span>  * esiste già un oggetto in document.wapagina . Se non esiste, creerà quell'oggetto
+<span class='line'> 10</span>  * instanziando la presente classe.
+<span class='line'> 11</span>  * 
+<span class='line'> 12</span>  * E' così possibile per il programmatore estendere la presente classe nel file 
+<span class='line'> 13</span>  * [nome_pagina].js e sempre all'interno del file istanziarne l'estensione in 
+<span class='line'> 14</span>  * document.wapagina.
+<span class='line'> 15</span>  * 
+<span class='line'> 16</span>  * I compiti principali della classe sono:
+<span class='line'> 17</span>  * 
+<span class='line'> 18</span>  * &lt;ul>
+<span class='line'> 19</span>  * &lt;li>gestire la navigazione tra le pagine (apertura/chiusura/aggiornamento)
+<span class='line'> 20</span>  * &lt;li>collegare le azioni di eventuali oggetti waTabella presenti nella pagina
+<span class='line'> 21</span>  *		con metodi implementati  all'interno dell'estensione della classe
+<span class='line'> 22</span>  *		(ossia in [nome_pagina].js). Si veda al proposito la nota in 
+<span class='line'> 23</span>  *		{@link collegaAzioniTabella}
+<span class='line'> 24</span>  * &lt;li>collegare i link di eventuali oggetti waTabella presenti nella pagina
+<span class='line'> 25</span>  *		con metodi implementati  all'interno dell'estensione della classe
+<span class='line'> 26</span>  *		(ossia in [nome_pagina].js). Si veda al proposito la nota in 
+<span class='line'> 27</span>  *		{@link collegaLinkTabella}
+<span class='line'> 28</span>  * &lt;li>collegare gli eventi di eventuali oggetti contenuti nei waModuli presenti 
+<span class='line'> 29</span>  *		nella pagina
+<span class='line'> 30</span>  *		con metodi implementati  all'interno dell'estensione della classe
+<span class='line'> 31</span>  *		(ossia in [nome_pagina].js). Si veda al proposito la nota in 
+<span class='line'> 32</span>  *		{@link collegaEventiModulo}.
+<span class='line'> 33</span>  *	&lt;/ul>
+<span class='line'> 34</span>  *	
+<span class='line'> 35</span>  *	Naturalmente è poi possibile che [nome_pagina].js dichiari una classe che
+<span class='line'> 36</span>  *	non deriva direttamente da waapplicazione, ma da una classe intermedia che
+<span class='line'> 37</span>  *	derivi da waapplicazione, e che implementi metodi personalizzati per il 
+<span class='line'> 38</span>  *	funzionamento della propria applicazione (calcolo codice fiscale, gestione
+<span class='line'> 39</span>  *	help online, ecc.). Difatti l'XSLT di default cercherà anche di caricare un
+<span class='line'> 40</span>  *	modulo (file) javascript con nome [nome_applicazione].js
+<span class='line'> 41</span>  *	
+<span class='line'> 42</span>  *	@class waapplicazione
+<span class='line'> 43</span>  */</span><span class="WHIT">
+<span class='line'> 44</span> </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">waapplicazione</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Class</span><span class="WHIT">
+<span class='line'> 45</span> </span><span class="PUNC">(</span><span class="WHIT">
+<span class='line'> 46</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 47</span> </span><span class="WHIT">	</span><span class="COMM">//-------------------------------------------------------------------------</span><span class="WHIT">
+<span class='line'> 48</span> </span><span class="WHIT">	</span><span class="COMM">// proprieta'</span><span class="WHIT">
+<span class='line'> 49</span> </span><span class="WHIT">	
+<span class='line'> 50</span> 	</span><span class="COMM">/**
+<span class='line'> 51</span> 	 * dizionario (array associativo: in javascript è un oggetto) degli oggetti
+<span class='line'> 52</span> 	 * watabella trovati all'interno della pagina, valorizzato automaticamente 
+<span class='line'> 53</span> 	 * dalla classe
+<span class='line'> 54</span> 	 */</span><span class="WHIT">
+<span class='line'> 55</span> </span><span class="WHIT">	</span><span class="NAME">tabelle</span><span class="WHIT">		</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 56</span> </span><span class="WHIT">	
+<span class='line'> 57</span> 	</span><span class="COMM">/**
+<span class='line'> 58</span> 	 * dizionario (array associativo: in javascript è un oggetto) degli oggetti
+<span class='line'> 59</span> 	 * wamodulo trovati all'interno della pagina, valorizzato automaticamente 
+<span class='line'> 60</span> 	 * dalla classe
+<span class='line'> 61</span> 	 */</span><span class="WHIT">
+<span class='line'> 62</span> </span><span class="WHIT">	</span><span class="NAME">moduli</span><span class="WHIT">		</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 63</span> </span><span class="WHIT">	
+<span class='line'> 64</span> 	</span><span class="COMM">/**
+<span class='line'> 65</span> 	 * array degli oggetti watabella trovati all'interno della pagina, 
+<span class='line'> 66</span> 	 * valorizzato automaticamente dalla classe in ordine di creazione
+<span class='line'> 67</span> 	 */</span><span class="WHIT">
+<span class='line'> 68</span> </span><span class="WHIT">	</span><span class="NAME">tabelleIdx</span><span class="WHIT">	</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="PUNC">]</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 69</span> </span><span class="WHIT">	
+<span class='line'> 70</span> 	</span><span class="COMM">/**
+<span class='line'> 71</span> 	 * array degli oggetti wamodulo trovati all'interno della pagina, 
+<span class='line'> 72</span> 	 * valorizzato automaticamente dalla classe in ordine di creazione
+<span class='line'> 73</span> 	 */</span><span class="WHIT">
+<span class='line'> 74</span> </span><span class="WHIT">	</span><span class="NAME">moduliIdx</span><span class="WHIT">	</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="PUNC">]</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 75</span> </span><span class="WHIT">	
+<span class='line'> 76</span> 	</span><span class="COMM">/**
+<span class='line'> 77</span> 	 * primo oggetto watabella trovato all'interno della pagina; corrisponde
+<span class='line'> 78</span> 	 * al primo elemento di {@link tabelle} e  {@link tabelleIdx}.  
+<span class='line'> 79</span> 	 */</span><span class="WHIT">
+<span class='line'> 80</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 81</span> 	 * primo oggetto watabella trovato all'interno della pagina; corrisponde
+<span class='line'> 82</span> 	 * al primo elemento di {@link tabelle} e  {@link tabelleIdx}.  
+<span class='line'> 83</span> 	 */</span><span class="WHIT">
+<span class='line'> 84</span> </span><span class="WHIT">	</span><span class="NAME">tabella</span><span class="WHIT"> 	</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">		</span><span class="COMM">// prima o unica tabella passata al costruttore</span><span class="WHIT">
+<span class='line'> 85</span> </span><span class="WHIT">	
+<span class='line'> 86</span> 	</span><span class="COMM">/**
+<span class='line'> 87</span> 	 * primo oggetto wamodulo trovato all'interno della pagina; corrisponde
+<span class='line'> 88</span> 	 * al primo elemento di {@link moduli} e  {@link moduliIdx}.  
+<span class='line'> 89</span> 	 */</span><span class="WHIT">
+<span class='line'> 90</span> </span><span class="WHIT">	</span><span class="NAME">modulo</span><span class="WHIT"> 		</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">		</span><span class="COMM">// primo o unico modulo passato al costruttore</span><span class="WHIT">
+<span class='line'> 91</span> </span><span class="WHIT">	
+<span class='line'> 92</span> 	</span><span class="COMM">/**
+<span class='line'> 93</span> 	 * codice della modalità di navigazione da utilizzare, così come passato 
+<span class='line'> 94</span> 	 * dalla corrispondente classe PHP
+<span class='line'> 95</span> 	 */</span><span class="WHIT">
+<span class='line'> 96</span> </span><span class="WHIT">	</span><span class="NAME">modalitaNavigazione</span><span class="WHIT">	</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">''</span><span class="PUNC">,</span><span class="WHIT">		</span><span class="COMM">// codice della modalita' di navigazione da utilizzare (vedi waapplicazione.inc.php)</span><span class="WHIT">
+<span class='line'> 97</span> </span><span class="WHIT">	
+<span class='line'> 98</span> 	</span><span class="NAME">finestraFiglia</span><span class="WHIT">		</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">		</span><span class="COMM">// handle della finestra che contiene la pagina figlia quando si naviga in modalita' finestra</span><span class="WHIT">
+<span class='line'> 99</span> </span><span class="WHIT">	</span><span class="NAME">iframeFiglia</span><span class="WHIT">		</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">		</span><span class="COMM">// oggetto iframe che contiene la pagina figlia quando si naviga in modalita' interna</span><span class="WHIT">
+<span class='line'>100</span> </span><span class="WHIT">	
+<span class='line'>101</span> 	</span><span class="COMM">/**
+<span class='line'>102</span> 	 * metodo da richiamare da parte della pagina figlia in modo che la pagina 
+<span class='line'>103</span> 	 * parent si allinei alle modifiche apportate dalla figlia.
+<span class='line'>104</span> 	 * 
+<span class='line'>105</span> 	 * Per default questa proprietà punta al metodo {@link ricaricaPagina}, che,
+<span class='line'>106</span> 	 * appunto, si ricarica completamente per riflettere eventuali cambiamenti
+<span class='line'>107</span> 	 * apportati dalla pagina figlia. E' ben possibile utilizzare un altro 
+<span class='line'>108</span> 	 * metodo che, ad esempio, decida di recepire i cambiamenti tramite chiamate 
+<span class='line'>109</span> 	 * RPC.
+<span class='line'>110</span> 	 * 
+<span class='line'>111</span> 	 * al metodo viene passato un dizionario di tutti gli elementi che hanno
+<span class='line'>112</span> 	 * subito input.
+<span class='line'>113</span> 	 */</span><span class="WHIT">
+<span class='line'>114</span> </span><span class="WHIT">	</span><span class="NAME">metodoAllineamento</span><span class="WHIT">	</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT">	
+<span class='line'>115</span> 	
+<span class='line'>116</span> 	</span><span class="NAME">ultimoSpiazzamentoY</span><span class="WHIT">	</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT">		</span><span class="COMM">// posizione di scroll verticale della pagina al momento in cui si apre una pagina figlia (serve per riposizionarsi sul riallineamento in modalita' navigazione interna)</span><span class="WHIT">
+<span class='line'>117</span> 
+<span class='line'>118</span> </span><span class="WHIT">	</span><span class="NAME">modalitaNavigazionePagina</span><span class="WHIT">		</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">,</span><span class="WHIT">	</span><span class="COMM">// vedi defines in waapplicazione.inc.php</span><span class="WHIT">
+<span class='line'>119</span> </span><span class="WHIT">	</span><span class="NAME">modalitaNavigazioneFinestra</span><span class="WHIT"> 	</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">2</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>120</span> </span><span class="WHIT">	</span><span class="NAME">modalitaNavigazioneInterna</span><span class="WHIT">	 	</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">3</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>121</span> </span><span class="WHIT">	
+<span class='line'>122</span> 	</span><span class="COMM">// quando si naviga con finestra interna (iframe) non e' possibile chiamare</span><span class="WHIT">
+<span class='line'>123</span> </span><span class="WHIT">	</span><span class="COMM">// immediatamente il metodoAllineamento di una eventuale nonna, perche'</span><span class="WHIT">
+<span class='line'>124</span> </span><span class="WHIT">	</span><span class="COMM">// se metodoAllineamento prevede il ricaricamento della pagina (ed e' assai</span><span class="WHIT">
+<span class='line'>125</span> </span><span class="WHIT">	</span><span class="COMM">// probabile) cio' farebbe scomparire la mamma; per questo motivo salviamo</span><span class="WHIT">
+<span class='line'>126</span> </span><span class="WHIT">	</span><span class="COMM">// in un flag che quando la mamma (che ha ricevuto la chiamata a metodoAllineamento)</span><span class="WHIT">
+<span class='line'>127</span> </span><span class="WHIT">	</span><span class="COMM">// si chiude, allora quello e' il momento di chiamare il metodoAllineamento</span><span class="WHIT">
+<span class='line'>128</span> </span><span class="WHIT">	</span><span class="COMM">// della propria mamma (ossia la nonna della pagina che ha chiamato per </span><span class="WHIT">
+<span class='line'>129</span> </span><span class="WHIT">	</span><span class="COMM">// prima metodoAllineamento, che si deve trasmettere a cascata a tutte le</span><span class="WHIT">
+<span class='line'>130</span> </span><span class="WHIT">	</span><span class="COMM">// mamme)</span><span class="WHIT">
+<span class='line'>131</span> </span><span class="WHIT">	</span><span class="NAME">flagRicaricaNonnaNavigazioneInterna</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>132</span> </span><span class="WHIT">	
+<span class='line'>133</span> 	</span><span class="COMM">// vedi defiles in wamodulo.inc.php</span><span class="WHIT">
+<span class='line'>134</span> </span><span class="WHIT">	</span><span class="COMM">// nome del parametro tramite cui comunicare al modulo quale operazione e' </span><span class="WHIT">
+<span class='line'>135</span> </span><span class="WHIT">	</span><span class="COMM">// stata richiesta dall'utente</span><span class="WHIT">
+<span class='line'>136</span> </span><span class="WHIT">	</span><span class="NAME">chiaveOperazione</span><span class="WHIT">	</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">'waope'</span><span class="PUNC">,</span><span class="WHIT">	
+<span class='line'>137</span> 	</span><span class="COMM">// valore del parametro tramite cui comunicare al modulo che l'utente ha </span><span class="WHIT">
+<span class='line'>138</span> </span><span class="WHIT">	</span><span class="COMM">// richiesto la visualizzazione in dettaglio di un record</span><span class="WHIT">
+<span class='line'>139</span> </span><span class="WHIT">	</span><span class="NAME">opeDettaglio</span><span class="WHIT">		</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">,</span><span class="WHIT"> 
+<span class='line'>140</span> 	</span><span class="COMM">// valore del parametro tramite cui comunicare al modulo che l'utente ha </span><span class="WHIT">
+<span class='line'>141</span> </span><span class="WHIT">	</span><span class="COMM">// richiesto la creazione di un nuovo record</span><span class="WHIT">
+<span class='line'>142</span> </span><span class="WHIT">	</span><span class="NAME">opeInserimento</span><span class="WHIT">		</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">2</span><span class="PUNC">,</span><span class="WHIT"> 
+<span class='line'>143</span> 	</span><span class="COMM">// valore del parametro tramite cui comunicare al modulo che l'utente ha </span><span class="WHIT">
+<span class='line'>144</span> </span><span class="WHIT">	</span><span class="COMM">// richiesto la modifica di un record</span><span class="WHIT">
+<span class='line'>145</span> </span><span class="WHIT">	</span><span class="NAME">opeModifica</span><span class="WHIT">			</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">3</span><span class="PUNC">,</span><span class="WHIT"> 
+<span class='line'>146</span> 	</span><span class="COMM">// valore del parametro tramite cui comunicare al modulo che l'utente ha </span><span class="WHIT">
+<span class='line'>147</span> </span><span class="WHIT">	</span><span class="COMM">// richiesto l'eliminazione di un record</span><span class="WHIT">
+<span class='line'>148</span> </span><span class="WHIT">	</span><span class="NAME">opeElimina</span><span class="WHIT">			</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">4</span><span class="PUNC">,</span><span class="WHIT"> 
+<span class='line'>149</span> 
+<span class='line'>150</span> 	
+<span class='line'>151</span> 
+<span class='line'>152</span> 	</span><span class="COMM">//-------------------------------------------------------------------------</span><span class="WHIT">
+<span class='line'>153</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>154</span> 	 * inizializzazione (costruttore)
+<span class='line'>155</span> 	 * 
+<span class='line'>156</span> 	 */</span><span class="WHIT">
+<span class='line'>157</span> </span><span class="WHIT">	</span><span class="NAME">initialize</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> 
+<span class='line'>158</span> 		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>159</span> </span><span class="WHIT">		</span><span class="COMM">// definizione iniziale delle proprieta'</span><span class="WHIT">
+<span class='line'>160</span> </span><span class="WHIT">		</span><span class="NAME">this.metodoAllineamento</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.ricaricaPagina</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>161</span> </span><span class="WHIT">		</span><span class="NAME">this.iframeFiglia</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">document.getElementById</span><span class="PUNC">(</span><span class="STRN">"waapplicazione_iframe_figlia"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>162</span> </span><span class="WHIT">		
+<span class='line'>163</span> 		</span><span class="COMM">// cerca tutti gli oggetti di classe watabella e wamodulo presenti nella pagina</span><span class="WHIT">
+<span class='line'>164</span> </span><span class="WHIT">		</span><span class="COMM">// per associarli all'applicazione</span><span class="WHIT">
+<span class='line'>165</span> </span><span class="WHIT">		</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">li</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">document.forms</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>166</span> </span><span class="WHIT">			</span><span class="NAME">this.aggiungiOggetto</span><span class="PUNC">(</span><span class="NAME">document.forms</span><span class="PUNC">[</span><span class="NAME">li</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>167</span> </span><span class="WHIT">			
+<span class='line'>168</span> 		</span><span class="COMM">// collegamento tra la tabella e le azioni non comprese da standard; pone</span><span class="WHIT">
+<span class='line'>169</span> </span><span class="WHIT">		</span><span class="COMM">// le azioni nello scope dell'applicazione anziche' della tabella.</span><span class="WHIT">
+<span class='line'>170</span> </span><span class="WHIT">		</span><span class="NAME">this.collegaAzioniTabella</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>171</span> </span><span class="WHIT">		
+<span class='line'>172</span> 		</span><span class="COMM">// collegamento tra la tabella e le azioni non comprese da standard; pone</span><span class="WHIT">
+<span class='line'>173</span> </span><span class="WHIT">		</span><span class="COMM">// le azioni nello scope dell'applicazione anziche' della tabella.</span><span class="WHIT">
+<span class='line'>174</span> </span><span class="WHIT">		</span><span class="NAME">this.collegaLinkTabella</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>175</span> </span><span class="WHIT">		
+<span class='line'>176</span> 		</span><span class="COMM">// dice alle tabelle che funzione utilizzare per aprire le finestre figlie</span><span class="WHIT">
+<span class='line'>177</span> </span><span class="WHIT">		</span><span class="NAME">this.collegaFinestreTabelle</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>178</span> 
+<span class='line'>179</span> </span><span class="WHIT">		</span><span class="COMM">// collegamento tra il modulo e le azioni non comprese da standard</span><span class="WHIT">
+<span class='line'>180</span> </span><span class="WHIT">		</span><span class="COMM">// pone gli eventi nello scope dell'applicazione </span><span class="WHIT">
+<span class='line'>181</span> </span><span class="WHIT">		</span><span class="NAME">this.collegaEventiModulo</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>182</span> </span><span class="WHIT">		
+<span class='line'>183</span> 		</span><span class="COMM">// se ci vien passato un parametro di posizionamento verticale proviamo a</span><span class="WHIT">
+<span class='line'>184</span> </span><span class="WHIT">		</span><span class="COMM">// rimettere la pagina nella posizione in cui l'utente l'ha lasciata</span><span class="WHIT">
+<span class='line'>185</span> </span><span class="WHIT">		</span><span class="COMM">// quando ha aperto una pagina figlia che evidentemente ci chiede di allinearci</span><span class="WHIT">
+<span class='line'>186</span> </span><span class="WHIT">		</span><span class="COMM">// alle sue modifiche</span><span class="WHIT">
+<span class='line'>187</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">applRetY</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.dammiParametroQS</span><span class="PUNC">(</span><span class="STRN">"wa_pry"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> 
+<span class='line'>188</span> 		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">applRetY</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>189</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>190</span> </span><span class="WHIT">			</span><span class="KEYW">try</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="NAME">window.scrollTo</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">applRetY</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>191</span> </span><span class="WHIT">			</span><span class="KEYW">catch</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">exception</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="WHIT">		
+<span class='line'>192</span> 			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>193</span> </span><span class="WHIT">				
+<span class='line'>194</span> 		</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>195</span> </span><span class="WHIT">	
+<span class='line'>196</span> 	</span><span class="COMM">//-------------------------------------------------------------------------</span><span class="WHIT">
+<span class='line'>197</span> </span><span class="WHIT">	</span><span class="COMM">// data una form, va a vedere se e' una di quelle associate a wamodulo o</span><span class="WHIT">
+<span class='line'>198</span> </span><span class="WHIT">	</span><span class="COMM">// watabella; se del caso aggiunge gli oggetti a quelli gestiti</span><span class="WHIT">
+<span class='line'>199</span> </span><span class="WHIT">	</span><span class="COMM">// dall'applicazione</span><span class="WHIT">
+<span class='line'>200</span> </span><span class="WHIT">	</span><span class="NAME">aggiungiOggetto</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">form</span><span class="PUNC">)</span><span class="WHIT"> 
+<span class='line'>201</span> 		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>202</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">oggetto</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">''</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>203</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">tipo</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>204</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">form.watabella</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>205</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>206</span> </span><span class="WHIT">			</span><span class="NAME">tipo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"tabelle"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>207</span> </span><span class="WHIT">			</span><span class="NAME">oggetto</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">form.watabella</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>208</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>209</span> </span><span class="WHIT">		</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">form.wamodulo</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>210</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>211</span> </span><span class="WHIT">			</span><span class="NAME">tipo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"moduli"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>212</span> </span><span class="WHIT">			</span><span class="NAME">oggetto</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">form.wamodulo</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>213</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>214</span> </span><span class="WHIT">		</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>215</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">			
+<span class='line'>216</span> 			
+<span class='line'>217</span> 		</span><span class="NAME">oggetto.applicazione</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>218</span> </span><span class="WHIT">		</span><span class="KEYW">this</span><span class="PUNC">[</span><span class="NAME">tipo</span><span class="PUNC">]</span><span class="PUNC">[</span><span class="NAME">oggetto.nome</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">oggetto</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>219</span> </span><span class="WHIT">		</span><span class="KEYW">this</span><span class="PUNC">[</span><span class="NAME">tipo</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"Idx"</span><span class="PUNC">]</span><span class="PUNC">[</span><span class="KEYW">this</span><span class="PUNC">[</span><span class="NAME">tipo</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"Idx"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">length</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">oggetto</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>220</span> </span><span class="WHIT">		
+<span class='line'>221</span> 		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">oggetto.obj.watabella</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="NAME">this.tabella</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>222</span> </span><span class="WHIT">			</span><span class="NAME">this.tabella</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">oggetto</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>223</span> </span><span class="WHIT">		</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">oggetto.obj.wamodulo</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="NAME">this.modulo</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>224</span> </span><span class="WHIT">			</span><span class="NAME">this.modulo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">oggetto</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>225</span> </span><span class="WHIT">		
+<span class='line'>226</span> 		</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>227</span> </span><span class="WHIT">		
+<span class='line'>228</span> 	</span><span class="COMM">//-------------------------------------------------------------------------</span><span class="WHIT">
+<span class='line'>229</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>230</span> 	 * metodo documentato a soli fini illustrativi, ma che non ha alcuna 
+<span class='line'>231</span> 	 * necessità di essere invocato dal programmatore, in quanto richiamato
+<span class='line'>232</span> 	 * dalla classe in fase di inizializzazione.
+<span class='line'>233</span> 	 * 
+<span class='line'>234</span> 	 * Questo metodo cerca eventuali metodi definiti all'interno della classe
+<span class='line'>235</span> 	 * (e naturalmente sue derivate) che abbiano una corrispondenza con una
+<span class='line'>236</span> 	 * delle azioni definite all'interno di un oggetto watabella. Se trova la
+<span class='line'>237</span> 	 * corrispondenza, associa all'azione della tabella il metodo della classe,
+<span class='line'>238</span> 	 * tale per cui quando l'utente richiede l'azione viene invocato il metodo
+<span class='line'>239</span> 	 * della classe. Inoltre pone lo scope del metodo all'interno della classe
+<span class='line'>240</span> 	 * derivata da waapplicazione, anzichè di watabella.
+<span class='line'>241</span> 	 * &lt;p>
+<span class='line'>242</span> 	 * Ad esempio: supponiamo di avere nella pagina un oggetto watabella il cui
+<span class='line'>243</span> 	 * nome è &lt;b>tabella_ordini&lt;/b>, e che per quella tabella sia stato richiesto di
+<span class='line'>244</span> 	 * implementare l'azione su riga &lt;b>archivia&lt;/b>. 
+<span class='line'>245</span> 	 * &lt;/p>
+<span class='line'>246</span> 	 * Supponiamo ancora che abbiate istanziato in document.wapagina un oggetto
+<span class='line'>247</span> 	 * di classe derivata da waapplicazione e che implementi il metodo
+<span class='line'>248</span> 	 * &lt;/p>
+<span class='line'>249</span> 	 * &lt;pre>
+<span class='line'>250</span> 	 * azione_tabella_ordini_archivia : function(idRiga)
+<span class='line'>251</span> 	 * &lt;/pre>
+<span class='line'>252</span> 	 * &lt;p>
+<span class='line'>253</span> 	 * Ebbene, ogni volta che l'utente premerà il bottone (o qualsiasi altro
+<span class='line'>254</span> 	 * meccanismo) "archivia" verrà invocato il metodo da voi definito in 
+<span class='line'>255</span> 	 * document.wapagina, e lo scope del metodo sarà quello di document.wapagina,
+<span class='line'>256</span> 	 * ossia &lt;b>this&lt;/b> corrisponderà a document.wapagina e non a
+<span class='line'>257</span> 	 * document.tabella_ordini.
+<span class='line'>258</span> 	 * &lt;/p>
+<span class='line'>259</span> 	 * &lt;p>
+<span class='line'>260</span> 	 * A questo punto voi potrete chiamare il vostro server avvertendolo che
+<span class='line'>261</span> 	 * l'utente ha richiesto l'archiviazione della riga; ad esempio (supponendo
+<span class='line'>262</span> 	 * che la riga ordine abbia anche una colonna con nome &lt;b>titolo&lt;/b>):
+<span class='line'>263</span> 	 * &lt;/p>
+<span class='line'>264</span> 	 * &lt;pre>
+<span class='line'>265</span> 	 * {
+<span class='line'>266</span> 	 * if (confirm("Confermi archiviazione ordine " + this.tabelle["tabella_ordini"].righe[idRiga].campi.titolo + "?"))
+<span class='line'>267</span> 	 *	location.href = "?archivia=1&idRiga=" + idRiga;
+<span class='line'>268</span> 	 * }
+<span class='line'>269</span> 	 * &lt;/pre>
+<span class='line'>270</span> 	 */</span><span class="WHIT">
+<span class='line'>271</span> </span><span class="WHIT">	</span><span class="NAME">collegaAzioniTabella</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>272</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>273</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">nomeMetodo</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>274</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">nomeTabella</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>275</span> </span><span class="WHIT">		
+<span class='line'>276</span> 		</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nomeMetodo</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>277</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>278</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">[</span><span class="NAME">nomeMetodo</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">'function'</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">nomeMetodo.substr</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="STRN">"azione_"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">length</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"azione_"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>279</span> </span><span class="WHIT">				</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>280</span> </span><span class="WHIT">				</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nomeTabella</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">this.tabelle</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>281</span> </span><span class="WHIT">					</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>282</span> </span><span class="WHIT">					</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nomeMetodo.substr</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="STRN">"azione_"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">nomeTabella</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"_"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">length</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"azione_"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">nomeTabella</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"_"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>283</span> </span><span class="WHIT">						</span><span class="NAME">this.tabelle</span><span class="PUNC">[</span><span class="NAME">nomeTabella</span><span class="PUNC">]</span><span class="PUNC">[</span><span class="NAME">nomeMetodo</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="STRN">"id"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"return this.applicazione."</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">nomeMetodo</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"(id)"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>284</span> </span><span class="WHIT">					</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>285</span> </span><span class="WHIT">				</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>286</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>287</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>288</span> 
+<span class='line'>289</span> </span><span class="WHIT">	</span><span class="COMM">//-------------------------------------------------------------------------</span><span class="WHIT">
+<span class='line'>290</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>291</span> 	 * metodo documentato a soli fini illustrativi, ma che non ha alcuna 
+<span class='line'>292</span> 	 * necessità di essere invocato dal programmatore, in quanto richiamato
+<span class='line'>293</span> 	 * dalla classe in fase di inizializzazione.
+<span class='line'>294</span> 	 * 
+<span class='line'>295</span> 	 * Questo metodo cerca eventuali metodi definiti all'interno della classe
+<span class='line'>296</span> 	 * (e naturalmente sue derivate) che abbiano una corrispondenza con uno
+<span class='line'>297</span> 	 * dei link definiti all'interno di un oggetto watabella. Se trova la
+<span class='line'>298</span> 	 * corrispondenza, associa al link della tabella il metodo della classe,
+<span class='line'>299</span> 	 * tale per cui quando l'utente segue il link viene invocato il metodo
+<span class='line'>300</span> 	 * della classe. Inoltre pone lo scope del metodo all'interno della classe
+<span class='line'>301</span> 	 * derivata da waapplicazione, anzichè di watabella.
+<span class='line'>302</span> 	 * &lt;p>
+<span class='line'>303</span> 	 * Ad esempio: supponiamo di avere nella pagina un oggetto watabella il cui
+<span class='line'>304</span> 	 * nome è &lt;b>tabella_ordini&lt;/b>, e che per quella tabella sia stato richiesto di
+<span class='line'>305</span> 	 * implementare un link sulla colonna &lt;b>referente&lt;/b>. 
+<span class='line'>306</span> 	 * &lt;/p>
+<span class='line'>307</span> 	 * Supponiamo ancora che abbiate istanziato in document.wapagina un oggetto
+<span class='line'>308</span> 	 * di classe derivata da waapplicazione e che implementi il metodo
+<span class='line'>309</span> 	 * &lt;/p>
+<span class='line'>310</span> 	 * &lt;pre>
+<span class='line'>311</span> 	 * link_tabella_ordini_referente : function(idRiga)
+<span class='line'>312</span> 	 * &lt;/pre>
+<span class='line'>313</span> 	 * &lt;p>
+<span class='line'>314</span> 	 * Ebbene, ogni volta che l'utente seguirà il link nella cella della colonna
+<span class='line'>315</span> 	 * &lt;b>referente&lt;/b> verrà invocato il metodo da voi definito in 
+<span class='line'>316</span> 	 * document.wapagina, e lo scope del metodo sarà quello di document.wapagina,
+<span class='line'>317</span> 	 * ossia &lt;b>this&lt;/b> corrisponderà a document.wapagina e non a
+<span class='line'>318</span> 	 * document.tabella_ordini.
+<span class='line'>319</span> 	 * &lt;/p>
+<span class='line'>320</span> 	 * &lt;p>
+<span class='line'>321</span> 	 * A questo punto voi potrete, ad esempio, invocare il client di posta 
+<span class='line'>322</span> 	 * elettronica passandogli l'indirizzo email del referente (che avrete 
+<span class='line'>323</span> 	 * ovviamente inserito in una delle colonne della tabella, magari non visibile):
+<span class='line'>324</span> 	 * &lt;/p>
+<span class='line'>325</span> 	 * &lt;pre>
+<span class='line'>326</span> 	 * {
+<span class='line'>327</span> 	 * location.href = "mailto:" + this.tabelle["tabella_ordini"].righe[id].campi.EmailReferente;
+<span class='line'>328</span> 	 * }
+<span class='line'>329</span> 	 * &lt;/pre>
+<span class='line'>330</span> 	 */</span><span class="WHIT">
+<span class='line'>331</span> </span><span class="WHIT">	</span><span class="NAME">collegaLinkTabella</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>332</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>333</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">nomeMetodo</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>334</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">nomeTabella</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>335</span> </span><span class="WHIT">		
+<span class='line'>336</span> 		</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nomeMetodo</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>337</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>338</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">[</span><span class="NAME">nomeMetodo</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">'function'</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">nomeMetodo.substr</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="STRN">"link_"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">length</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"link_"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>339</span> </span><span class="WHIT">				</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>340</span> </span><span class="WHIT">				</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nomeTabella</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">this.tabelle</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>341</span> </span><span class="WHIT">					</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>342</span> </span><span class="WHIT">					</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nomeMetodo.substr</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="STRN">"link_"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">nomeTabella</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"_"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">length</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"link_"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">nomeTabella</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"_"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>343</span> </span><span class="WHIT">						</span><span class="NAME">this.tabelle</span><span class="PUNC">[</span><span class="NAME">nomeTabella</span><span class="PUNC">]</span><span class="PUNC">[</span><span class="NAME">nomeMetodo</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="STRN">"id"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"return this.applicazione."</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">nomeMetodo</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"(id)"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>344</span> </span><span class="WHIT">					</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>345</span> </span><span class="WHIT">				</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>346</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>347</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>348</span> 
+<span class='line'>349</span> </span><span class="WHIT">	</span><span class="COMM">//-------------------------------------------------------------------------</span><span class="WHIT">
+<span class='line'>350</span> </span><span class="WHIT">	</span><span class="COMM">// funzione richiamata automaticamente dalla collegaEventiModulo</span><span class="WHIT">
+<span class='line'>351</span> </span><span class="WHIT">	</span><span class="NAME">eventoApplicazione</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>352</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>353</span> </span><span class="WHIT">		</span><span class="COMM">// siamo nello scope dell'oggetto fisico che ha innescato l'evento;</span><span class="WHIT">
+<span class='line'>354</span> </span><span class="WHIT">		</span><span class="COMM">// vogliamo andare nello scope di questo (this) oggetto;</span><span class="WHIT">
+<span class='line'>355</span> </span><span class="WHIT">		</span><span class="COMM">// cerchiamo qual'e' il controllo a cui appartiene l'oggetto che ha</span><span class="WHIT">
+<span class='line'>356</span> </span><span class="WHIT">		</span><span class="COMM">// scatenato l'evento, in modo da ricostruire il nome del metodo da</span><span class="WHIT">
+<span class='line'>357</span> </span><span class="WHIT">		</span><span class="COMM">// richiamare</span><span class="WHIT">
+<span class='line'>358</span> </span><span class="WHIT">		
+<span class='line'>359</span> 		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">nomeMetodo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"evento_on"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">window.event</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">type</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"_"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>360</span> </span><span class="WHIT">		
+<span class='line'>361</span> 		</span><span class="COMM">// verifichiamo se non sia un evento del modulo</span><span class="WHIT">
+<span class='line'>362</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.elements</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>363</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.wamodulo.applicazione</span><span class="PUNC">[</span><span class="NAME">nomeMetodo</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">this.id</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"_"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">this.id</span><span class="PUNC">]</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>364</span> 
+<span class='line'>365</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">nomeControllo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">''</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>366</span> </span><span class="WHIT">		</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nomeControllo</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">this.form.wamodulo.controlli</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>367</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>368</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.form.wamodulo.controlli</span><span class="PUNC">[</span><span class="NAME">nomeControllo</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">miAppartiene</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>369</span> </span><span class="WHIT">				</span><span class="KEYW">break</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>370</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>371</span> </span><span class="WHIT">			
+<span class='line'>372</span> 		</span><span class="NAME">nomeMetodo</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.form.id</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"_"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">this.form.wamodulo.controlli</span><span class="PUNC">[</span><span class="NAME">nomeControllo</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">nome</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>373</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.form.wamodulo.applicazione</span><span class="PUNC">[</span><span class="NAME">nomeMetodo</span><span class="PUNC">]</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>374</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>375</span> </span><span class="WHIT">		
+<span class='line'>376</span> 	</span><span class="COMM">//-------------------------------------------------------------------------</span><span class="WHIT">
+<span class='line'>377</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>378</span> 	 * metodo documentato a soli fini illustrativi, ma che non ha alcuna 
+<span class='line'>379</span> 	 * necessità di essere invocato dal programmatore, in quanto richiamato
+<span class='line'>380</span> 	 * dalla classe in fase di inizializzazione.
+<span class='line'>381</span> 	 * 
+<span class='line'>382</span> 	 * Questo metodo cerca eventuali metodi definiti all'interno della classe
+<span class='line'>383</span> 	 * (e naturalmente sue derivate) che abbiano una corrispondenza con un
+<span class='line'>384</span> 	 * evento e uno dei controlli definiti all'interno di un oggetto wamodulo. Se trova la
+<span class='line'>385</span> 	 * corrispondenza, associa l'evento al metodo della classe,
+<span class='line'>386</span> 	 * tale per cui quando l'utente genera l'evento viene invocato il metodo
+<span class='line'>387</span> 	 * della classe. Inoltre pone lo scope del metodo all'interno della classe
+<span class='line'>388</span> 	 * derivata da waapplicazione, anzichè di wamodulo/wacontrollo.
+<span class='line'>389</span> 	 * &lt;p>
+<span class='line'>390</span> 	 * Ad esempio: supponiamo di avere nella pagina un oggetto wamodulo il cui
+<span class='line'>391</span> 	 * nome è &lt;b>modulo_ordini&lt;/b>, e che per quel modulo vogliate controllare
+<span class='line'>392</span> 	 * l'evento onblur sul controllo &lt;b>importo&lt;/b>
+<span class='line'>393</span> 	 * &lt;/p>
+<span class='line'>394</span> 	 * Supponiamo ancora che abbiate istanziato in document.wapagina un oggetto
+<span class='line'>395</span> 	 * di classe derivata da waapplicazione e che implementi il metodo
+<span class='line'>396</span> 	 * &lt;/p>
+<span class='line'>397</span> 	 * &lt;pre>
+<span class='line'>398</span> 	 * evento_onblur_modulo_ordini_importo: function (event)
+<span class='line'>399</span> 	 * &lt;/pre>
+<span class='line'>400</span> 	 * &lt;p>
+<span class='line'>401</span> 	 * Ebbene, ogni volta che l'utente genererà l'evento verrà invocato il metodo 
+<span class='line'>402</span> 	 * da voi definito in 
+<span class='line'>403</span> 	 * document.wapagina, e lo scope del metodo sarà quello di document.wapagina,
+<span class='line'>404</span> 	 * ossia &lt;b>this&lt;/b> corrisponderà a document.wapagina e non a
+<span class='line'>405</span> 	 * document.modulo_ordini.
+<span class='line'>406</span> 	 * &lt;/p>
+<span class='line'>407</span> 	 * &lt;p>
+<span class='line'>408</span> 	 * A questo punto voi potrete, ad esempio, verificare il superamento di una 
+<span class='line'>409</span> 	 * data soglia:
+<span class='line'>410</span> 	 * &lt;/p>
+<span class='line'>411</span> 	 * &lt;pre>
+<span class='line'>412</span> 	 * {
+<span class='line'>413</span> 	 * if (this.moduli["modulo_ordini"].controlli.importo.dammiValore() > 1000)
+<span class='line'>414</span> 	 *	alert("Attenzione: superata soglia!");
+<span class='line'>415</span> 	 * }
+<span class='line'>416</span> 	 * &lt;/pre>
+<span class='line'>417</span> 	 */</span><span class="WHIT">
+<span class='line'>418</span> </span><span class="WHIT">	</span><span class="NAME">collegaEventiModulo</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>419</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>420</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">elems</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>421</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">nomeEvento</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">''</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>422</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">nomeControllo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">''</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>423</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">nomeMetodo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">''</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>424</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">nomeModulo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">''</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>425</span> </span><span class="WHIT">			
+<span class='line'>426</span> 		</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nomeMetodo</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>427</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>428</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">[</span><span class="NAME">nomeMetodo</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">'function'</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">nomeMetodo.substr</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="STRN">"evento_"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">length</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"evento_"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>429</span> </span><span class="WHIT">				</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>430</span> </span><span class="WHIT">				</span><span class="NAME">elems</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nomeMetodo.split</span><span class="PUNC">(</span><span class="STRN">"_"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">3</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>431</span> </span><span class="WHIT">				</span><span class="NAME">nomeEvento</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">elems</span><span class="PUNC">[</span><span class="NUMB">1</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>432</span> </span><span class="WHIT">				</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nomeModulo</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">this.moduli</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>433</span> </span><span class="WHIT">					</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>434</span> </span><span class="WHIT">					</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nomeMetodo.substr</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="STRN">"evento_"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">nomeEvento</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"_"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">nomeModulo</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"_"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">length</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> 
+<span class='line'>435</span> 												</span><span class="STRN">"evento_"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">nomeEvento</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"_"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">nomeModulo</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"_"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>436</span> </span><span class="WHIT">						</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>437</span> </span><span class="WHIT">						</span><span class="NAME">nomeControllo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">nomeMetodo.substr</span><span class="PUNC">(</span><span class="PUNC">(</span><span class="STRN">"evento_"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">nomeEvento</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"_"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">nomeModulo</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"_"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">length</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>438</span> </span><span class="WHIT">						</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.moduli</span><span class="PUNC">[</span><span class="NAME">nomeModulo</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">controlli</span><span class="PUNC">[</span><span class="NAME">nomeControllo</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>439</span> </span><span class="WHIT">							</span><span class="NAME">this.moduli</span><span class="PUNC">[</span><span class="NAME">nomeModulo</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">controlli</span><span class="PUNC">[</span><span class="NAME">nomeControllo</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">aggiungiEvento</span><span class="PUNC">(</span><span class="NAME">nomeEvento</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.eventoApplicazione</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>440</span> </span><span class="WHIT">						</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nomeModulo</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">nomeControllo</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>441</span> </span><span class="WHIT">							</span><span class="COMM">// e' stato richiesto un evento sull'intero modulo (verosimilmente l'overload di onsubmit)</span><span class="WHIT">
+<span class='line'>442</span> </span><span class="WHIT">							</span><span class="NAME">this.moduli</span><span class="PUNC">[</span><span class="NAME">nomeModulo</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">obj</span><span class="PUNC">[</span><span class="NAME">nomeEvento</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.eventoApplicazione</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>443</span> </span><span class="WHIT">						</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>444</span> </span><span class="WHIT">					</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>445</span> </span><span class="WHIT">				</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>446</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>447</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>448</span> 
+<span class='line'>449</span> </span><span class="WHIT">	</span><span class="COMM">//-------------------------------------------------------------------------</span><span class="WHIT">
+<span class='line'>450</span> </span><span class="WHIT">	</span><span class="COMM">// dice alle tabelle che funzione utilizzare per aprire le finestre figlie</span><span class="WHIT">
+<span class='line'>451</span> </span><span class="WHIT">	</span><span class="NAME">collegaFinestreTabelle</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>452</span> </span><span class="WHIT">	    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>453</span> </span><span class="WHIT">	    </span><span class="COMM">// ricordati che la classe tabella ha un reference all'applicazione</span><span class="WHIT">
+<span class='line'>454</span> </span><span class="WHIT">	    </span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">li</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">this.tabelle</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>455</span> </span><span class="WHIT">	    	</span><span class="NAME">this.tabelle</span><span class="PUNC">[</span><span class="NAME">li</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">apriPagina</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">pagina</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">w</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">h</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.applicazione.apriPagina</span><span class="PUNC">(</span><span class="NAME">pagina</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">w</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">h</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>456</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>457</span> </span><span class="WHIT">	    
+<span class='line'>458</span> 	</span><span class="COMM">//-------------------------------------------------------------------------</span><span class="WHIT">
+<span class='line'>459</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>460</span> 	 * apre una pagina figlia
+<span class='line'>461</span> 	 * 
+<span class='line'>462</span> 	 * @param {string} pagina URL della pagina di destinazione
+<span class='line'>463</span> 	 * @param {int} winW larghezza della finestra di destinazione; naturalmente
+<span class='line'>464</span> 	 * ha senso solo per la modalità di navigazione a finestre; default 1024
+<span class='line'>465</span> 	 * @param {int} winW altezza della finestra di destinazione; naturalmente
+<span class='line'>466</span> 	 * ha senso solo per la modalità di navigazione a finestre; default 768
+<span class='line'>467</span> 	 */</span><span class="WHIT">
+<span class='line'>468</span> </span><span class="WHIT">	</span><span class="NAME">apriPagina</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">pagina</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">winW</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">winH</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>469</span> </span><span class="WHIT">	    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>470</span> </span><span class="WHIT">	    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.modalitaNavigazione</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">this.modalitaNavigazioneFinestra</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>471</span> </span><span class="WHIT">	    	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.apriPaginaFinestra</span><span class="PUNC">(</span><span class="NAME">pagina</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">winW</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">winH</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>472</span> </span><span class="WHIT">	    </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.modalitaNavigazione</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">this.modalitaNavigazioneInterna</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>473</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.apriPaginaInterna</span><span class="PUNC">(</span><span class="NAME">pagina</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>474</span> </span><span class="WHIT">		</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>475</span> </span><span class="WHIT">		    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>476</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">qoe</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">document.location.search.substr</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"?"</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="STRN">"&"</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"?"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>477</span> </span><span class="WHIT">		    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">paginaRitorno</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">encodeBase64</span><span class="PUNC">(</span><span class="NAME">document.location.pathname</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> 
+<span class='line'>478</span> 		    					</span><span class="NAME">document.location.search</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> 
+<span class='line'>479</span> 		    					</span><span class="NAME">qoe</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> 
+<span class='line'>480</span> 		    					</span><span class="STRN">"wa_pry="</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">this.dammiSpiazzamentoY</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>481</span> </span><span class="WHIT">		    </span><span class="NAME">qoe</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">pagina.indexOf</span><span class="PUNC">(</span><span class="STRN">"?"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="NUMB">1</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="STRN">"&"</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"?"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>482</span> </span><span class="WHIT">		    </span><span class="NAME">location.href</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">pagina</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">qoe</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"wa_pr="</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">paginaRitorno</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>483</span> </span><span class="WHIT">		    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>484</span> </span><span class="WHIT">		
+<span class='line'>485</span> 	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>486</span> </span><span class="WHIT">	    
+<span class='line'>487</span> 	</span><span class="COMM">//-------------------------------------------------------------------------</span><span class="WHIT">
+<span class='line'>488</span> </span><span class="WHIT">	</span><span class="NAME">apriPaginaFinestra</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">pagina</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">winW</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">winH</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>489</span> </span><span class="WHIT">	    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>490</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">winW</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">winW</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">1024</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>491</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">winH</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">winH</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">768</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>492</span> </span><span class="WHIT">		
+<span class='line'>493</span> 		</span><span class="NAME">this.chiudiFiglia</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>494</span> </span><span class="WHIT">		</span><span class="NAME">this.finestraFiglia</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">window.open</span><span class="PUNC">(</span><span class="NAME">pagina</span><span class="PUNC">,</span><span class="STRN">""</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>495</span> </span><span class="WHIT">								</span><span class="STRN">"width="</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">winW</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT">
+<span class='line'>496</span> </span><span class="WHIT">								</span><span class="STRN">",height="</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">winH</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT">
+<span class='line'>497</span> </span><span class="WHIT">								</span><span class="STRN">",screenX=0,screenY=0,top=0,left=0"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> 
+<span class='line'>498</span> 								</span><span class="STRN">",bgcolor=white,scrollbars=yes,resizable=yes,status=yes"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>499</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>500</span> </span><span class="WHIT">	    
+<span class='line'>501</span> 	</span><span class="COMM">//-----------------------------------------------------------------------------</span><span class="WHIT">
+<span class='line'>502</span> </span><span class="WHIT">	</span><span class="NAME">apriPaginaInterna</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">pagina</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>503</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>504</span> </span><span class="WHIT">		</span><span class="NAME">this.ultimoSpiazzamentoY</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.dammiSpiazzamentoY</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>505</span> </span><span class="WHIT">		</span><span class="NAME">scroll</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>506</span> </span><span class="WHIT">		</span><span class="NAME">document.body.style.overflow</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">'hidden'</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>507</span> </span><span class="WHIT">		</span><span class="NAME">this.iframeFiglia.style.visibility</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="STRN">''</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>508</span> </span><span class="WHIT">	    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.iframeFiglia.contentWindow</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>509</span> </span><span class="WHIT">	   		</span><span class="NAME">this.iframeFiglia.contentWindow.document.location.href</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">pagina</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>510</span> </span><span class="WHIT">	    </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">document.all</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>511</span> </span><span class="WHIT">			</span><span class="NAME">document.all</span><span class="PUNC">[</span><span class="NAME">this.iframeFiglia.id</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">src</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">pagina</span><span class="PUNC">;</span><span class="WHIT">  
+<span class='line'>512</span> 	
+<span class='line'>513</span> 	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>514</span> </span><span class="WHIT">	    
+<span class='line'>515</span> 	</span><span class="COMM">//-------------------------------------------------------------------------</span><span class="WHIT">
+<span class='line'>516</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>517</span> 	 * chiude la pagina corrente
+<span class='line'>518</span> 	 */</span><span class="WHIT">
+<span class='line'>519</span> </span><span class="WHIT">	</span><span class="NAME">chiudiPagina</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>520</span> </span><span class="WHIT">	    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>521</span> </span><span class="WHIT">	    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.modalitaNavigazione</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">this.modalitaNavigazioneFinestra</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>522</span> </span><span class="WHIT">	    	</span><span class="NAME">self.close</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>523</span> </span><span class="WHIT">	    </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.modalitaNavigazione</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">this.modalitaNavigazioneInterna</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>524</span> </span><span class="WHIT">	    	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>525</span> </span><span class="WHIT">			</span><span class="COMM">// se una figlia di questo frame ha richiesto il caricamento a </span><span class="WHIT">
+<span class='line'>526</span> </span><span class="WHIT">			</span><span class="COMM">// cascata delle mamme, questo e' il momento per dire alla mamma</span><span class="WHIT">
+<span class='line'>527</span> </span><span class="WHIT">			</span><span class="COMM">// di ricaricarsi</span><span class="WHIT">
+<span class='line'>528</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">parent.document.wapagina.flagRicaricaNonnaNavigazioneInterna</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">parent.document.wapagina.metodoAllineamento</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>529</span> </span><span class="WHIT">				</span><span class="NAME">parent.document.wapagina.metodoAllineamento</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>530</span> </span><span class="WHIT">			</span><span class="NAME">parent.document.body.style.overflow</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">''</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>531</span> </span><span class="WHIT">			</span><span class="NAME">parent.document.wapagina.iframeFiglia.style.visibility</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="STRN">'hidden'</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>532</span> </span><span class="WHIT">		   	</span><span class="NAME">document.location.href</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"about:blank"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>533</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">parent.document.wapagina.ultimoSpiazzamentoY</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>534</span> </span><span class="WHIT">				</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>535</span> </span><span class="WHIT">				</span><span class="KEYW">try</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="NAME">parent.scrollTo</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">parent.document.wapagina.ultimoSpiazzamentoY</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>536</span> </span><span class="WHIT">				</span><span class="KEYW">catch</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">exception</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="WHIT">		
+<span class='line'>537</span> 				</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>538</span> </span><span class="WHIT">	    	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>539</span> </span><span class="WHIT">		</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>540</span> </span><span class="WHIT">		    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>541</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">paginaRitorno</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.dammiParametroQS</span><span class="PUNC">(</span><span class="STRN">"wa_pr"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> 
+<span class='line'>542</span> 			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">paginaRitorno</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>543</span> </span><span class="WHIT">				</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">location.href</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">decodeBase64</span><span class="PUNC">(</span><span class="NAME">paginaRitorno</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>544</span> </span><span class="WHIT">			</span><span class="NAME">this.msgErrore</span><span class="PUNC">(</span><span class="STRN">"pagina di ritorno non trovata"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>545</span> </span><span class="WHIT">		    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>546</span> </span><span class="WHIT">	    	
+<span class='line'>547</span> 	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>548</span> </span><span class="WHIT">    
+<span class='line'>549</span> 	</span><span class="COMM">//-------------------------------------------------------------------------</span><span class="WHIT">
+<span class='line'>550</span> </span><span class="WHIT">	</span><span class="COMM">// ritna il valore di un parametro contenuto nella query-string dell'url corrente</span><span class="WHIT">
+<span class='line'>551</span> </span><span class="WHIT">	</span><span class="NAME">dammiParametroQS</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nomeParametro</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>552</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>553</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">coppie</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">document.location.search.substr</span><span class="PUNC">(</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">split</span><span class="PUNC">(</span><span class="STRN">'&'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>554</span> </span><span class="WHIT">		</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">coppie.length</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">>=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">--</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>555</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>556</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">kv</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">coppie</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">split</span><span class="PUNC">(</span><span class="STRN">'='</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>557</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">kv</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">nomeParametro</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>558</span> </span><span class="WHIT">				</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">kv</span><span class="PUNC">[</span><span class="NUMB">1</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>559</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>560</span> </span><span class="WHIT">		
+<span class='line'>561</span> 		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>562</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>563</span> </span><span class="WHIT">		
+<span class='line'>564</span> 	</span><span class="COMM">//-------------------------------------------------------------------------</span><span class="WHIT">
+<span class='line'>565</span> </span><span class="WHIT">	</span><span class="COMM">// restituisce lo posizione di scroll verticale della pagina, in modo che </span><span class="WHIT">
+<span class='line'>566</span> </span><span class="WHIT">	</span><span class="COMM">// quando ne viene chiamato il riallineamento possa posizionarsi nella </span><span class="WHIT">
+<span class='line'>567</span> </span><span class="WHIT">	</span><span class="COMM">// posizione dove l'utente l'aveva lasciata</span><span class="WHIT">
+<span class='line'>568</span> </span><span class="WHIT">	</span><span class="NAME">dammiSpiazzamentoY</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>569</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>570</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">y</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>571</span> </span><span class="WHIT">		</span><span class="KEYW">try</span><span class="WHIT">
+<span class='line'>572</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>573</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">document.documentElement</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">document.documentElement.scrollTop</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>574</span> </span><span class="WHIT">				</span><span class="NAME">y</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">document.documentElement.scrollTop</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>575</span> </span><span class="WHIT">			</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">document.body</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">document.body.scrollTop</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>576</span> </span><span class="WHIT">				</span><span class="NAME">y</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">document.body.scrollTop</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>577</span> </span><span class="WHIT">			</span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">window.pageYOffset</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>578</span> </span><span class="WHIT">				</span><span class="NAME">y</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">window.pageYOffset</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>579</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>580</span> </span><span class="WHIT">		</span><span class="KEYW">catch</span><span class="PUNC">(</span><span class="NAME">exception</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>581</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">y</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>582</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>583</span> </span><span class="WHIT">	
+<span class='line'>584</span> 	</span><span class="COMM">//-------------------------------------------------------------------------</span><span class="WHIT">
+<span class='line'>585</span> </span><span class="WHIT">	</span><span class="COMM">// metodo richiamato da una finestra figlia quando vuole comunicare alla mamma</span><span class="WHIT">
+<span class='line'>586</span> </span><span class="WHIT">	</span><span class="COMM">// di allinearsi alle modifiche da lei effettuate</span><span class="WHIT">
+<span class='line'>587</span> </span><span class="WHIT">	</span><span class="NAME">allineaGenitore</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">valoriInput</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>588</span> </span><span class="WHIT">	    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>589</span> </span><span class="WHIT">	    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.modalitaNavigazione</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">this.modalitaNavigazionePagina</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>590</span> </span><span class="WHIT">	    	</span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>591</span> </span><span class="WHIT">	    	
+<span class='line'>592</span> 		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">valoriInput</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">decodeBase64</span><span class="PUNC">(</span><span class="NAME">valoriInput</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>593</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">elems</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">valoriInput.split</span><span class="PUNC">(</span><span class="STRN">"|||"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>594</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">param</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>595</span> </span><span class="WHIT">		</span><span class="NAME">valoriInput</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>596</span> </span><span class="WHIT">		</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">elems.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>597</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>598</span> </span><span class="WHIT">			 </span><span class="NAME">param</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">elems</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">split</span><span class="PUNC">(</span><span class="STRN">"="</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">2</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>599</span> </span><span class="WHIT">			 </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">param</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>600</span> </span><span class="WHIT">			 	</span><span class="NAME">valoriInput</span><span class="PUNC">[</span><span class="NAME">param</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">param</span><span class="PUNC">[</span><span class="NUMB">1</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>601</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>602</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mamma</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">opener</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">opener</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">parent</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>603</span> </span><span class="WHIT">		</span><span class="NAME">mamma.document.wapagina.metodoAllineamento</span><span class="PUNC">(</span><span class="NAME">valoriInput</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>604</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>605</span> </span><span class="WHIT">    
+<span class='line'>606</span> 	</span><span class="COMM">//-------------------------------------------------------------------------</span><span class="WHIT">
+<span class='line'>607</span> </span><span class="WHIT">	</span><span class="COMM">// il default delle funzioni di sincronizzazione che una finestra child </span><span class="WHIT">
+<span class='line'>608</span> </span><span class="WHIT">	</span><span class="COMM">// chiama per far si che la mamma si allinei; nel caso piu' semplice</span><span class="WHIT">
+<span class='line'>609</span> </span><span class="WHIT">	</span><span class="COMM">// (questo), praticamente si ricarica. se avete bisogno di qualcosa di</span><span class="WHIT">
+<span class='line'>610</span> </span><span class="WHIT">	</span><span class="COMM">// piu' complesso, definite una vostra "metodoAllineamento"</span><span class="WHIT">
+<span class='line'>611</span> </span><span class="WHIT">	</span><span class="NAME">ricaricaPagina</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">datiInputFiglia</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>612</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>613</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">opener</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>614</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>615</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">opener.document.wapagina</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">opener.document.wapagina.metodoAllineamento</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>616</span> </span><span class="WHIT">				</span><span class="NAME">opener.document.wapagina.metodoAllineamento</span><span class="PUNC">(</span><span class="NAME">datiInputFiglia</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>617</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">			
+<span class='line'>618</span> 		</span><span class="KEYW">else</span><span class="WHIT"> 
+<span class='line'>619</span> 			</span><span class="NAME">parent.document.wapagina.flagRicaricaNonnaNavigazioneInterna</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>620</span> </span><span class="WHIT">			
+<span class='line'>621</span> 		</span><span class="COMM">// in caso di ricaricamento di finestra a causa di inserimento/modifica record</span><span class="WHIT">
+<span class='line'>622</span> </span><span class="WHIT">		</span><span class="COMM">// non dobbiamo chiudere  ne' la finestra di help, ne' quella service, quindi</span><span class="WHIT">
+<span class='line'>623</span> </span><span class="WHIT">		</span><span class="COMM">// dobbiamo ridefinire l'evento onUnload del documento</span><span class="WHIT">
+<span class='line'>624</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">document.layers</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>625</span> </span><span class="WHIT">			</span><span class="NAME">window.captureEvents</span><span class="PUNC">(</span><span class="NAME">Event.ONUNLOAD</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>626</span> </span><span class="WHIT">		</span><span class="NAME">window.onunload</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">''</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>627</span> </span><span class="WHIT">		
+<span class='line'>628</span> 		</span><span class="COMM">// ricarichiamo la finestra... sarebbe facile fare una reload; e invece no</span><span class="WHIT">
+<span class='line'>629</span> </span><span class="WHIT">		</span><span class="COMM">// perche' senno' il browser ci chiede l'autorizzazione in caso di precedente</span><span class="WHIT">
+<span class='line'>630</span> </span><span class="WHIT">		</span><span class="COMM">// submit. </span><span class="WHIT">
+<span class='line'>631</span> </span><span class="WHIT">		</span><span class="COMM">// OCCHIO! si perdono eventuali parametri POST! se servono, fatevi </span><span class="WHIT">
+<span class='line'>632</span> </span><span class="WHIT">		</span><span class="COMM">// un metodoAllineamento apposta</span><span class="WHIT">
+<span class='line'>633</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">qs</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">''</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>634</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">document.location.search.length</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>635</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>636</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">kv</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Array</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>637</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">coppie</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">document.location.search.substr</span><span class="PUNC">(</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">split</span><span class="PUNC">(</span><span class="STRN">'&'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>638</span> </span><span class="WHIT">			</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">coppie.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>639</span> </span><span class="WHIT">				</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>640</span> </span><span class="WHIT">				</span><span class="NAME">kv</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">coppie</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">split</span><span class="PUNC">(</span><span class="STRN">'='</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>641</span> </span><span class="WHIT">				</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">kv</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="STRN">"wa_pry"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>642</span> </span><span class="WHIT">					</span><span class="NAME">qs</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">qs</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">''</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="STRN">'?'</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">'&'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">kv</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"="</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">kv</span><span class="PUNC">[</span><span class="NUMB">1</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">kv</span><span class="PUNC">[</span><span class="NUMB">1</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">''</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>643</span> </span><span class="WHIT">				</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>644</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>645</span> </span><span class="WHIT">			
+<span class='line'>646</span> 		</span><span class="COMM">// aggiungiamo al ricaricamnto il parametro per lo spiazzamento verticale,</span><span class="WHIT">
+<span class='line'>647</span> </span><span class="WHIT">		</span><span class="COMM">// cosi' l'utente ritrova la pagina nella posizione dove l'ha lasciata</span><span class="WHIT">
+<span class='line'>648</span> </span><span class="WHIT">	    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.modalitaNavigazione</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">this.modalitaNavigazioneFinestra</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>649</span> </span><span class="WHIT">			</span><span class="NAME">qs</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">qs</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">''</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="STRN">'?'</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">'&'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"wa_pry="</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">this.dammiSpiazzamentoY</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>650</span> </span><span class="WHIT">	    </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.modalitaNavigazione</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">this.modalitaNavigazioneInterna</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>651</span> </span><span class="WHIT">			</span><span class="NAME">qs</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">qs</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">''</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="STRN">'?'</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">'&'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"wa_pry="</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">this.ultimoSpiazzamentoY</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>652</span> </span><span class="WHIT">		
+<span class='line'>653</span> 		</span><span class="NAME">document.location.href</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">document.location.pathname</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">qs</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>654</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>655</span> </span><span class="WHIT">	
+<span class='line'>656</span> 
+<span class='line'>657</span> 	</span><span class="COMM">//-------------------------------------------------------------------------</span><span class="WHIT">
+<span class='line'>658</span> </span><span class="WHIT">	</span><span class="COMM">// metodo invocato sulla unload del documento; se la navigazione e' a </span><span class="WHIT">
+<span class='line'>659</span> </span><span class="WHIT">	</span><span class="COMM">// finestre chiude una eventuale finestra figlia (e a cascata le figlie</span><span class="WHIT">
+<span class='line'>660</span> </span><span class="WHIT">	</span><span class="COMM">// chiuderanno le figlie)</span><span class="WHIT">
+<span class='line'>661</span> </span><span class="WHIT">	</span><span class="NAME">chiudiFiglia</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>662</span> </span><span class="WHIT">	    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>663</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.finestraFiglia</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="NAME">this.finestraFiglia.closed</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>664</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>665</span> </span><span class="WHIT">			</span><span class="NAME">this.finestraFiglia.document.wapagina.chiudiPagina</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>666</span> </span><span class="WHIT">			</span><span class="NAME">this.finestraFiglia</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>667</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>668</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>669</span> 
+<span class='line'>670</span> </span><span class="WHIT">	</span><span class="COMM">//-------------------------------------------------------------------------</span><span class="WHIT">
+<span class='line'>671</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>672</span> 	 * mostra un messaggio di errore e torna false
+<span class='line'>673</span> 	 */</span><span class="WHIT">
+<span class='line'>674</span> </span><span class="WHIT">	</span><span class="NAME">msgErrore</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">msg</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>675</span> </span><span class="WHIT">	    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>676</span> </span><span class="WHIT">	    </span><span class="NAME">alert</span><span class="PUNC">(</span><span class="NAME">msg</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>677</span> </span><span class="WHIT">	    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>678</span> </span><span class="WHIT">	    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>679</span> 
+<span class='line'>680</span> </span><span class="WHIT">	</span><span class="COMM">//-------------------------------------------------------------------------</span><span class="WHIT">
+<span class='line'>681</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>682</span> 	 * verifica se un oggetto dizionario ha elementi al suo interno oppure no
+<span class='line'>683</span> 	 */</span><span class="WHIT">
+<span class='line'>684</span> </span><span class="WHIT">	</span><span class="NAME">dizionarioVuoto</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">dizionario</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>685</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>686</span> </span><span class="WHIT">		</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">li</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">dizionario</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>687</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>688</span> </span><span class="WHIT">		
+<span class='line'>689</span> 		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>690</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>691</span> </span><span class="WHIT">		
+<span class='line'>692</span> 	</span><span class="COMM">//-------------------------------------------------------------------------</span><span class="WHIT">
+<span class='line'>693</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>694</span> 	 * mostra il contenuto di un oggetto (utile in fase di debug per i dizionari)
+<span class='line'>695</span> 	 */</span><span class="WHIT">
+<span class='line'>696</span> </span><span class="WHIT">	</span><span class="NAME">mostraOggetto</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">obj</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>697</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>698</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">msg</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">''</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>699</span> </span><span class="WHIT">		</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">li</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">obj</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>700</span> </span><span class="WHIT">			</span><span class="NAME">msg</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">li</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"="</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">obj</span><span class="PUNC">[</span><span class="NAME">li</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"\n"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>701</span> </span><span class="WHIT">		</span><span class="NAME">alert</span><span class="PUNC">(</span><span class="NAME">msg</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>702</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>703</span> 
+<span class='line'>704</span> </span><span class="WHIT">		
+<span class='line'>705</span> 	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>706</span> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>707</span> 
+<span class='line'>708</span> </span><span class="COMM">//-----------------------------------------------------------------------------</span><span class="WHIT">
+<span class='line'>709</span> </span><span class="COMM">//-----------------------------------------------------------------------------</span><span class="WHIT">
+<span class='line'>710</span> </span><span class="COMM">//-----------------------------------------------------------------------------</span><span class="WHIT">
+<span class='line'>711</span> </span></pre></body></html>

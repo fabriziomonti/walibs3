@@ -1,0 +1,79 @@
+2013-11-22 tag rel_3_0_19
+- aggiunta gestione waApplicazione::aggiungiElemento XML
+
+2013-11-08 tag rel_3_0_18
+- aggiunti tag xml versione librerie xslt 
+- corretto errori su driver MySQLi
+
+2013-10-30 tag rel_3_0_17
+- aggiunti tag xml relativi alla sezione in waApplicazione
+
+2013-10-25 tag rel_3_0_16
+- aggiunta gestione eventi su UI di multiselezione_checkbox
+
+2013-09-17 tag rel_3_0_14
+- modificata mandaMail : gestisce exception applicative (altrimenti la versione 5.2 di phpMailer faceva un echo a fronte di exception applicativa... strana gestione...)
+
+2013-08-02 tag rel_3_0_14
+- corretto su waDb: velocizzata cancellazione da recordset
+
+2013-08-02 tag rel_3_0_13
+- corretto su waDb: errore presente dal 2008, tosy's rulez: la cancellazione 
+di più di un record contemporaneamente provocava la cancellazione di un solo
+record (il primo che soddisfaceva la condizione)
+
+2013-07-30 tag rel_3_0_12
+- corretto su waTabella : strano errore su costruzione elemento URI: 
+	http_build_query faceva un encoding non gradito. Ma l'ha sempre fatto?
+	Adesso comunque sembra a posto
+- corretto su waTabella: errore su tipo input logico e quick-edit
+- waDB: operatore eq dannoso su recid in FM 12
+- waDocumentazione può aggiungere elementi
+
+
+2013-07-05 tag rel_3_0_11
+- corretto su waModulo : elimina() elimina solo se il record ha un solo
+	campo chiave primaria
+
+2013-07-01 tag rel_3_0_10
+- reverting completo sulle date: si usano solo date e mktime (no gm...);
+se si incorre nuovamente nel problema del dst sbagliato per date vecchie (
+1904-01-01
+1944-08-21
+1945-07-16
+1941-11-09
+)
+allora faremo un nuovo controllo che salva il campo stringa iso
+
+2013-07-01 tag rel_3_0_9
+- nessuna modifica: scordato solamente il changelog...
+
+2013-07-01 tag rel_3_0_8
+- wamodulo: corretto date -> gmdate in modulo.class.php
+- watabella: inclusione in CDATA di un valore dì una colonna per cui è stato richiesto convertiHTML = false
+
+2013-06-28 tag rel_3_0_7
+- errore su creazione oggetti javascript
+
+
+2013-06-20 tag rel_3_0_6
+- metodo mostra di waApplicazione; correggiHTML per conformità strict a XHTML 
+1.0 chiamata solo in caso di effettivo html e di pagina intera
+
+2013-06-12 tag rel_3_0_5
+- aggiunto controllo captcha a waModulo + aggiornata documentazione
+
+2013-06-11 tag rel_3_0_4
+- aggiunto controllo cfpi a waModulo
+
+2013-06-10 tag rel_3_0_3
+- errore su metodo mostra di waApplicazione; veniva chiamata 2 volte correggiHTML
+	per conformità strict a XHTML 1.0
+
+2013-03-27
+- tutte le funzioni data fanno riferimento sempre a GMT
+- eliminato adodb
+
+2013-03-25
+- aggiunto waNonControllo
+- aggiunto multiselezione_checkbox (xslt)

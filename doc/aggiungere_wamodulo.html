@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title></title>
+		<link href="css/documentazione_walibs3.css" rel="stylesheet" />
+	</head>
+
+	<body>
+
+		<div class='titolo'>waLibs 3.x</div>
+		<div class='titolo'>Aggiungere un waModulo</div>
+
+		<div>
+			Più o meno, aggiungere un modulo ad una pagina di waApplicazione è
+			uguale a quanto avviene per waMenu e waTabella. Almeno per ciò che 
+			riguarda l'output (dal server verso il client) la sequenza è la 
+			medesima: si crea l'oggetto, lo si istruisce sui requisiti che dovrà
+			possedere, lo si aggiunge come elemento alla pagina e si manda
+			la pagina in output.
+		</div>
+		
+		<div>
+			Ma la pagina che ospita un modulo possiede, per sua natura, due
+			diversi momenti di vita: una prima volta manda il modulo in output,
+			una seconda volta viene richiamata per gestire i dati di input ed
+			eventualmente consolidarli sulla base dati. E ha quindi bisogno anche 
+			di un cappello iniziale nel quale prendere la decisione su quale
+			dei due momenti del ciclo di vita deve espletare.
+		</div>
+
+		<div>
+			Per rispettare gli esempi precedenti, costruiremo tutta la
+			funzionalità all'interno di un unico metodo della pagina, ma va da 
+			se che non il è migliore dei costrutti possibili:
+		</div>
+		
+		<div>
+			<pre class='php-code'>
+&lt;?php
+<span class="php-comment">
+//****************** pagina1.php ***************************************
+</span>
+include dirname(__FILE__) . "/testwalibs.inc.php";
+
+class pagina extends testwalibs
+	{
+	function faiQualcosa()
+		{			
+		<span style="color: red">
+		<span class="php-comment">// creazione del modulo...</span>
+		$modulo = new waModulo(null, $this);
+
+		<span class="php-comment">// creazione del recordset e associazione del recordset al modulo</span>
+		$dbconn = $this->dammiConnessioneDB($this->fileConfigurazioneDB);
+	  	$sql = "SELECT * FROM amministrazioni WHERE id_amministrazione=" . $dbconn->interoSql(1);
+		$modulo->righeDB = $this->dammiRigheDB($sql, $dbconn, 1);
+		
+	 	<span class="php-comment">// inserimento dei controlli all'interno del modulo</span>
+		$modulo->aggiungiIntero("id_amministrazione", "Identificativo", true);
+		$modulo->aggiungiTesto("sigla", "Sigla", false, true);
+		$modulo->aggiungiTesto("nome", "Nome");
+		$modulo->aggiungiBottone("cmdInvia", "REGISTRA");
+
+		<span class="php-comment">// leggiamo eventuali valori di input (se e' stato fatto submit o 
+		// richiesta RPC)</span>
+		$modulo->leggiValoriIngresso();
+
+		<span class="php-comment">// eseguiamo l'operazione a seconda della scelta dell' utente</span>
+		if ($modulo->daAggiornare())
+			{
+			<span class="php-comment">// l'utente ha richiesto update  o insert del record</span>
+			$modulo->verificaObbligo();
+			if (!$modulo->salva(true))
+				$this->mostraErroreDB($modulo->righeDB->connessioneDB);
+			<span class="php-comment">// cicla su se stessa</span>
+			$this->ridireziona("pagina1.php");
+			}
+		</span>
+		<span class="php-comment">// mandiamo in output la pagina</span>
+		$this->aggiungiElemento($this->dammiMenu());
+		$corpo = "Lorem Ipsum è un testo segnaposto utilizzato nel settore della 
+			tipografia e della stampa. Lorem Ipsum è considerato il testo segnaposto standard 
+			sin dal sedicesimo secolo, quando un anonimo tipografo prese una cassetta di 
+			caratteri e li assemblò per preparare un testo campione. È sopravvissuto non solo 
+			a più di cinque secoli, ma anche al passaggio alla videoimpaginazione, pervenendoci 
+			sostanzialmente inalterato. Fu reso popolare, negli anni ’60, con la diffusione 
+			dei fogli di caratteri trasferibili “Letraset”, che contenevano passaggi del 
+			Lorem Ipsum, e più recentemente da software di impaginazione come Aldus PageMaker, 
+			che includeva versioni del Lorem Ipsum.";
+		$this->aggiungiElemento($corpo, "corpo");
+		$this->aggiungiElemento("ciao mondo", "titolo");
+		<span style="color: red">
+		$this->aggiungiElemento($modulo);
+		</span>
+		$this->mostra();
+		}
+
+	}
+
+$pagina = new pagina();
+$pagina->faiQualcosa();
+?&gt;
+			</pre>
+		</div>
+
+		<div>
+			Sempre secondo il solito schema, anche waModulo ha un output 
+			completamente personalizzabile. Ma non solo: lo è anche l'input.
+			Tutti i valori inseriti nel modulo dall'utente, infatti, vengono 
+			filtrati da un apposito template XSLT, che naturalmente potete 
+			personalizzare. In questo modo è possibile, ad esempio creare 
+			dati logicamente uguali ma a partire da funzionalità di input 
+			diverse.
+		</div>
+		
+		<div>
+			Ad esempio: le date, nella UI di default delle waLibs, vengono
+			presentate all'utente sotto forma di 3 menu a tendina: giorno, mese,
+			anno. Può ben darsi che voi o il vostro committente preferiate
+			una modalità di inserimento completamente diversa: un unico input
+			di tipo testo nel quale inserire anche i separatori. Ebbene, nessun 
+			problema: al foglio XSLT sarà sottoposto il contenuto ricevuto in HTTP/POST
+			e questi, in corrispondenza del controllo di tipo data, non dovrà fare 
+			altro che trasformare il valore inputato dall'utente in un unico controllo di 
+			testo, nel formato <b>Y-m-d</b> che si aspetta la classe 
+			waModulo. Anche la UI di default, per forza di cose, effettua
+			questa conversione.
+		</div>
+		
+		<div>
+			Il modulo creato in questo esempio sfrutta alcuni macro-metodi che
+			riuniscono diverse istruzioni e permettono di creare velocemente un 
+			waModulo molto standard. Sono ovviamente a disposizione nell'API 
+			anche le singole istruzioni sgranate che permettono un controllo
+			assai più fine nella costruzione del modulo. Inoltre, potete 
+			sempre estendere la classe waModulo e ridefinire i macro-metodi
+			(quali <i>aggiungiTesto</i>, per intenderci) affinchè si
+			comportino come piace a voi. Anche in questo caso è buona prassi
+			avere un metodo dell'applicazione che crei e restituisca un oggetto
+			waModulo o sua estensione, così come abbiamo già visto per waTabella.
+		</div>
+		
+		<div>
+			P.S.: anche waTabella è in grado di gestire input di dati, ma non 
+			essendo il suo compito elettivo si approfondirà l'argomento nella
+			documentazione specifica.
+		</div>
+		
+		<div>
+			<table class="navbar">
+				<tr>
+					<td align="left"><a href="aggiungere_watabella.html"><< Aggiungere una waTabella</a></td>
+					<td align="right"><a href="buone_prassi_1.html">Buone prassi - 1 >></a></td>
+				</tr>
+			</table>
+		</div>
+
+	</body>
+</html>

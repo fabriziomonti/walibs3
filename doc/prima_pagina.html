@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title></title>
+		<link href="css/documentazione_walibs3.css" rel="stylesheet" />
+	</head>
+
+	<body>
+
+		<div class='titolo'>waLibs 3.x</div>
+		<div class='titolo'>La mia prima pagina</div>
+
+		<div>... Creiamo quindi un altro file PHP, diciamo
+			<i>pagina1.php</i>, includiamo la nostra applicazione, creiamo una
+			nuova classe che estende la nostra applicazione e istanziamola
+		</div>
+		
+		<div>
+			<pre class='php-code'>
+&lt;?php
+<span class="php-comment">
+//****************** pagina1.php ***************************************
+</span>
+include dirname(__FILE__) . "/testwalibs.inc.php";
+
+class pagina extends testwalibs
+	{
+
+	}
+
+$pagina = new pagina();
+?&gt;
+			</pre>
+		</div>
+		
+		<div>
+			Andate sul vostro browser e richiamate l'URL della pagina (nel nostro
+			esempio: <i>http://localhost/testwalibs/pagina1.php</i>);
+			se ottenete qualche errore tornate indietro e guardate cosa avete
+			sbagliato (e se non lo trovate considerate l'idea di cambiare mestiere
+			prima di chiamare uno dei "vecchi"). Altrimenti avete creato la 
+			prima pagina della vostra nuova applicazione. Che ancora una volta 
+			non fa assolutamente nulla. Modifichiamo allora il nostro file
+			<i>pagina1.php</i> e istruiamo l'applicazione di mandare in output
+			un elemento della pagina che chiameremo <i>titolo</i> e che conterrà
+			la stringa <i>ciao mondo</i>
+		</div>
+		
+		<div>
+			<pre class='php-code'>
+&lt;?php
+<span class="php-comment">
+//****************** pagina1.php ***************************************
+</span>
+include dirname(__FILE__) . "/testwalibs.inc.php";
+
+class pagina extends testwalibs
+	{
+	<span style="color: red">function faiQualcosa()
+		{			
+		$this->aggiungiElemento("ciao mondo", "titolo");
+		$this->mostra();
+		}</span>
+
+	}
+
+$pagina = new pagina();
+<span style="color: red">$pagina->faiQualcosa();</span>
+?&gt;
+			</pre>
+		</div>
+		
+		<div>
+			Finalmente la nostra pagina fa qualcosa. Se, tramite il browser,
+			guardate il sorgente HTML della pagina, vedrete che fa molto più di 
+			quanto possa sembrare a un occhio non smaliziato: ha creato una 
+			pagina perfettamente <i>strict</i> che carica una serie di fogli
+			di stile CSS (anche uno col nome uguale a quello dell'applicazione
+			e uno col nome uguale a quello della pagina) e una serie di script
+			Javascript (anche uno col nome uguale a quello dell'applicazione
+			e uno col nome uguale a quello della pagina). Inoltre ha creato
+			un <i>&lt;div&gt;</i> di classe CSS <i>waapplicazione_titolo</i> e
+			all'interno di questo ha pubblicato la stringa <i>ciao mondo</i>. 
+			Quindi ora, qualora creaste il file CSS dell'applicazione 
+			<i>/var/www/testwalibs/ui/css/testwalibs.css</i> e all'interno
+			di questo definiste lo stile <i>waapplicazione_titolo</i>... esatto,
+			avete già capito cosa succede.
+		</div>
+		
+		<div>
+			Il responsabile di tutto ciò, ossia colui che ha trasformato le 
+			vostre istruzioni astratte in una pagina HTML di senso compiuto, è
+			il foglio XSLT della UI di default di waApplicazione. 
+		</div>
+		
+		<div>
+			Come già detto, 
+			le UI delle waLibs sono quelle sezioni destinate a creare una interfaccia
+			utente personalizzata a fronte delle istruzioni astratte, logiche, che
+			sono le business-rules (i requisiti logici) dell'applicazione. Il 
+			<i>come</i> questi requisiti logici vengono funzionalmente 
+			presentati all'utente è il compito delle UI. 
+		</div>
+		
+		<div>
+			Ogni oggetto destinato all'output delle waLibs ha una UI di default. 
+			Le quali fanno già un sacco di cose (quali e come è documentato
+			all'interno della UI di ogni oggetto), e quindi magari ridefinendo 
+			solo gli stili CSS potreste già creare un'applicazione gestionale
+			HTML perfettamente funzionale. Ma se, come è probabile, non tutte le 
+			funzionalità di default sono di vostro gradimento, è sufficiente 
+			compilare un nuovo foglio XSLT, magari partendo come base da quello 
+			di default, istruire l'oggetto che deve usare il nuovo XSLT al posto
+			di quello di default ed ecco che potete creare 50 versioni 
+			funzionalmente diverse della stessa applicazione, delle stesse
+			identiche business-rules. Anche verso client di tipo affatto diverso
+			dall'HTML.
+		</div>
+		
+		<div>
+			<table class="navbar">
+				<tr>
+					<td align="left"><a href="prima_waapplicazione.html"><< La mia prima waApplicazione</a></td>
+					<td align="right"><a href="personalizzare_ui_1.html">Personalizzare la UI - 1 >></a></td>
+				</tr>
+			</table>
+		</div>
+
+	</body>
+</html>

@@ -1,0 +1,62 @@
+/* context menu specific */
+.contextmenu
+	{
+    border: #000000 1px solid;
+	padding: 0;
+	background-color: #000080;
+	margin-top: 0px;
+	padding-left: 20px;
+	margin-left: -20px;
+	}
+	
+.contextmenu .separator	
+	{ 
+	border-top:1px solid #999;
+	}
+	
+.contextmenu li	
+	{ 
+	list-style-type: none;
+	list-style-position: inside;
+	
+	}
+	
+.contextmenu li a,
+.contextmenu li a:active,
+.contextmenu li a:visited,
+.contextmenu li a:link,
+.contextmenu li a:hover
+	{ 
+	display:block;
+	padding: 8px;
+	padding-right: 40px;
+	text-decoration:none;
+	color:#ffffff;
+	border: none;
+	margin-left: -20px;
+    text-align: left;
+	background-color: #000080;
+	
+	}
+	
+.contextmenu li a:hover	
+	{ 
+	background-color: #0000ff;
+	}
+	
+.contextmenu li.disabled 
+	{ 
+	display:block;
+	padding: 3px;
+	padding-right: 40px;
+	text-decoration:none;
+	color:#ffffff ;
+	border: none ;
+    font-size: 12px;
+    font-weight: bold;
+	margin: 5px;
+	margin-left: 7px;
+	color: #c0c0c0;
+	}
+	
+

@@ -1,0 +1,177 @@
+<html>
+	<head>
+		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+		<title>waDocumentazione 3.0</title>
+		<link rel="stylesheet" type="text/css" href="media/style.css">
+	</head>
+	<body>
+
+		<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+			<tr>
+				<td class="header_top">waDocumentazione</td>
+			</tr>
+			<tr><td class="header_line"><img src="media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+			<tr>
+				<td class="header_menu">
+					
+																		
+																						[ <a href="classtrees_waDocumentazione.html" class="menu">albero delle classi</a> ]
+						[ <a href="elementindex_waDocumentazione.html" class="menu">indice degli elementi</a> ]
+										<!-- [ <a href="elementindex.html" class="menu">all elements</a> ] -->
+				</td>
+			</tr>
+			<tr><td class="header_line"><img src="media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+		</table>
+
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr valign="top">
+				<td width="200" class="menu">
+															<!-- <b>Packages:</b><br />-->
+											<a href="li_waDocumentazione.html">Introduzione</a><br />
+										<br />
+													
+					
+											<b>Classi:</b><br />
+								    		<a href="waDocumentazione/waDocumentazione.html">waDocumentazione</a><br />
+	
+						<br />
+					
+											<b>Files:</b><br />
+						<a href="waDocumentazione/_wadocumentazione.class.php.html">wadocumentazione.class.php
+</a><br>
+<a href="waDocumentazione/_wadocumentazione.config.inc.php.html">wadocumentazione.config.inc.php
+</a><br>
+<br />
+						<br />
+					
+					
+							</td>
+			<td>
+				<table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
+
+												<!--NewPage-->
+<HTML>
+<HEAD>
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+	<TITLE>waDocumentazione 3.0</TITLE>
+<LINK REL ='stylesheet' TYPE='text/css' HREF='../media/layout.css' TITLE='Style'>
+<LINK REL ='stylesheet' TYPE='text/css' HREF='../media/stylesheet.css' TITLE='Style'>
+</HEAD>
+<BODY>
+<p>&nbsp;</p>
+<div align="center">
+<h1>waDocumentazione 3.0</h1>
+</div>
+<p>&nbsp;</p>
+<div align="justify">
+Classe per la creazione automatica di documentazione di applicazioni waLibs.
+<p>
+La classe ha 3 fasi:
+<ul>
+	<li>
+		nella prima è sufficiente associare un'istanza della classe alla proprietà
+		waApplicazione::waDoc; questa azione, che ovviamente deve avvenire in
+		ambiente di sviluppo e mai di produzione per ovvi motivi di performance,
+		provoca la creazione della struttura della documentazione della pagina 
+		(istanza dell'applicazione) corrente e degli oggetti (waDB, waMenu, waTabella, waModulo)
+		in essa contenuti. Qualora le tabelle relative alla documentazione non
+		fossero presenti nel DB passato come parametro al costruttore della classe,
+		queste saranno create.
+		<br>
+		E' necessario visitare tutte le pagine dell'applicazione affinchè venga
+		creata la struttura della documentazione di tutte le pagine (e degli oggetti
+		contenuti) dell'applicazione
+	</li>
+	<li>
+		una volta esaurita la prima fase si richiamerà, in qualsiasi modo il 
+		programmatore ritenga opportuno, il metodo waDocumentazione::avviaGestione;
+		questo non farà altro che lanciare una piccola waApplicazione all'interno 
+		della quale sarà possibile commentare tutte le componenti dell'applicazione,
+		nonchè redigerne l'eventuale help contestuale (di sezione, di menu, di pagina,
+		di tabella, di azione, di modulo, di campo).
+	</li>
+	<li>
+		Una volta terminata la stesura punto per punto della documentazione, 
+		l'applicazione di cui al punto precedente permette la stampa (per ora
+		solo in formato HTML) della documentazione della vostra applicazione.
+	</li>
+</ul>
+<p></p>
+Ad esempio, il costruttore della vostra applicazione potrebbe contenere
+queste istruzioni:
+
+<pre class='src-code'>
+&lt;?php
+class applicazionetest extends waApplicazione
+	{
+	<span class='src-comm'>// file di configurazione della connessione al db dell'applicazione</span>
+	var $fileConfigDB;
+	<span class='src-comm'>
+	//*****************************************************************************
+	/**
+	* costruttore dell'applicazione 
+	* 
+	*/</span>
+	function __construct()
+		{
+		<span class='src-comm'>// valorizzazione proprietà applicazione</span>
+		$this->nome = APPL_NOME;
+		$this->titolo = APPL_TITOLO;
+		$this->fileConfigDB = dirname(__FILE__) . "/dbconfig.inc.php";
+		
+		<span class='src-comm'>// inizializzazione applicazione</span>
+		$this->inizializza();
+		
+		<span class='src-comm'>// se un parametro di configurazione lo richiede, 
+		// avviamo il motore di generazione della documentazione, che creerà
+		// la struttura della documentazione della pagina corrente</span>
+		if (defined("APPL_GENERA_WADOC") && APPL_GENERA_WADOC)
+			$this->waDoc = new waDocumentazione($this, $this->fileConfigDB, APPL_WADOC_CONFIG);
+		<span class='src-comm'>// se un parametro di navigazione lo richiede, 
+		// avviamo l'applicazione che permetterà di apporre i commenti su tutti gli
+		// elementi dell'applicazione</span>
+		if ($this->waDoc && $_GET['APPL_AVVIA_WADOC'])
+			$this->waDoc->avviaGestione();
+
+?>
+</pre>
+<p>
+La classe avra' cura di non sovrascrivere elementi gia' censiti in precedenza, in modo da 
+non sovrascrivere eventuali note/modifiche apportate. Analogamente, non eliminerà 
+automaticamente elementi censiti in precedenza e non più esistenti: sarà quindi
+cura del redattore elimnare elementi non più presenti nell'applicazione.
+</p>
+
+<p>
+
+Il risultato, la documentazione tecnica applicativa, sarà uno strumento, una 
+bussola fondamentale per i colleghi, e i
+clienti, che apprezzano la professionalità del software e che desiderano
+limitare al massimo i tempi di "context-switching", ossia quella fase in cui
+un nuovo programmatore entra a far parte del team e deve capire come funziona
+l'applicazione. Non solo. La traccia fornita dalla documentazione rappresenta
+anche un modello per i documenti di analisi che i responsabili di progetto
+possono fornire ai programmatori: avere già un metodo, un canovaccio da riempire, 
+accorcia straordinariamente i tempi di stesura dell'analisi, per non parlare
+dei tempi di comprensione del documento.
+	
+<p>
+<hr>
+Buon lavoro,
+<p>
+Bicio, Boka.
+
+</div>
+</BODY>
+</HTML>
+        <div class="credit">
+		    <hr />
+		    Documentation generated on Fri, 08 Mar 2013 16:33:38 +0100 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.4</a>
+	      </div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

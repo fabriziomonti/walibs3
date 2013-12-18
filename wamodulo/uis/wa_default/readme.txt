@@ -1,0 +1,1 @@
+implementazione di default della UI di waModulo

@@ -1,0 +1,16 @@
+
+.waapplicazione_iframe_figlia
+	{
+	position: absolute;
+	left: 0px;
+	top: 0px;
+    border: none;
+	visibility: visible;
+	margin: 0px;
+	z-index: 10000;
+	border-collapse: collapse;
+	width: 100%;
+	height: 100%;
+	background-color: #ffffff;
+	}
+		

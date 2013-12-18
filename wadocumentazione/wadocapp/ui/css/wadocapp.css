@@ -1,0 +1,114 @@
+body
+	{
+	font-family: verdana, arial;
+	}
+
+div.waapplicazione_wadoc_menu table
+	{
+	margin: 0 auto;
+	}
+
+div.waapplicazione_wadoc_menu table td a.item1,
+div.waapplicazione_wadoc_menu table td a.item1-active,
+div.waapplicazione_wadoc_menu table td a.item1-active:hover,
+div.waapplicazione_wadoc_menu table td a.item1:hover,
+div.waapplicazione_wadoc_menu table td a.item1-active:visited,
+div.waapplicazione_wadoc_menu table td a.item1:visited,
+div.waapplicazione_wadoc_menu table td a.item2,
+div.waapplicazione_wadoc_menu table td a.item2-active,
+div.waapplicazione_wadoc_menu table td a.item2-active:hover,
+div.waapplicazione_wadoc_menu table td a.item2:hover,
+div.waapplicazione_wadoc_menu table td a.item2-active:visited,
+div.waapplicazione_wadoc_menu table td a.item2:visited
+	{
+	width: 120px;
+	color: #000000;
+	font-size: 10px;
+	}
+
+div.waapplicazione_wadoc_menu table td a.item1-active:hover,
+div.waapplicazione_wadoc_menu table td a.item1:hover,
+div.waapplicazione_wadoc_menu table td a.item2-active:hover,
+div.waapplicazione_wadoc_menu table td a.item2:hover
+	{
+	background-color: #c0c0c0;
+	}
+	
+.ddmx .item2,
+.ddmx .item2:hover,
+.ddmx .item2:visited,
+.ddmx .item2-active,
+.ddmx .item2-active:hover 
+	{
+    padding: 4px 0px 4px 0px;
+	}
+
+div.waapplicazione_wadoc_menu table td a.item2-active:before,
+div.waapplicazione_wadoc_menu table td a.item2:before
+	{
+	content: "\00a0";
+	}
+
+div.waapplicazione_titolo
+	{
+	text-align: center;
+	margin: 40px;
+	font-weight: bold;
+	font-size: 13px;
+	}
+
+/* e' la navbar */
+div.waapplicazione_watabella table.watabella td
+	{
+	font-size: 10px;
+	}
+	
+/* intestazioni tabelle */
+div.waapplicazione_watabella form table th,
+div.waapplicazione_watabella form table td
+	{
+	font-size: 10px;
+	}
+	
+/************* riga evidenziata ****************/
+form.watabella table tbody tr:hover
+{
+    background-color: #f8f8f8;
+	color: #000000;
+}
+
+form.watabella span,
+form.wamodulo span
+	{
+	margin: 0 auto;
+	}
+	
+form.wamodulo span
+	{
+    border: none;
+	}
+	
+.defaultSkin .mceToolbar tr:hover
+	{
+	background-color: #f0f0ee;
+	}
+	
+/* etichette e cornici */
+form.wamodulo label, 
+form.wamodulo label.wamodulo_obbligatorio, 
+form.wamodulo label.wamodulo_disabilitato
+	{
+	color: #000000;
+	font-size: 10px;
+	}
+
+form.wamodulo label.wamodulo_obbligatorio
+	{
+	color: #f00000;
+	}
+
+form.wamodulo label.wamodulo_disabilitato
+	{
+	color: #c0c0c0;
+	}
+

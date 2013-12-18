@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+Esempio di flusso XML che la classe waTabella costruisce a partire dal contenuto
+di $_POST; il flusso viene dato in pasto al template XSLT di input
+per la trasformazione nell'XML definitivo che la classe è in grado di 
+interpretare (vedi "esempio.input.finale.xml").
+
+La descrizione degli elementi di questo flusso è in "watabella.input.intermedio.xsd"
+(XSD input intermedio).
+-->
+<watabella.input>
+	<nome>tabella0</nome>
+	<watabella_path>/watabella</watabella_path>
+	<post>
+		<item id="watabella_nome_tabella">tabella0</item>
+		<item id="watbl_input_mod_chk">		
+			<item id="85">on</item>
+			<item id="86">on</item>
+			<item id="90">on</item>
+		</item>
+		<item id="id_organismo">		
+			<item id="85">1</item>
+			<item id="86">2</item>
+			<item id="90">3</item>
+		</item>
+		<item id="id_amministrazione">		
+			<item id="85">1</item>
+			<item id="86">2</item>
+			<item id="90">3</item>
+		</item>
+		<item id="rifpa">		
+			<item id="85">2012-698/RER</item>
+			<item id="86">2011-588/BO</item>
+			<item id="90">2011-877/RA</item>
+		</item>
+		<item id="nome">		
+			<item id="85">fare e disfare</item>
+			<item id="86">disfare e fare</item>
+			<item id="90">vacanze ben organizzate</item>
+		</item>
+		<item id="data_inizio">		
+			<item id="85">30/05/2012</item>
+			<item id="86">12/12/2012</item>
+			<item id="90">11/10/2011</item>
+		</item>
+		<item id="data_fine">		
+			<item id="85">04/03/2013 00:00</item>
+			<item id="86">09/05/2013 00:00</item>
+			<item id="90">08/07/2012 00:00</item>
+		</item>
+		<item id="nr_ore">		
+			<item id="85">345</item>
+			<item id="86">855</item>
+			<item id="90">111</item>
+		</item>
+		<item id="importo">		
+			<item id="85">2.500,56</item>
+			<item id="86">145.666,44</item>
+			<item id="90">1.212.112,98</item>
+		</item>
+		<item id="attivo">		
+			<item id="86">on</item>
+			<item id="90">on</item>
+		</item>
+	</post>
+	<files>
+	</files>
+	<watabella_intestazioni>
+		<intestazione>
+			<nome>id_corso</nome>
+			<etichetta>ID</etichetta>
+			<allineamento>2</allineamento>
+			<mostra>1</mostra>
+			<ordina>1</ordina>
+			<filtra>1</filtra>
+			<tipo_campo/>
+			<formattazione>intero</formattazione>
+			<max_caratteri>100</max_caratteri>
+			<converti_html>1</converti_html>
+			<link>0</link>
+			<ordinamento_rapido>no</ordinamento_rapido>
+		</intestazione>
+		<intestazione>
+			<nome>id_organismo</nome>
+			<etichetta>Org.</etichetta>
+			<allineamento>1</allineamento>
+			<mostra>1</mostra>
+			<ordina>1</ordina>
+			<filtra>1</filtra>
+			<tipo_campo/>
+			<formattazione>intero</formattazione>
+			<max_caratteri>100</max_caratteri>
+			<converti_html>1</converti_html>
+			<link>0</link>
+			<ordinamento_rapido>no</ordinamento_rapido>
+			<input>
+				<tipo>selezione</tipo>
+				<obbligatorio>1</obbligatorio>
+				<lunghezza_max_campo/>
+				<opzioni>
+					<opzione val=""/>
+					<opzione val="2">ENAIP</opzione>
+					<opzione val="1">FormArt</opzione>
+					<opzione val="3">WebAppls SpA</opzione>
+				</opzioni>
+			</input>
+		</intestazione>
+		<intestazione>
+			<nome>id_amministrazione</nome>
+			<etichetta>Amm.ne</etichetta>
+			<allineamento>0</allineamento>
+			<mostra>1</mostra>
+			<ordina>1</ordina>
+			<filtra>1</filtra>
+			<tipo_campo/>
+			<formattazione/>
+			<max_caratteri>100</max_caratteri>
+			<converti_html>1</converti_html>
+			<link>0</link>
+			<ordinamento_rapido>no</ordinamento_rapido>
+			<input>
+				<tipo>selezione</tipo>
+				<obbligatorio>1</obbligatorio>
+				<lunghezza_max_campo/>
+				<opzioni>
+					<opzione val=""/>
+					<opzione val="2">BO</opzione>
+					<opzione val="3">RA</opzione>
+					<opzione val="1">RER</opzione>
+				</opzioni>
+			</input>
+		</intestazione>
+		<intestazione>
+			<nome>rifpa</nome>
+			<etichetta>Rif. P.A.</etichetta>
+			<allineamento>0</allineamento>
+			<mostra>1</mostra>
+			<ordina>1</ordina>
+			<filtra>1</filtra>
+			<tipo_campo/>
+			<formattazione/>
+			<max_caratteri>100</max_caratteri>
+			<converti_html>1</converti_html>
+			<link>0</link>
+			<ordinamento_rapido>no</ordinamento_rapido>
+			<input>
+				<tipo>testo</tipo>
+				<obbligatorio>1</obbligatorio>
+				<lunghezza_max_campo/>
+			</input>
+		</intestazione>
+		<intestazione>
+			<nome>nome</nome>
+			<etichetta>Nome</etichetta>
+			<allineamento>0</allineamento>
+			<mostra>1</mostra>
+			<ordina>1</ordina>
+			<filtra>1</filtra>
+			<tipo_campo/>
+			<formattazione/>
+			<max_caratteri>100</max_caratteri>
+			<converti_html>1</converti_html>
+			<link>0</link>
+			<ordinamento_rapido>no</ordinamento_rapido>
+			<input>
+				<tipo>testo</tipo>
+				<obbligatorio>1</obbligatorio>
+				<lunghezza_max_campo/>
+			</input>
+		</intestazione>
+		<intestazione>
+			<nome>data_inizio</nome>
+			<etichetta>Data Inizio</etichetta>
+			<allineamento>1</allineamento>
+			<mostra>1</mostra>
+			<ordina>1</ordina>
+			<filtra>1</filtra>
+			<tipo_campo/>
+			<formattazione/>
+			<max_caratteri>100</max_caratteri>
+			<converti_html>1</converti_html>
+			<link>0</link>
+			<ordinamento_rapido>no</ordinamento_rapido>
+			<input>
+				<tipo>data</tipo>
+				<obbligatorio>0</obbligatorio>
+				<lunghezza_max_campo/>
+			</input>
+		</intestazione>
+		<intestazione>
+			<nome>data_fine</nome>
+			<etichetta>Data ora fine</etichetta>
+			<allineamento>1</allineamento>
+			<mostra>1</mostra>
+			<ordina>1</ordina>
+			<filtra>1</filtra>
+			<tipo_campo/>
+			<formattazione/>
+			<max_caratteri>100</max_caratteri>
+			<converti_html>1</converti_html>
+			<link>0</link>
+			<ordinamento_rapido>no</ordinamento_rapido>
+			<input>
+				<tipo>dataora</tipo>
+				<obbligatorio>0</obbligatorio>
+				<lunghezza_max_campo/>
+			</input>
+		</intestazione>
+		<intestazione>
+			<nome>nr_ore</nome>
+			<etichetta>Nr. ore</etichetta>
+			<allineamento>2</allineamento>
+			<mostra>1</mostra>
+			<ordina>1</ordina>
+			<filtra>1</filtra>
+			<tipo_campo/>
+			<formattazione/>
+			<max_caratteri>100</max_caratteri>
+			<converti_html>1</converti_html>
+			<link>0</link>
+			<ordinamento_rapido>no</ordinamento_rapido>
+			<input>
+				<tipo>intero</tipo>
+				<obbligatorio>0</obbligatorio>
+				<lunghezza_max_campo/>
+			</input>
+		</intestazione>
+		<intestazione>
+			<nome>importo</nome>
+			<etichetta>Importo</etichetta>
+			<allineamento>2</allineamento>
+			<mostra>1</mostra>
+			<ordina>1</ordina>
+			<filtra>1</filtra>
+			<tipo_campo/>
+			<formattazione/>
+			<max_caratteri>100</max_caratteri>
+			<converti_html>1</converti_html>
+			<link>0</link>
+			<ordinamento_rapido>no</ordinamento_rapido>
+			<input>
+				<tipo>valuta</tipo>
+				<obbligatorio>0</obbligatorio>
+				<lunghezza_max_campo/>
+			</input>
+		</intestazione>
+		<intestazione>
+			<nome>attivo</nome>
+			<etichetta>Attivo</etichetta>
+			<allineamento>1</allineamento>
+			<mostra>1</mostra>
+			<ordina>1</ordina>
+			<filtra>1</filtra>
+			<tipo_campo/>
+			<formattazione/>
+			<max_caratteri>100</max_caratteri>
+			<converti_html>1</converti_html>
+			<link>0</link>
+			<ordinamento_rapido>no</ordinamento_rapido>
+			<input>
+				<tipo>logico</tipo>
+				<obbligatorio>0</obbligatorio>
+				<lunghezza_max_campo/>
+			</input>
+		</intestazione>
+		<intestazione>
+			<nome>eliminabile</nome>
+			<etichetta>Eliminabile</etichetta>
+			<allineamento>1</allineamento>
+			<mostra>1</mostra>
+			<ordina/>
+			<filtra/>
+			<tipo_campo/>
+			<formattazione/>
+			<max_caratteri>100</max_caratteri>
+			<converti_html>1</converti_html>
+			<link>0</link>
+			<ordinamento_rapido>no</ordinamento_rapido>
+		</intestazione>
+		<intestazione>
+			<nome>nomeamm</nome>
+			<etichetta>nomeamm</etichetta>
+			<allineamento>0</allineamento>
+			<mostra/>
+			<ordina/>
+			<filtra/>
+			<tipo_campo/>
+			<formattazione/>
+			<max_caratteri>100</max_caratteri>
+			<converti_html>1</converti_html>
+			<link>0</link>
+			<ordinamento_rapido>no</ordinamento_rapido>
+		</intestazione>
+	</watabella_intestazioni>
+
+
+</watabella.input>

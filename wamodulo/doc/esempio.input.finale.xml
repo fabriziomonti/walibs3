@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+Esempio di flusso XML che il template XSLT deve restituire alla classe waModulo
+a fronte della trasformazione di "esempio.input.intermedio.xml".
+
+Non ha senso avere una descrizione XSD di questo flusso, perche' per ovvi
+motivi i nomi degli elementi sono in stretta dipendenza dai nomi dei controlli
+attribuiti in fase di costruzione del modulo
+-->
+<wamodulo.input>
+	<!-- operazione richiesta dalla UI (vedi defines in wamodulo.inc.php) -->
+	<wamodulo_operazione>3</wamodulo_operazione>
+	<!-- mixed e opzionale, dipende dal tipo di campo che si e' utilizzato come mod_id-->
+	<mod_id></mod_id>
+
+	<!-- 
+	Elenco dei valori inseriti nei controlli.
+
+	Ogni nome-elemento deve corrispondere al nome di un controllo del waModulo e
+	ogni valore deve essere nel formato atteso dal tipo di controllo individuato
+	dal nome.
+	-->
+
+	<!-- intero -->
+	<id_organismo>1</id_organismo>
+	<!-- intero -->
+	<id_amministrazione>2</id_amministrazione>
+	<!-- testo -->
+	<rifpa>2012-698/RER</rifpa>
+	<!-- testo -->
+	<nome>fare e disfare</nome>
+	<!-- intero -->
+	<nr_ore>345</nr_ore>
+	<!-- data -->
+	<data_inizio>2012-05-30</data_inizio>
+	<!-- dataora -->
+	<data_fine>2013-03-04 00:00:00</data_fine>
+	<!-- valuta -->
+	<importo>2500.56</importo>
+	<!-- areaTesto -->
+	<area>prova area</area>
+	<!-- logico -->
+	<check>1</check>
+	<!-- multiselezione -->
+	<multiselect>5</multiselect>
+	<multiselect>20</multiselect>
+	<!-- caricaFile -->
+	<file>
+		<name>jethro.pdf</name>
+		<type>application/pdf</type>
+		<tmp_name>/tmp/phpaPbPHM</tmp_name>
+		<error>0</error>
+		<size>221882</size>
+		<elimina>0</elimina>
+	</file>
+	<!-- ora -->
+	<soloora>17:19:00</soloora>
+	<!-- bottone di submit -->
+	<btnInvia>1</btnInvia>
+</wamodulo.input>

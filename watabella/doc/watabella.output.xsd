@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF8"?>
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="watabella">
+		
+		<xsd:documentation>Radice</xsd:documentation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element type="xsd:string" name="nome">
+					<xsd:documentation>
+						Nome della tabella. Corrisponde alla proprietà waTabella::nome
+					</xsd:documentation>
+				</xsd:element>
+				<xsd:element type="xsd:string" name="uri">
+					<xsd:documentation>
+						Contiene la URI della pagina corrente
+					</xsd:documentation>
+				</xsd:element>
+				<xsd:element type="xsd:string" name="watabella_path">
+					<xsd:documentation>
+						Path della root del package waTabella rispetto alla document root.
+						In base a questo valore è possibile orientarsi rispetto all'intera applicazione.
+					</xsd:documentation>
+				</xsd:element>
+				<xsd:element type="xsd:string" name="titolo">
+					<xsd:documentation>
+						Titolo della tabella. Corrisponde alla proprietà waTabella::titolo
+					</xsd:documentation>
+				</xsd:element>
+				<xsd:element type="xsd:byte" name="selezione_esclusiva">
+					<xsd:documentation>
+						Indica se applicativamente ha senso poter selezionare
+						più di una riga per volta, in modo da poter eseguire un'azione su più
+						righe contemporaneamente (0-1).
+					</xsd:documentation>
+				</xsd:element>
+				<xsd:element type="xsd:string" name="pagina_modulo">
+					<xsd:documentation>
+						Nome di una pagina php destinata a contenere l'oggetto
+						waModulo che esegue le azioni standard Nuovo/Vedi/Modifica/Cancella
+					</xsd:documentation>
+				</xsd:element>
+
+				<xsd:element name="modi_filtro">
+					<xsd:documentation>
+						Lista delle modalità di filtro gestite dalla classe
+					</xsd:documentation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="item" maxOccurs="unbounded" minOccurs="0">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element type="xsd:string" name="valore">
+											<xsd:documentation>
+												Valore della modalità di filtro
+											</xsd:documentation>
+										</xsd:element>
+										<xsd:element type="xsd:string" name="nome">
+											<xsd:documentation>
+												Nome della modalità di filtro
+											</xsd:documentation>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+
+				<xsd:element name="filtro">
+					<xsd:documentation>
+						Lista dei parametri di filtro che la classe sta applicando
+					</xsd:documentation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="item" maxOccurs="unbounded" minOccurs="0">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element type="xsd:byte" name="indice">
+											<xsd:documentation>
+												Indice (nr progressivo) del parametro di filtro
+											</xsd:documentation>
+										</xsd:element>
+										<xsd:element type="xsd:string" name="campo">
+											<xsd:documentation>
+												Nome della colonna a cui applicare il filtro
+											</xsd:documentation>
+										</xsd:element>
+										<xsd:element type="xsd:string" name="modo">
+											<xsd:documentation>
+												Modalità di applicazione del filtro 
+												(uno dei valori di modi_filtro)
+											</xsd:documentation>
+										</xsd:element>
+										<xsd:element type="xsd:short" name="valore">
+											<xsd:documentation>
+												Valore del filtro da applicare
+											</xsd:documentation>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+
+				<xsd:element name="modi_ordinamento">
+					<xsd:documentation>
+						Lista delle modalità di ordinamento gestite dalla classe
+					</xsd:documentation>
+										
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="item" maxOccurs="unbounded" minOccurs="0">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element type="xsd:string" name="valore">
+											<xsd:documentation>
+												Valore della modalità di ordinamento
+											</xsd:documentation>
+										</xsd:element>
+										<xsd:element type="xsd:string" name="nome">
+											<xsd:documentation>
+												Nome della modalità di ordinamento
+											</xsd:documentation>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+
+				<xsd:element name="ordinamento">
+					<xsd:documentation>
+						Lista dei parametri di ordinamento che la classe sta applicando
+					</xsd:documentation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="item" maxOccurs="unbounded" minOccurs="0">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element type="xsd:byte" name="indice">
+											<xsd:documentation>
+												Indice (nr progressivo) del parametro di ordinamento
+											</xsd:documentation>
+										</xsd:element>
+										<xsd:element type="xsd:string" name="campo">
+											<xsd:documentation>
+												Nome della colonna a cui applicare l'ordinamento
+											</xsd:documentation>
+										</xsd:element>
+										<xsd:element type="xsd:string" name="modo">
+											<xsd:documentation>
+												Modalità di applicazione dell'ordinamento
+												(uno dei valori di modi_ordinamento)
+											</xsd:documentation>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+
+				<xsd:element name="watabella_ricerca_rapida">
+					<xsd:documentation>
+						Filtro rapido applicato dalla classe (ricerca di contenuto in tutti i campi)
+					</xsd:documentation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element type="xsd:string" name="valore">
+								<xsd:documentation>
+									Valore del filtro rapido applicato dalla classe
+								</xsd:documentation>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+
+				<xsd:element name="watabella_azioni_pagina">
+					<xsd:documentation>
+						Lista delle azioni "su pagina" (non su record) che la
+						tabella deve gestire
+					</xsd:documentation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="azione" maxOccurs="unbounded" minOccurs="0">
+								<xsd:complexType>
+									<xsd:attribute type="xsd:string" name="id" use="optional">
+										<xsd:documentation>
+											Identificativo dell'azione (corrisponde al nome e
+											alla proprietà waAzioneTabella::nome)
+										</xsd:documentation>
+									</xsd:attribute>
+									<xsd:sequence>
+										<xsd:element type="xsd:string" name="nome">
+											<xsd:documentation>
+												Nome dell'azione (corrisponde all'identificativo e
+												alla proprietà waAzioneTabella::nome)
+											</xsd:documentation>
+										</xsd:element>
+										<xsd:element type="xsd:string" name="etichetta">
+											<xsd:documentation>
+												Label dell'azione
+											</xsd:documentation>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+
+				<xsd:element name="watabella_azioni_record">
+					<xsd:documentation>
+						Lista delle azioni "su record" che la tabella deve gestire
+					</xsd:documentation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="azione" maxOccurs="unbounded" minOccurs="0">
+								<xsd:complexType>
+									<xsd:attribute type="xsd:string" name="id" use="optional">
+										<xsd:documentation>
+											Identificativo dell'azione (corrisponde al nome e
+											alla proprietà waAzioneTabella::nome)
+										</xsd:documentation>
+									</xsd:attribute>
+									<xsd:sequence>
+										<xsd:element type="xsd:string" name="nome">
+											<xsd:documentation>
+												Nome dell'azione (corrisponde all'identificativo e
+												alla proprietà waAzioneTabella::nome)
+											</xsd:documentation>
+										</xsd:element>
+										<xsd:element type="xsd:string" name="etichetta">
+											<xsd:documentation>
+												Label dell'azione
+											</xsd:documentation>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+
+				<xsd:element name="watabella_barra_navigazione">
+					<xsd:documentation>
+						Dati di navigazione
+					</xsd:documentation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element type="xsd:byte" name="nr_pagina_corrente">
+								<xsd:documentation>
+									Nr. della pagina corrente (0 based)
+								</xsd:documentation>
+							</xsd:element>
+							<xsd:element type="xsd:byte" name="totale_pagine">
+								<xsd:documentation>
+									Nr. totale pagine della vista
+								</xsd:documentation>
+							</xsd:element>
+							<xsd:element type="xsd:byte" name="primo_record">
+								<xsd:documentation>
+									Nr. primo record della pagina corrente (1 based)
+								</xsd:documentation>
+							</xsd:element>
+							<xsd:element type="xsd:byte" name="ultimo_record">
+								<xsd:documentation>
+									Nr. ultimo record della pagina corrente (1 based)
+								</xsd:documentation>
+							</xsd:element>
+							<xsd:element type="xsd:byte" name="totale_record">
+								<xsd:documentation>
+									Nr. totale record della vista
+								</xsd:documentation>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+
+				<xsd:element name="watabella_intestazioni">
+					<xsd:documentation>
+						Lista degli attributi delle colonne che la tabella deve gestire
+					</xsd:documentation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="intestazione" maxOccurs="unbounded" minOccurs="0">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element type="xsd:string" name="nome">
+											<xsd:documentation>
+												Nome della colonna/campo (corrisponde alla proprietà waColonna::nome)
+											</xsd:documentation>
+										</xsd:element>
+										<xsd:element type="xsd:string" name="etichetta">
+											<xsd:documentation>
+												Label della colonna/campo (corrisponde alla proprietà waColonna::etichetta)
+											</xsd:documentation>
+										</xsd:element>
+										<xsd:element type="xsd:byte" name="allineamento">
+											<xsd:documentation>
+												Eventuale allineamento esplicito della colonna richiesto dall'applicazione;
+												può valere: 0 = sinistra; 1 = centro; 2 = destra;
+												(corrisponde alla proprietà waColonna::allineamento);
+												di questo dato ovviamente l'XSLT può farci quel che vuole
+											</xsd:documentation>
+										</xsd:element>
+										<xsd:element type="xsd:string" name="mostra">
+											<xsd:documentation>
+												Valore booleano che indica se la colonna deve essere mostrata a video o meno (0-1);
+												(corrisponde alla proprietà waColonna::mostra);
+											</xsd:documentation>
+										</xsd:element>
+										<xsd:element type="xsd:string" name="ordina">
+											<xsd:documentation>
+												Valore booleano che indica se la colonna può essere sottoposta a ordinamento o meno (0-1);
+												(corrisponde alla proprietà waColonna::ordina);
+											</xsd:documentation>
+										</xsd:element>
+										<xsd:element type="xsd:string" name="filtra">
+											<xsd:documentation>
+												Valore booleano che indica se la colonna può essere sottoposta a filtro o meno (0-1);
+												(corrisponde alla proprietà waColonna::filtra);
+											</xsd:documentation>
+										</xsd:element>
+										<xsd:element type="xsd:string" name="tipo_campo">
+											<xsd:documentation>
+												Tipo del valore che viene rappresentato nella colonna; 
+												i valori possibili sono quelli dei tipi di waDB (wadb/wadb.inc.php);
+												(corrisponde alla proprietà waColonna::tipoCampo);
+											</xsd:documentation>
+										</xsd:element>
+										<xsd:element type="xsd:string" name="formattazione">
+											<xsd:documentation>
+												Eventuale formattazione esplicita della colonna richiesta dall'applicazione;
+												i valori possibili sono in watabella.inc.php;;
+												(corrisponde alla proprietà waColonna::formattazione);
+												di questo dato ovviamente l'XSLT può farci quel che vuole
+											</xsd:documentation>
+										</xsd:element>
+										<xsd:element type="xsd:byte" name="max_caratteri">
+											<xsd:documentation>
+												Nr. massimo di caratteri da presentare in ogni cella della colonna
+												(occhio ad eventuali dati non escaped contenenti html...);
+												(corrisponde alla proprietà waColonna::maxCaratteri);
+											</xsd:documentation>
+										</xsd:element>
+										<xsd:element type="xsd:byte" name="converti_html">
+											<xsd:documentation>
+												Booleano (0-1) che indica se i valori contenuti nella colonna 
+												dovranno essere escaped o meno;
+												(corrisponde alla proprietà waColonna::convertiHTML);
+												attenzione a possibili problemi XSS-scripting! Da usare solo dove si è sicuri del dato inputato
+											</xsd:documentation>
+										</xsd:element>
+										<xsd:element type="xsd:byte" name="link">
+											<xsd:documentation>
+												Booleano (0-1) che indica se i valori contenuti nella colonna
+												dovranno rappresentare un link o meno;
+												(corrisponde alla proprietà waColonna::link);
+												come venga costruito il link è responsabilità dell'XSLT
+											</xsd:documentation>
+										</xsd:element>
+										<xsd:element type="xsd:string" name="ordinamento_rapido">
+											<xsd:documentation>
+												Indica se la colonna è correntemente sottoposta ad ordinamento rapido,
+												e nel caso in quale modalità (vedi modi_ordinamento);
+												in partica puo' valore "asc" o "desc", qualsiasi 
+												altra cosa significa che la colonna non è sottoposta 
+												a ordinamento rapido
+											</xsd:documentation>
+										</xsd:element>
+										<xsd:element name="input" minOccurs="0">
+											<xsd:documentation>
+												Parametri opzionali se per la colonna
+												è stato richiesto input (proprietà waColonna::inputTipo)
+											</xsd:documentation>
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element type="xsd:string" name="tipo">
+														<xsd:documentation>
+															Tipo controllo di input ; 
+															i valori possibili sono in watabella.inc.php
+														</xsd:documentation>
+													</xsd:element>
+													<xsd:element type="xsd:byte" name="obbligatorio">
+														<xsd:documentation>
+															Valore booleano (0-1) che indica se in fase di input
+															la valorizzazione della cella è obbligatoria o meno; 
+															(corrisponde alla proprietà waColonna::inputObbligatorio);
+														</xsd:documentation>
+													</xsd:element>
+													<xsd:element type="xsd:byte" name="lunghezza_max_campo">
+														<xsd:documentation>
+															Indica la lunghezza massima del campo in fase di input; 
+															(corrisponde alla proprietà waColonna::lunghezzaMaxCampo);
+														</xsd:documentation>
+													</xsd:element>
+													<xsd:element name="opzioni" minOccurs="0">
+														<xsd:documentation>
+															Eventuali opzioni (options di select, per intendersi)
+															per gestione input controllato
+														</xsd:documentation>
+														<xsd:complexType>
+															<xsd:sequence>
+																<xsd:element name="opzione" maxOccurs="unbounded" minOccurs="0">
+																	<xsd:documentation>
+																		Testo/Etichetta dell'opzione
+																	</xsd:documentation>
+																	<xsd:complexType>
+																		<xsd:simpleContent>
+																			<xsd:extension base="xsd:string">
+																				<xsd:attribute type="xsd:string" name="val" use="optional">
+																					<xsd:documentation>
+																						Chiave (identificativo) dell'opzione
+																					</xsd:documentation>
+																				</xsd:attribute>
+																			</xsd:extension>
+																		</xsd:simpleContent>
+																	</xsd:complexType>
+																</xsd:element>
+															</xsd:sequence>
+														</xsd:complexType>
+													</xsd:element>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+
+				<xsd:element name="watabella_righe">
+					<xsd:documentation>
+						Lista delle righe della tabella
+					</xsd:documentation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="riga" maxOccurs="unbounded" minOccurs="0">
+								<xsd:complexType>
+									<xsd:attribute type="xsd:byte" name="id" use="optional">
+										<xsd:documentation>
+											Identificativo univoco (chiave primaria) della riga
+										</xsd:documentation>
+									</xsd:attribute>
+									<xsd:sequence>
+										<xsd:element name="azioni_abilitabili">
+											<xsd:documentation>
+												Lista delle azioni su record "condizionate", ossia
+												abilitate a seconda di una situazione particolare della singola riga
+												(proprietà waAzioneTabella::funzioneAbilitazione)
+											</xsd:documentation>
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element name="azione">
+														<xsd:complexType>
+															<xsd:attribute type="xsd:string" name="id" use="optional">
+																<xsd:documentation>
+																	Identificativo dell'azione su record (corrisponde anche all'elemento nome)
+																</xsd:documentation>
+															</xsd:attribute>
+															<xsd:sequence>
+																<xsd:element type="xsd:string" name="nome">
+																	<xsd:documentation>
+																		Nome dell'azione su record (corrisponde anche all'attributo id)
+																	</xsd:documentation>
+																</xsd:element>
+																<xsd:element type="xsd:byte" name="abilitazione">
+																	<xsd:documentation>
+																		Valore booleano (0-1) che indica se l'azione deve essere 
+																		abilitata o meno
+																	</xsd:documentation>
+																</xsd:element>
+															</xsd:sequence>
+														</xsd:complexType>
+													</xsd:element>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="cella" maxOccurs="unbounded" minOccurs="0">
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element type="xsd:string" name="valore">
+														<xsd:documentation>
+															Valore del campo/cella da mandare in output
+														</xsd:documentation>
+													</xsd:element>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+
+				<xsd:element name="watabella_riga_totali">
+					<xsd:documentation>
+						Lista delle celle dell'eventuale riga dei totali
+					</xsd:documentation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="cella" maxOccurs="unbounded" minOccurs="0">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element type="xsd:string" name="valore">
+											<xsd:documentation>
+												Valore da mandare in output
+											</xsd:documentation>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

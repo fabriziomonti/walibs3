@@ -1,0 +1,93 @@
+body
+{
+    font-size: 11px;
+    color: #000000;
+    font-family: verdana, arial, helvetica, avantgarde;
+    text-align: justify;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    
+    background-image: url("immagini/webappls3.jpg");
+    background-position: 20px 20px;
+    background-position: 99% bottom;
+    background-repeat: no-repeat;
+}
+
+a:active , 
+a:link , 
+a:hover 
+{
+	color: #0000c0;
+	text-decoration: none;
+}
+
+a:visited
+{
+	color: #f00000;
+	text-decoration: none;
+}
+
+h3
+{
+	margin: 20px;
+	text-align: center;
+    font-size: 15px;
+}
+
+h2
+{
+	margin-top: 30px;
+	margin-bottom: 2px;
+	text-align: left;
+    font-size: 12px;
+}
+
+/************* tabella *******************************/
+table
+{
+
+    font-size: 11px;
+	border-collapse: collapse;
+
+	line-height: 1;
+	text-align: left;
+	vertical-align: baseline;
+}
+
+/************* riga normale ********************/
+table tr
+{
+}
+
+
+/************* cella intestazione **************/
+table th
+{
+	font-weight: bold;
+	text-align: center;
+    border: #000000 1px solid;
+	padding: 0.2em;
+	vertical-align: middle;
+}
+
+/************* cella standard *****************/
+table td
+{
+    padding: 4px;
+    border: #000000 1px solid;
+}
+
+
+.wadoc_torna
+{
+	margin-top: 30px;
+	margin-bottom: 30px;
+	text-align: center;
+    font-size: 12px;
+}
+
+.wadoc_indice
+{
+	text-align: left;
+}
+

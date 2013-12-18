@@ -1,0 +1,184 @@
+
+/* menu drop down */
+.ddmx {
+    font-size: 11px;
+    vertical-align: middle;
+    padding: 0px;
+    margin: 0px;
+}
+.ddmx .item1,
+.ddmx .item1:hover,
+.ddmx .item1:visited,
+.ddmx .item1-active,
+.ddmx .item1-active:hover {
+    margin-top: 1px;
+    margin-bottom: 1px;
+    font-weight: bold;
+    text-decoration: none;
+    display: block;
+    white-space: nowrap;
+    position: relative;
+    border: #000000 1px solid;
+    padding-top: 4px;
+    text-align: center;
+    vertical-align: middle;
+	width: 110px;
+	height: 15px;
+    background: #ffffff;
+}
+
+.ddmx .item1:hover,
+.ddmx .item1-active,
+.ddmx a.item1-active,
+.ddmx a.item1-active:active,
+.ddmx a.item1-active:visited,
+.ddmx a.item1-active:link,
+.ddmx .item1-active:hover
+{
+    background: #ffffff;
+    vertical-align: middle;
+}
+
+
+.ddmx .item2,
+.ddmx .item2:hover,
+.ddmx .item2:visited,
+.ddmx .item2-active,
+.ddmx .item2-active:hover {
+    margin: 0px;
+    padding: 2px 10px 2px 10px;
+    font-weight: normal;
+    display: block;
+    white-space: nowrap;
+    position: relative;
+    z-index: 500;
+    border: #000000 1px solid;
+    text-align: left;
+    text-decoration: none;
+    background: #ffffff;
+}
+
+.ddmx .item2 
+{
+}
+
+.ddmx .item2:hover,
+.ddmx .item2-active,
+.ddmx .item2-active:hover,
+.ddmx a.item2-active,
+.ddmx a.item2-active:active,
+.ddmx a.item2-active:visited,
+.ddmx a.item2-active:link
+
+{
+    background: #000000;
+    color: #ffffff;
+    vertical-align: middle;
+}
+
+.ddmx .arrow
+{
+	background-image: url(../img/ddmarrowdx_black.gif);
+	background-repeat: no-repeat;
+	background-position: center right;
+}
+
+.ddmx a.arrow:link,
+.ddmx a.arrow:visited,
+.ddmx a.arrow
+{
+	background-image: url(../img/ddmarrowdx_black.gif);
+	background-repeat: no-repeat;
+	background-position: center right;
+}
+
+.ddmx a.arrow:hover
+{
+	background-image: url(../img/ddmarrowdx_white.gif);
+	background-repeat: no-repeat;
+	background-position: center right;
+}
+
+.ddmx .item2 img,
+.ddmx .item2-active img{
+    position: absolute;
+    top: 4px;
+    right: 1px;
+    border: 0;
+}
+
+
+.ddmx .section {
+    border: none;
+    position: absolute;
+    visibility: hidden;
+    z-index: -1;
+    vertical-align: middle;
+}
+
+.ddmx .selected,
+.ddmx .selected:visited
+{
+    background: #FF9C00;
+    color: #ffffff;
+}
+
+.ddmx .selected:hover {
+    background: #F7F7F7;
+    color: #FF9C00;
+}
+
+.ddmx_toggler {
+    padding: 0px;
+    margin-top: 1px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 40px;
+    color: #000000;
+    text-decoration: none;
+    width:	24px;
+    text-align: center;
+    vertical-align: middle;
+    border: #000000 1px solid;
+    height: 21px;
+    position: absolute;
+}
+
+.ddmx_toggler_right {
+	background-image: url(../img/ddmarrowdx_white.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.ddmx_toggler_left {
+	background-image: url(../img/ddmarrowsx_white.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.ddmx_td_item0 {
+    vertical-align: top;
+    margin-top: 1px;
+}
+
+.ddmx_menucontainer {
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+    background: #ffffff;
+    vertical-align: middle;
+}
+
+.ddmx .simplesection,
+.ddmx a.simplesection:active,
+.ddmx a.simplesection:link,
+.ddmx a.simplesection:visited,
+.ddmx a.simplesection:hover,
+.ddmx a.simplesection
+{
+    text-align: center;
+    font-weight: bold;
+}
+
+
+
+

@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<link href="css/documentazione_walibs3.css" rel="stylesheet" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+
+		<script type="text/javascript">
+		
+			function toggleDiv(id)
+			{
+				var div = document.getElementById(id);
+				div.style.display = div.style.display == 'none' ? 'block' : 'none';
+			}
+		
+		</script>
+
+	</head>
+	<body class="indice">
+
+		<div class="titolo">WebAppls's<br/>waLibs 3.x</div>
+
+		<div class="item">
+			<a target="corpo" href="intro.html">Introduzione</a>
+		</div>
+
+		<div class="item">
+			<a target="corpo" href="db_br_ui.html">DB/BR/UI</a>
+		</div>
+
+		<div class="item">
+			<a target="corpo" href="perche_walibs.html">Perchè waLibs?</a>
+		</div>
+
+		<div class="item">
+			<a target="corpo" href="requisiti.html">Requisiti</a>
+		</div>
+
+		<div class="item">
+			<a target="corpo" href="prima_waapplicazione.html">La mia prima waApplicazione</a>
+		</div>
+
+		<div class="item">
+			<a target="corpo" href="prima_pagina.html">La mia prima pagina</a>
+		</div>
+
+		<div class="item">
+			<a target="corpo" href="personalizzare_ui_1.html">Personalizzare la UI - 1</a>
+		</div>
+
+		<div class="item">
+			<a target="corpo" href="personalizzare_ui_2.html">Personalizzare la UI - 2</a>
+		</div>
+
+		<div class="item">
+			<a target="corpo" href="aggiungere_wamenu.html">Aggiungere un waMenu</a>
+		</div>
+
+		<div class="item">
+			<a target="corpo" href="aggiungere_wadb.html">Aggiungere waDB</a>
+		</div>
+
+		<div class="item">
+			<a target="corpo" href="aggiungere_watabella.html">Aggiungere una waTabella</a>
+		</div>
+
+		<div class="item">
+			<a target="corpo" href="aggiungere_wamodulo.html">Aggiungere un waModulo</a>
+		</div>
+
+		<div class="item">
+			<a target="corpo" href="buone_prassi_1.html">Buone prassi - 1</a>
+		</div>
+
+		<div class="item">
+			<a target="corpo" href="buone_prassi_2.html">Buone prassi - 2</a>
+		</div>
+
+		<div class="item">
+			<a target="corpo" href="buone_prassi_3.html">Buone prassi - 3</a>
+		</div>
+
+		<div class="item">
+			<a href="javascript:toggleDiv('wadb')">waDB</a>
+			<div class="item" id="wadb" style="display: none">
+				<a target="corpo" href="../wadb/doc/index.html">API doc</a>
+				<br/>
+				<a target="corpo" href="../wadb/test/index.php">Test (solo web-served)</a>
+			</div>
+		</div>
+
+		<div class="item">
+			<a href="javascript:toggleDiv('wamenu')">waMenu</a>
+			<div class="item" id="wamenu" style="display: none">
+				<a target="corpo" href="../wamenu/doc/index.html">API doc</a>
+				<br/>
+				<a target="corpo" href="../wamenu/test/index.php">Test (solo web-served)</a>
+				<br/>
+				<a target="corpo" href="../wamenu/doc/esempio.xml">XML esempio</a>
+				<br/>
+				<a target="corpo" href="../wamenu/doc/wamenu.xsd">XSD</a>
+			</div>
+		</div>
+
+		<div class="item">
+			<a href="javascript:toggleDiv('watabella')">waTabella</a>
+			<div class="item" id="watabella" style="display: none">
+				<a target="corpo" href="../watabella/doc/index.html">API doc</a>
+				<br/>
+				<a target="corpo" href="../watabella/test/index.php">Test (solo web-served)</a>
+				<br/>
+				<a target="corpo" href="../watabella/doc/esempio.output.xml">XML esempio output</a>
+				<br/>
+				<a target="corpo" href="../watabella/doc/esempio.input.intermedio.xml">XML esempio input intermedio</a>
+				<br/>
+				<a target="corpo" href="../watabella/doc/esempio.input.finale.xml">XML esempio input finale</a>
+				<br/>
+				<a target="corpo" href="../watabella/doc/watabella.output.xsd">XSD output</a>
+				<br/>
+				<a target="corpo" href="../watabella/doc/watabella.input.intermedio.xsd">XSD input intermedio</a>
+				<br/>
+				<a target="corpo" href="../watabella/uis/wa_azioni_sx_default/readme.txt">UI di default - readme</a>
+				<br/>
+				<a target="corpo" href="../watabella/uis/wa_file_comuni/js/doc/index.html">UI di default - JS API doc</a>
+			</div>
+		</div>
+
+		<div class="item">
+			<a href="javascript:toggleDiv('wamodulo')">waModulo</a>
+			<div class="item" id="wamodulo" style="display: none">
+				<a target="corpo" href="../wamodulo/doc/index.html">API doc</a>
+				<br/>
+				<a target="corpo" href="../wamodulo/test/index.php">Test (solo web-served)</a>
+				<br/>
+				<a target="corpo" href="../wamodulo/doc/esempio.output.xml">XML esempio output</a>
+				<br/>
+				<a target="corpo" href="../wamodulo/doc/esempio.input.intermedio.xml">XML esempio input intermedio</a>
+				<br/>
+				<a target="corpo" href="../wamodulo/doc/esempio.input.finale.xml">XML esempio input finale</a>
+				<br/>
+				<a target="corpo" href="../wamodulo/doc/wamodulo.output.xsd">XSD output</a>
+				<br/>
+				<a target="corpo" href="../wamodulo/doc/wamodulo.input.intermedio.xsd">XSD input intermedio</a>
+				<br/>
+				<a target="corpo" href="../wamodulo/uis/wa_default/readme.txt">UI di default - readme</a>
+				<br/>
+				<a target="corpo" href="../wamodulo/uis/wa_default/js/doc/index.html">UI di default - JS API doc</a>
+			</div>
+		</div>
+
+		<div class="item">
+			<a href="javascript:toggleDiv('waapplicazione')">waApplicazione</a>
+			<div class="item" id="waapplicazione" style="display: none">
+				<a target="corpo" href="../waapplicazione/doc/index.html">API doc</a>
+				<br/>
+				<a target="corpo" href="../waapplicazione/test/index.php">Test (solo web-served)</a>
+				<br/>
+				<a target="corpo" href="../waapplicazione/doc/esempio.xml">XML esempio</a>
+				<br/>
+				<a target="corpo" href="../waapplicazione/doc/waapplicazione.xsd">XSD</a>
+				<br/>
+				<a target="corpo" href="../waapplicazione/uis/wa_default/js/doc/index.html">UI di default - JS API doc</a>
+			</div>
+		</div>
+
+		<div class="item">
+			<a href="javascript:toggleDiv('wadocumentazione')">waDocumentazione</a>
+			<div class="item" id="wadocumentazione" style="display: none">
+				<a target="corpo" href="../wadocumentazione/doc/index.html">API doc</a>
+				<br/>
+				<a target="corpo" href="../waapplicazione/test/index.php?APPL_AVVIA_WADOC=1">Applicazione Documentazione</a>
+				<br/>
+				<a target="corpo" href="../waapplicazione/test/applicazionetest_documentazione/index.html">Documentazione applicazione di test</a>
+			</div>
+		</div>
+
+
+
+
+
+
+
+
+
+
+
+	</body>
+</html>

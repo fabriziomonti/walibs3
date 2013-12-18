@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF8"?>
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="watabella.input">
+		<xsd:documentation>Radice</xsd:documentation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element type="xsd:string" name="nome">
+					<xsd:documentation>
+						Nome della tabella. Corrisponde alla proprietà waTabella::nome.
+						Questo dato viene aggiunto all'XML dalla classe sul server e non va quindi confuso con il 
+						parametro che viene ricevuto tramite post dal client
+					</xsd:documentation>
+				</xsd:element>
+				<xsd:element type="xsd:string" name="watabella_path">
+					<xsd:documentation>
+						Path della root del package waTabella rispetto alla document root.
+						In base a questo valore è possibile orientarsi rispetto all'intera applicazione.
+					</xsd:documentation>
+				</xsd:element>
+
+				<xsd:element name="post">
+					<xsd:documentation>
+						Lista dei valori ricevuti tramite HTTP/POST; ovviamente
+						la lista dipende da come è stato impostato l'XSLT di
+						output (che output ha prodotto). Questa descrizione
+						si riferisce ai 2 XSLT forniti col package che gestiscono
+						input
+					</xsd:documentation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="item" maxOccurs="unbounded" minOccurs="0">
+								<xsd:complexType mixed="true">
+									<xsd:attribute type="xsd:string" name="id" use="optional">
+										<xsd:documentation>
+											Identificativo della colonna; corrisponde
+											alla proprietà waColonna::nome.
+											Ovviamente è possibile specificare nomi
+											non compresi tra quelli delle colonne
+											per specificare al proprio XSLT azioni
+											particolari, quali l'inserimento di un 
+											nuovo record tramite RPC o la cancellazione
+											di un record
+										</xsd:documentation>
+									</xsd:attribute>									
+									<xsd:sequence>
+										<xsd:element name="item" maxOccurs="unbounded" minOccurs="0">
+											<xsd:complexType>
+												<xsd:simpleContent>
+													<xsd:extension base="xsd:string">
+														<xsd:attribute type="xsd:byte" name="id" use="optional">
+															<xsd:documentation>
+																Identificativo univoco (chiave primaria) della riga 
+																di cui si desiderano modifcare i dati
+															</xsd:documentation>
+														</xsd:attribute>													
+													</xsd:extension>
+												</xsd:simpleContent>
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+
+				<xsd:element type="xsd:string" name="files">
+					<xsd:documentation>
+						Al momento non utilizzato (non è gestito un controllo di
+						tipo file)
+					</xsd:documentation>
+				</xsd:element>
+
+				<xsd:element name="watabella_intestazioni">
+					<xsd:documentation>
+						Lista degli attributi delle colonne che la tabella deve gestire
+						(identica a output)
+					</xsd:documentation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="intestazione" maxOccurs="unbounded" minOccurs="0">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element type="xsd:string" name="nome"/>
+										<xsd:element type="xsd:string" name="etichetta"/>
+										<xsd:element type="xsd:byte" name="allineamento"/>
+										<xsd:element type="xsd:string" name="mostra"/>
+										<xsd:element type="xsd:string" name="ordina"/>
+										<xsd:element type="xsd:string" name="filtra"/>
+										<xsd:element type="xsd:string" name="tipo_campo"/>
+										<xsd:element type="xsd:string" name="formattazione"/>
+										<xsd:element type="xsd:byte" name="max_caratteri"/>
+										<xsd:element type="xsd:byte" name="converti_html"/>
+										<xsd:element type="xsd:byte" name="link"/>
+										<xsd:element type="xsd:string" name="ordinamento_rapido"/>
+										<xsd:element name="input" minOccurs="0">
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element type="xsd:string" name="tipo"/>
+													<xsd:element type="xsd:byte" name="obbligatorio"/>
+													<xsd:element type="xsd:string" name="lunghezza_max_campo"/>
+													<xsd:element name="opzioni" minOccurs="0">
+														<xsd:complexType>
+															<xsd:sequence>
+																<xsd:element name="opzione" maxOccurs="unbounded" minOccurs="0">
+																	<xsd:complexType>
+																		<xsd:simpleContent>
+																			<xsd:extension base="xsd:string">
+																				<xsd:attribute type="xsd:string" name="val" use="optional"/>
+																			</xsd:extension>
+																		</xsd:simpleContent>
+																	</xsd:complexType>
+																</xsd:element>
+															</xsd:sequence>
+														</xsd:complexType>
+													</xsd:element>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

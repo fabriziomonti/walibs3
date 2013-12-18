@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title></title>
+		<link href="css/documentazione_walibs3.css" rel="stylesheet" />
+	</head>
+
+	<body>
+
+		<div class='titolo'>waLibs 3.x</div>
+		<div class='titolo'>Requisiti</div>
+
+		<div>
+			Per funzionare correttamente, le waLibs necessitano delle estensioni
+			PHP-XSL, nonchè della libreria per l'accesso al database che la
+			vostra applicazione andrà ad utilizzare (MySQL, MSSQL, Oracle, ecc.;
+			per FileMaker non è necessario installare alcuna libreria).
+		</div>
+		<div>
+			Poi, proprio perché sono destinate a creare un ambiente di lavoro comune, 
+			le <b>waLibs</b> basano il proprio funzionamento interno su alcune 
+			assunzioni, che devono quindi essere rispettate da tutti gli 
+			utilizzatori:
+		</div>
+
+		<div>
+			<ul>
+
+				
+				<li>
+					il charset utilizzato è sempre e solo UTF-8. Ciò significa 
+					che è necessario impostare tutto l'ambiente di lavoro 
+					(editor di sviluppo, base-dati, web-server) secondo questa 
+					codifica
+				</li>
+				<li>
+					tutte le tabelle della base-dati devono avere una chiave 
+					primaria univoca di tipo intero (autoincrementale o meno, 
+					questo ovviamente dipende dalle esigenze applicative)
+				</li>
+
+				<li>
+					ogni nome attribuito ad un membro di una collezione deve 
+					essere univoco. Ciò vale per i nomi dei campi restituiti da 
+					una query, per i nomi delle colonne assegnati ad una 
+					tabella, per i nomi dei controlli di input di un modulo. 
+					Questo non significa che tutti i campi della base-dati 
+					devono avere un nome univoco (per quanto, questa pratica, ha 
+					indubbiamente diversi vantaggi), ma che nel caso in cui una 
+					query restituisca campi col medesimo nome il corretto 
+					funzionamento delle waLibs non è garantito (per non dire che 
+					è escluso), mentre viene fornito tutto il supporto 
+					necessario all'aliasing di eventuali nomi uguali, sia 
+					all'interno di query (waDB), che di tabelle (waTabella), che 
+					di modulo (waModulo)
+				</li>
+
+				<li>
+					 il formato dei dati utilizzato internamente dalle waLibs è 
+					 generalmente quello standard di PHP (le stringhe sono 
+					 stringhe, gli interi sono interi, i float sono float, le 
+					 date e le data/ora numeri interi rappresentanti i secondi 
+					 trascorsi <i>since-the-epoch</i>). L'unica eccezione è data da 
+					 eventuali valori di tipo ORA: questi sono rappresentati da 
+					 un intero <i>since-the-epoch</i> con offset fisso al 
+					 01/01/1980
+				</li>
+
+				<li>
+					viceversa, quando le waLibs comunicano con l'esterno 
+					presuppongono questi formati:
+					<ul>
+						<li>
+							 stringhe: normali stringhe
+						</li>
+						<li>
+							interi: stringhe formate unicamente da caratteri 
+							numerici
+						</li>
+						<li>
+							decimali: stringhe formate unicamente da caratteri 
+							numerici con l'unica eccezione del punto come 
+							separatore dei decimali (il primo punto è il 
+							separatore dei decimali)
+						</li>
+						<li>
+							date: stringhe nel formato PHP <b>Y-m-d</b>
+						</li>
+						<li>
+							date/ore: stringhe nel formato PHP <b>Y-m-d H:i:s</b>
+						</li>
+						<li>
+							ore: stringhe nel formato PHP <b>H:i:s</b>
+						</li>
+					</ul>
+					
+					
+				</li>
+				
+				<li>
+					come si evince dai formati precedenti, le date/ore delle 
+					waLibs fanno sempre riferimento a un solo luogo geografico 
+					omogeneo per ciò che riguarda fuso orario e ora legale; in 
+					altre parole: le waLibs sono fatte per lavorare in Italia. 
+					Qualora la propria applicazione debba invece tenere conto 
+					anche del luogo in cui, in un determinato tempo, si verifica 
+					un evento, allora sarà compito del programmatore tenere 
+					traccia del luogo e di fare gli opportuni calcoli
+				</li>
+				
+				<li>
+					il contenuto della directory contenente le librerie 
+					(<b>walibs3</b>) <u>NON VA MODIFICATO</u> per nessun motivo, 
+					a meno che non dobbiate correggere un errore delle waLibs 
+					stesse. Chi modifica i file di configurazione presenti a 
+					titolo di esempio nel package e poi ne fa commit su CVS 
+					verrà punito in sala mensa. Se proprio volete stare 
+					tranquilli fate un checkout readonly, ovvero un export.
+				</li>
+				
+			</ul>
+
+
+		</div>
+
+		<div>
+			<table class="navbar">
+				<tr>
+					<td align="left"><a href="perche_walibs.html"><< Perché waLibs?</a></td>
+					<td align="right"><a href="prima_waapplicazione.html">La mia prima waApplicazione >></a></td>
+				</tr>
+			</table>
+		</div>
+
+	</body>
+</html>

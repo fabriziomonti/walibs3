@@ -1,0 +1,171 @@
+/************** wamodulo ***************/
+form.wamodulo
+	{
+    border: #000000 1px solid;
+	position:	relative;
+	}
+
+/* bottoni*/
+form.wamodulo input[type=submit], 
+form.wamodulo input[type=button]
+	{
+	}
+
+form.wamodulo input[type=submit]:disabled,
+form.wamodulo input[type=button]:disabled
+	{
+	}
+
+/* input vari */
+form.wamodulo input[type=text], 
+form.wamodulo input[type=password],
+form.wamodulo input[type=checkbox],
+form.wamodulo input[type=radio],
+form.wamodulo input[type=file],
+form.wamodulo select,
+form.wamodulo textarea
+	{
+	}
+
+form.wamodulo input[type=text]:disabled, 
+form.wamodulo input[type=password]:disabled,
+form.wamodulo input[type=checkbox]:disabled,
+form.wamodulo input[type=radio]:disabled,
+form.wamodulo input[type=file]:disabled,
+form.wamodulo select:disabled,
+form.wamodulo textarea:disabled
+	{
+	}
+
+
+/* etichette e cornici */
+form.wamodulo label, 
+form.wamodulo label a, 
+form.wamodulo label a:active, 
+form.wamodulo label a:visited, 
+form.wamodulo label a:link, 
+form.wamodulo label a:hover, 
+form.wamodulo span, 
+form.wamodulo span a, 
+form.wamodulo span a:active, 
+form.wamodulo span a:visited, 
+form.wamodulo span a:link, 
+form.wamodulo span a:hover
+	{
+	color: #000000;
+	}
+
+form.wamodulo label.wamodulo_obbligatorio, 
+form.wamodulo label.wamodulo_obbligatorio a, 
+form.wamodulo label.wamodulo_obbligatorio a:active, 
+form.wamodulo label.wamodulo_obbligatorio a:visited, 
+form.wamodulo label.wamodulo_obbligatorio a:link, 
+form.wamodulo label.wamodulo_obbligatorio a:hover, 
+form.wamodulo span.wamodulo_obbligatorio, 
+form.wamodulo span.wamodulo_obbligatorio a, 
+form.wamodulo span.wamodulo_obbligatorio a:active, 
+form.wamodulo span.wamodulo_obbligatorio a:visited, 
+form.wamodulo span.wamodulo_obbligatorio a:link, 
+form.wamodulo span.wamodulo_obbligatorio a:hover
+	{
+	color: #000090;
+	}
+
+form.wamodulo label.wamodulo_disabilitato, 
+form.wamodulo label.wamodulo_disabilitato a, 
+form.wamodulo label.wamodulo_disabilitato a:active, 
+form.wamodulo label.wamodulo_disabilitato a:visited, 
+form.wamodulo label.wamodulo_disabilitato a:link, 
+form.wamodulo label.wamodulo_disabilitato a:hover, 
+form.wamodulo span.wamodulo_disabilitato, 
+form.wamodulo span.wamodulo_disabilitato a, 
+form.wamodulo span.wamodulo_disabilitato a:active, 
+form.wamodulo span.wamodulo_disabilitato a:visited, 
+form.wamodulo span.wamodulo_disabilitato a:link, 
+form.wamodulo span.wamodulo_disabilitato a:hover
+
+	{
+	color: #c0c0c0;
+	}
+
+/* cornici */
+form.wamodulo span
+	{
+    border: #000000 1px solid;
+	}
+
+
+/* calendario per le date */
+.calpop
+	{
+	position:absolute;
+	visibility:hidden;
+	z-index:1000;
+	background-color: #800000;
+    font-size: 9px;
+	color: #000000
+	}
+lcalpop, a.lcalpop:visited, a.lcalpop:active, a.lcalpop:link, a.lcalpop
+	{
+    font-size: 9px;
+	color: #000000
+	}
+.calhdr
+	{
+    font-size: 9px;
+    font-weight: bold;
+	color: #800000
+	}
+.calmhdr
+	{
+    font-size: 10px;
+    font-weight: bold;
+	color: #000000
+	}
+
+/* giochino per quei browser che possono allargare i textarea: */
+/* quando il controllo ha il focus può ricoprire tutti gli altri */
+form.wamodulo textarea:focus
+	{
+	z-index: 2;
+	}
+
+/* elemento arbitrario */
+form.wamodulo div.wamodulo_noncontrollo
+	{
+	display: inline-block;
+	overflow-y: scroll;
+	border: #000000 1px solid;
+	}
+
+/* controllo complesso multiselezione_checkbox */
+form.wamodulo div.wamodulo_multiselezione_checkbox
+	{
+	display: block;
+	border: #000000 1px solid;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	}
+
+form.wamodulo div.wamodulo_multiselezione_checkbox div
+	{
+	margin: 2px;
+	white-space: nowrap;
+	padding: 0px;
+	}
+
+form.wamodulo div.wamodulo_multiselezione_checkbox div div
+	{
+	margin: 0px;
+	margin-left: 4px;
+	white-space: nowrap;
+	display: inline-block;
+	width: 100%;
+	}
+
+form.wamodulo div.wamodulo_multiselezione_checkbox div div label.disabilitato
+	{
+	background-color: #dddddd;
+	color: #000000;
+	}
+

@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title></title>
+		<link href="css/documentazione_walibs3.css" rel="stylesheet" />
+	</head>
+
+	<body>
+
+		<div class='titolo'>waLibs 3.x</div>
+		<div class='titolo'>DB/BR/UI</div>
+
+		<div>
+			Uno degli obiettivi di quasi tutti gli ambienti di lavoro informatici
+			è rendere astratto l'accesso alla base-dati (DB) da parte delle 
+			regole applicative (business-rules, BR) e rendere indipendente la 
+			definizione delle BR dall'interfaccia-utente (user-interface, UI).
+		</div>
+
+		<div>
+			Come diversi altri framework, anche le <b>waLibs</b>  
+			forniscono un interfaccia programmatica (API) generica per l'accesso 
+			alla base dati. Ma il punto qualificante delle <b>waLibs</b> è dato 
+			dall'utilizzo della tecnologia XML/XSLT per la formattazione dei 
+			propri output e input nel punto di contatto tra BR e UI.
+		</div>
+
+		<div>
+			Ognuna delle classi destinata a produrre l'output della UI (waMenu, 
+			waModulo, waTabella, waApplicazione; non waDB, per ovvi motivi) non 
+			produce, infatti, output già formattato in un qualsiasi linguaggio 
+			di rendering (HTML, PS, PDF, RTF, ecc.), bensi' un generico flusso 
+			XML, contenente dati e proprietà <u><i>logiche</i></u> derivanti dall'elaborazione 
+			interna alle BR; è solamente l'applicazione di un foglio di stile 
+			XSLT all'output XML, applicazione che avviene lato server, che 
+			definisce <i>come</i> in effetti i dati e le proprietà logiche saranno 
+			renderizzati all'interno della UI, che a questo punto potrà essere 
+			implementata in modo differente a seconda delle esigenze del 
+			committente e del medium tecnico su cui andrà effettuato il display. 		
+		</div>
+
+		<div>
+			Non solo: poiché l'output è filtrato dal foglio di stile XSLT che si 
+			applica ad ogni oggetto delle classi <b>waLibs</b> (tabelle, moduli, menu, 
+			pagina di applicazione), l'output effettivamente generato potrà 
+			essere in qualsiasi formato richiesto dal destinatario, e quindi non 
+			necessariamente renderizzato: CSV, XML, JSON, ecc., in modo da 
+			essere utilizzato da terminali di nuova generazione (Android, iOS, 
+			ecc.).		
+		</div>
+
+		<div>
+			Analogamente, l'input utente, ossia l'immissione dati che avviene 
+			tipicamente attraverso un modulo, e' anch'esso filtrato da un foglio 
+			XSLT, il quale converte i dati ricevuti tramite HTTP/POST in un  
+			formato XML predeterminato che
+			sarà utilizzato dall'oggetto destinatario; è quindi possibile 
+			generare una UI completamente autonoma 
+			rispetto alle BR, poiché sono i fogli XSLT che si preoccupano di 
+			formattare i dati per il client così come li aspetta il client, 
+			e per il server così come se li aspetta il server.	
+		</div>
+		
+		<div class="img">
+			<img src="img/walibs_schema.gif" />
+			
+		</div>
+
+		<div>
+			<table class="navbar">
+				<tr>
+					<td align="left"><a href="intro.html"><< Introduzione</a></td>
+					<td align="right"><a href="perche_walibs.html">Perchè waLibs? >></a></td>
+				</tr>
+			</table>
+		</div>
+		
+	</body>
+</html>

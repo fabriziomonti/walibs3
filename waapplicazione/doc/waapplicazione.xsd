@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF8"?>
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="waapplicazione">
+		<xsd:documentation>Radice</xsd:documentation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element type="xsd:string" name="waapplicazione_path">
+					<xsd:documentation>
+						Path della root del package waApplicazione rispetto alla document root.
+						In base a questo valore è possibile orientarsi rispetto all'intera applicazione.
+					</xsd:documentation>
+				</xsd:element>
+				<xsd:element type="xsd:string" name="dominio">
+					<xsd:documentation>
+						Nome del dominio dell'applicazione
+					</xsd:documentation>
+				</xsd:element>
+				<xsd:element type="xsd:string" name="nome">
+					<xsd:documentation>
+						Nome programmatico dell'applicazione. Corrisponde alla proprietà waApplicazione::nome
+					</xsd:documentation>
+				</xsd:element>
+				<xsd:element type="xsd:string" name="titolo">
+					<xsd:documentation>
+						Titolo dell'applicazione. Corrisponde alla proprietà waApplicazione::titolo
+					</xsd:documentation>
+				</xsd:element>
+				<xsd:element type="xsd:string" name="directory_lavoro">
+					<xsd:documentation>
+						Directory relativa alla document-root in cui sta lavorando la pagina
+					</xsd:documentation>
+				</xsd:element>
+				<xsd:element type="xsd:byte" name="modalita_navigazione">
+					<xsd:documentation>
+						Codice della modalità di navigazione. Corrisponde alla proprietà waApplicazione::modalitaNavigazione
+					</xsd:documentation>
+				</xsd:element>
+				<xsd:element name="pagina">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element type="xsd:string" name="uri">
+								<xsd:documentation>
+									Contiene la URI della pagina corrente
+								</xsd:documentation>
+							</xsd:element>
+							<xsd:element type="xsd:anyURI" name="uri_precedente">
+								<xsd:documentation>
+									Contiene la URI della pagina di provenienza
+								</xsd:documentation>
+							</xsd:element>
+							<xsd:element type="xsd:string" name="nome">
+								<xsd:documentation>
+									Basename del file della pagina (senza estensione)
+								</xsd:documentation>
+							</xsd:element>
+							<xsd:element name="elementi">
+								<xsd:documentation>
+									Lista degli elementi da mandare in output
+								</xsd:documentation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="elemento" maxOccurs="unbounded" minOccurs="0">
+											<xsd:documentation>
+												Elemento da mandare in output
+											</xsd:documentation>
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element type="xsd:string" name="nome">
+														<xsd:documentation>
+															Nome programmatico dell'elemento da mandare in output. 
+														</xsd:documentation>
+													</xsd:element>
+													<xsd:element type="xsd:string" name="tipo">
+														<xsd:documentation>
+															Tipo dell'elemento da mandare in output 
+															(watabella, wamodulo, wamenu, stringa)
+														</xsd:documentation>
+													</xsd:element>
+													<xsd:element type="xsd:string" name="valore">
+														<xsd:documentation>
+															Valore dell'elemento da mandare in output 
+														</xsd:documentation>
+													</xsd:element>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>
