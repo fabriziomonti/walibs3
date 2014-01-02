@@ -1,3 +1,7 @@
+2014-01-01 tag rel_3_0_20
+- corretto piccoli errori e cambiato metodo larghezza di default delle colonne 
+	in esportazione pdf di watabella
+
 2013-11-22 tag rel_3_0_19
 - aggiunta gestione waApplicazione::aggiungiElemento XML
 
