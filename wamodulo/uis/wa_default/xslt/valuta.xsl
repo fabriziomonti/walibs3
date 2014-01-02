@@ -7,7 +7,9 @@
 <xsl:template match="valuta">
 
 	<xsl:call-template name="intestazione_controllo"/>
-	<input type='text' name='{@id}' maxlength='{caratteri_max}'>
+	<xsl:variable name="caratteri_max" select="nr_interi + floor(nr_interi div 3) + number(nr_interi mod 3 &gt; 0) + nr_decimali" />
+		
+	<input type='text' name='{@id}' maxlength='{$caratteri_max}' size='{$caratteri_max}'>
 		<xsl:attribute name='value'>
 			<!--	manca la definizione del nr decimali... -->
 			<xsl:choose>
