@@ -162,7 +162,7 @@ var waapplicazione = new Class
 		
 		// cerca tutti gli oggetti di classe watabella e wamodulo presenti nella pagina
 		// per associarli all'applicazione
-		for (var li in document.forms)
+		for (var li = 0; li < document.forms.length; li++)
 			this.aggiungiOggetto(document.forms[li]);
 			
 		// collegamento tra la tabella e le azioni non comprese da standard; pone
