@@ -1,3 +1,7 @@
+2014-01-10 tag rel_3_0_21
+- corretto errore su formattazione wavaluta
+- aggiunte proprietà automagic a waRecord
+
 2014-01-01 tag rel_3_0_20
 - corretto piccoli errori e cambiato metodo larghezza di default delle colonne 
 	in esportazione pdf di watabella
