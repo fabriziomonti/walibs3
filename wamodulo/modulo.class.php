@@ -670,15 +670,19 @@ class waModulo
 		
 		// dobbiamo definire il valore iniziale (di default o letto da DB) di
 		// ogni controllo di input
-		foreach($this->controlliInput as $nome => $ctrl)
-			$ctrl->definisciValoreIniziale();
-		
+		foreach ($this->controlliInput as $nome => $ctrl)
+				{
+				$ctrl->definisciValoreIniziale();
+				}
+
 		// i parametri dati arrivano sempre in post 
 		if ($_POST["wamodulo_nome_modulo"] != $this->nome)
-			// il post (se c'e') non e' relativo a questa istanza del modulo
+		// il post (se c'e') non e' relativo a questa istanza del modulo
+			{
 			return;
-		
-		// eventuali parametri di una chiamata RPC non ha senso che vengano 
+			}
+
+			// eventuali parametri di una chiamata RPC non ha senso che vengano 
 		// macinati dall'XSLT; se e' una chiamata RPC per questa istanza del
 		// modulo, usiamo i parametri prelevandoli direttamente dal POST e
 		// usciamo
