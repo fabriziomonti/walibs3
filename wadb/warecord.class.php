@@ -115,6 +115,47 @@ class waRecord
 		$this->righeDB->statiRecord[$this->indiceRiga] = WADB_RECORD_DA_CANCELLARE;
 		}
 		
+	//***********************************************************************
+	/**
+	* -
+	*
+	* restituisce, se esiste, il valore del campo individuato da $nomeOIndiceCampo
+	 * (equivalente a invocare il medodo {@link valore}
+	 * 
+	 * Attenzione a situazioni particolari in cui un record potrebbe contenere 
+	 * lo stesso nome di una delle proprietà della classe (indiceRiga, ecc.):
+	 * in questo caso ciò che viene restituito è il valore della proprietà,
+	 * non del campo
+	 * 
+	* @param mixed (string | int) $nomeOIndiceCampo nome del campo o indice della colonna
+	* @return mixed valore del campo
+	*/ 
+	public function __get($nomeOIndiceCampo)
+		{
+		return $this->valore($nomeOIndiceCampo);
+		}
+		
+	//***********************************************************************
+	/**
+	* -
+	*
+	* inserisce, se esiste, il valore dato nel campo individuato da $nomeOIndiceCampo
+	 * (equivalente a invocare il medodo {@link inserisciValore}
+	 * 
+	 * Attenzione a situazioni particolari in cui un record potrebbe contenere 
+	 * lo stesso nome di una delle proprietà della classe (indiceRiga, ecc.):
+	 * in questo caso ciò che viene valorizzato è il valore della proprietà,
+	 * non del campo
+	 * 
+	* @param mixed (string | int) $nomeOIndiceCampo nome del campo o indice della colonna
+	* @param mixed $valore : il nuovo valore da inserire
+	* @return void
+	*/ 
+	public function __set($nomeOIndiceCampo, $valore)
+		{
+		return $this->inserisciValore($nomeOIndiceCampo, $valore);
+		}
+		
 	}
 
 //*****************************************************************************
