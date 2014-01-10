@@ -12,11 +12,13 @@
 	<input type='text' name='{@id}' maxlength='{$caratteri_max}' size='{$caratteri_max}'>
 		<xsl:attribute name='value'>
 			<!--	manca la definizione del nr decimali... -->
+			<!--<xsl:value-of select="number($caratteri_max)" />-->
 			<xsl:choose>
-				<xsl:when test="valore &gt; 0">
-					<xsl:value-of select="format-number(valore,  '#.##0,00')"/>
-				</xsl:when>
-				<xsl:when test="vuotoSeZero != '1'">0,00</xsl:when>
+				<xsl:when test="(valore = '' or valore = 0) and vuoto_se_zero = '1'" ></xsl:when>
+				<xsl:when test="(valore = '' or valore = 0) and vuoto_se_zero != '1'" >0,00</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="format-number(number(valore),  '#.##0,00')"/>
+				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:attribute>
 	
