@@ -119,7 +119,7 @@ class waRecord
 	/**
 	* -
 	*
-	* restituisce, se esiste, il valore del campo individuato da $nomeOIndiceCampo
+	* restituisce, se esiste, il valore del campo individuato da $nomeCampo
 	 * (equivalente a invocare il medodo {@link valore}
 	 * 
 	 * Attenzione a situazioni particolari in cui un record potrebbe contenere 
@@ -127,19 +127,19 @@ class waRecord
 	 * in questo caso ciò che viene restituito è il valore della proprietà,
 	 * non del campo
 	 * 
-	* @param mixed (string | int) $nomeOIndiceCampo nome del campo o indice della colonna
+	* @param string $nomeCampo nome del campo
 	* @return mixed valore del campo
 	*/ 
-	public function __get($nomeOIndiceCampo)
+	public function __get($nomeCampo)
 		{
-		return $this->valore($nomeOIndiceCampo);
+		return $this->valore($nomeCampo);
 		}
 		
 	//***********************************************************************
 	/**
 	* -
 	*
-	* inserisce, se esiste, il valore dato nel campo individuato da $nomeOIndiceCampo
+	* inserisce, se esiste, il valore dato nel campo individuato da $nomeCampo
 	 * (equivalente a invocare il medodo {@link inserisciValore}
 	 * 
 	 * Attenzione a situazioni particolari in cui un record potrebbe contenere 
@@ -147,13 +147,13 @@ class waRecord
 	 * in questo caso ciò che viene valorizzato è il valore della proprietà,
 	 * non del campo
 	 * 
-	* @param mixed (string | int) $nomeOIndiceCampo nome del campo o indice della colonna
+	* @param string $nomeCampo nome del campo
 	* @param mixed $valore : il nuovo valore da inserire
 	* @return void
 	*/ 
-	public function __set($nomeOIndiceCampo, $valore)
+	public function __set($nomeCampo, $valore)
 		{
-		return $this->inserisciValore($nomeOIndiceCampo, $valore);
+		return $this->inserisciValore($nomeCampo, $valore);
 		}
 		
 	}

@@ -90,12 +90,15 @@ var wamultiselezione = new Class
 			{
 			if (values[key] != undefined && values[key] != 'undefined')
 				{
-				this.obj.innerHTML += '<div>' +
-										'<input type="checkbox" name="' + this.nome + '[' + key + '] id="' + this.nome + key + '"' + (values[key] == toSelect ? ' checked="checked"' : '') + ' />' + 
-										'<div>' + 
-										'<label for="' + this.nome + key + '">' + values[key] + '</label>' + 
-										'</div>' + 
-										'</div>';
+				this.obj.innerHTML += "<div>\n" +
+										"\t<input type='checkbox'" +
+											" name='" + this.nome + "[" + key + "]'" +
+											" id='" + this.nome + key + "'" + 
+											(values[key] == toSelect ? " checked='checked'" : "") + " />\n" + 
+										"\t<div>\n" + 
+										"\t\t<label for='" + this.nome + key + "'>" + values[key] + "</label>\n" + 
+										"\t</div>\n" + 
+										"</div>\n";
 				}
 			}
 

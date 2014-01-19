@@ -778,11 +778,26 @@ var watabella = new Class
 	/**
 	 * cambia la pagina corrente.
 	 * 
-	 * @param {string} target indirizzo della pagina di destinazione
+	 * @param {string} target nr della pagina di destinazione
 	 */
 	cambiaPagina: function (target)
 		{
-		location.href = target;
+		if (parseInt(target) != target)
+			{
+			// compatibilità con versione precedente, a cui veniva passata 
+			// l'intera pagina come parametro
+			location.href = target;
+			}
+		else
+			{
+			var paramName = "watbl_pg[" + this.nome + "]";
+			var toGo = this.rimuoviParametroDaQS(paramName);
+			var qoe = toGo.indexOf("?") != -1 ? "&" : "?";
+			location.href = toGo + qoe + paramName + "=" + target;
+			// deve tornare false, perche' è chiamato dalla onsubmit del form
+			return false;
+			}
+			
 		},
 	
 	//-------------------------------------------------------------------------
@@ -1062,6 +1077,7 @@ var watabella = new Class
   	//---------------------------------------------------------------------------
 	/**
 	 * chiude (nasconde) il modulo di rodinamento/filtro
+	 * @ignore
 	 */
 	chiudiOrdinamentoFiltro: function ()
 		{
@@ -1069,6 +1085,52 @@ var watabella = new Class
 		divOrdFiltro.style.visibility = 'hidden';
 		},
 			
+  	//---------------------------------------------------------------------------
+	/**
+	 * invia al server la richiesta di applicazione dei criteri di ordinamento e 
+	 * filtro selezionati dall'utente
+	 * @ignore
+	 */
+	ricercaRapida: function ()
+		{
+		var form = 	document.forms[this.nome + "_bottoniera"];
+		var paramName = "watbl_rr[" + this.nome + "]";
+		var toSearch = form.elements[paramName].value;
+		var toGo = this.rimuoviParametroDaQS(paramName);
+		toGo = this.rimuoviParametroDaQS("watbl_pg[" + this.nome + "]", toGo);
+		var qoe = toGo.indexOf("?") != -1 ? "&" : "?";
+		
+		location.href = toGo + qoe + paramName + "=" + toSearch;
+		return false;
+		},
+			
+	//-------------------------------------------------------------------------
+	/**
+	 * toglie un parametro dalla query string (location.search) perchè
+	 * altrimenti sarebbe ripetuto e a lungo andare rischia di intasare
+	 * la QS stessa
+	 * @ignore
+	 */
+	rimuoviParametroDaQS: function (param, inQs)
+	    {
+		inQs = inQs ? inQs : document.location.search;
+		var qs = '';
+		if (inQs.length)
+			{
+			var kv = new Array();
+			var coppie = (inQs.substr(1)).split('&');
+			for (var i = 0; i < coppie.length; i++)
+				{
+				kv = coppie[i].split('=');
+				if (kv[0] != param)
+					qs += (qs == '' ? '?' : '&') + kv[0] + "=" + (kv[1] ? kv[1] : '');
+				}
+			}
+			
+		return qs;
+			
+		},
+		
   	//--------------------------------------------------------------------------
   	//---------  funzioni di edit  ---------------------------------------------
   	//--------------------------------------------------------------------------

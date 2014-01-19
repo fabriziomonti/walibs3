@@ -1576,6 +1576,35 @@ class waModulo
 		}
 
 		
+	//***********************************************************************
+	/**
+	* -
+	*
+	* magic method: restituisce, se esiste, il valore di input (!) del controllo
+	 * individuato da $nomeControllo
+	 * 
+	 * è uno shortcut equivalente a invocare le proprietà
+	 * 
+	 * - waModulo::input[$nomeControllo] 
+	 * - waModulo::controlliInput[$nomeControllo]->valoreInput
+	 * 
+	 * Attenzione a situazioni particolari in cui un modulo potrebbe contenere 
+	 * controlli con lo stesso nome di una delle proprietà della classe (titolo, sinistra, ecc.):
+	 * in questo caso ciò che viene restituito è il valore della proprietà,
+	 * non del controllo
+	 * 
+	* @param string $nomeControllo nome del controllo di input contenuto nel modulo
+	* @return mixed valore del controllo immesso in input
+	*/ 
+	public function __get($nomeControllo)
+		{
+		if ($this->controlliInput[$nomeControllo])
+			{
+			return $this->controlliInput[$nomeControllo]->valoreInput;
+			}
+			
+		}
+		
 	}	// fine classe waModulo
 //***************************************************************************
 //******* fine della gnola **************************************************

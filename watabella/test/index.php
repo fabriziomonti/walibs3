@@ -164,9 +164,9 @@ function dammiTabella($nome)
 		$col->inputTipo = WATBL_INPUT_VALUTA;
 		$col->pdf_perc = 12;
 	
-	$col = $table->aggiungiColonna("attivo", "Attivo", true, true, true, WATBL_ALLINEA_CENTRO);
-		$col->inputTipo = WATBL_INPUT_LOGICO;
-		$col->pdf_perc = 7;
+//	$col = $table->aggiungiColonna("attivo", "Attivo", true, true, true, WATBL_ALLINEA_CENTRO);
+//		$col->inputTipo = WATBL_INPUT_LOGICO;
+//		$col->pdf_perc = 7;
 	
 	$col = $table->aggiungiColonna("eliminabile", "Eliminabile", true, false, false, WATBL_ALLINEA_CENTRO);
 		$col->funzioneCalcolo = "mostraEliminabilita";

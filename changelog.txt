@@ -1,3 +1,12 @@
+2014-01-19 tag rel_3_0_22
+- aggiunti (o modificati) metodi magic su warecord e wamodulo
+- corretto errori su multiselezione_checkbox
+- waselezione: ordinamento lista di default su riempimento rpc (per valore e non per chiave)
+- wavaluta: corretto punto che non diventava virgola (in tempo)
+- watabella: portato a fattor comune un po' di template xsl
+- watabella: corretto errore per cui resettava parametri qs su ricerca rapida
+- watabella: cambiato comportamento di pagina precedente/successiva (ma mantiene compatibilità)
+
 2014-01-10 tag rel_3_0_21
 - corretto errore su formattazione wavaluta
 - aggiunte proprietà automagic a waRecord

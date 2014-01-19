@@ -41,9 +41,17 @@ var wavaluta = new Class
 	//-------------------------------------------------------------------------
 	alTastoSu: function(event) 
 		{
-		var re = /^[0-9-'.'-',']*$/;
+		this.obj.value = this.obj.value.replace(/\./g,",");
+		var re = /^[0-9-',']*$/;
 		if (!re.test(this.obj.value)) 
-			this.obj.value = this.obj.value.replace(/[^0-9-'.'-',']/g,"");	
+			this.obj.value = this.obj.value.replace(/[^0-9-',']/g,"");	
+		var elems = this.obj.value.split(",");
+		if (elems.length > 2)
+			{
+			this.obj.value = elems[0] + "," + elems[1];
+			for (var i = 2; i < elems.length; i++)
+				this.obj.value += elems[i];
+			}
 		this.eventoApplicazione(event, "onkeyup");
 			
 		},
