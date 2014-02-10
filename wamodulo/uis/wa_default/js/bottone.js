@@ -45,8 +45,8 @@ var wabottone = new Class
 			// pugnuetta di safari coi button....
 			this.obj = this.modulo.obj.children(this.nome);
 			
-		this.annulla = this.obj.annulla;
-		this.elimina = this.obj.elimina;
+		this.annulla = this.obj.annulla ? this.obj.annulla : 0;
+		this.elimina = this.obj.elimina ? this.obj.elimina : 0;
 		this.obj.onclick = this.myonclick;
 			
 		},
