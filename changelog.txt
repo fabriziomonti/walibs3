@@ -1,3 +1,6 @@
+2014-02-10 tag rel_3_0_23
+- piccola correzione su bottone
+
 2014-01-19 tag rel_3_0_22
 - aggiunti (o modificati) metodi magic su warecord e wamodulo
 - corretto errori su multiselezione_checkbox
