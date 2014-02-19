@@ -124,6 +124,7 @@ var wacolonna = new Class
 	valuta_onkeyup: function(idRiga) 
 		{
 		var ctrl = this.tabella.obj.elements[this.nome + "[" + idRiga + "]"];
+		ctrl.value = ctrl.value.replace(/\./g,",");
 		var re = /^[0-9-',']*$/;
 		if (!re.test(ctrl.value)) 
 			ctrl.value = ctrl.value.replace(/[^0-9-',']/g,"");	
@@ -1152,7 +1153,12 @@ var watabella = new Class
 			return alert(msg);
 			
 		if (confirm("Confermi registrazione modifiche?"))
+			{
 			this.obj.submit();
+			return true;
+			}
+			
+		return false;
 		},
 			
   	//--------------------------------------------------------------------------
@@ -1409,7 +1415,6 @@ var watabella = new Class
 			nuova_riga.appendChild(passo);
 			}
 		nuova_riga.id = "row_" + this.nome + "_" + idRiga;
-		new wariga(this, idRiga, '{}');
 		try
 			{
 			nuova_riga.style.display = "table-row";
@@ -1420,7 +1425,16 @@ var watabella = new Class
 			nuova_riga.style.display = "";
 			}
 		
-		tbl.tBodies[0].insertBefore(nuova_riga, tbl.rows[idxRigaDaClonare + 1]);
+		try
+			{
+			tbl.tBodies[0].insertBefore(nuova_riga, tbl.rows[idxRigaDaClonare + 1]);
+			}
+		catch(e)
+			{
+			tbl.tBodies[0].appendChild(nuova_riga);
+			}
+		
+		new wariga(this, idRiga, {});
 		
 		return idRiga;
 		}

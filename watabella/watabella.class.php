@@ -1605,7 +1605,7 @@ class waTabella
 				$col->totalizzatore += ($this->daSql() ?
 											$this->record->valore($col->nome) :
 											$this->record[$col->nome]);
-				$this->hasTotals = true;
+				$this->_hasTotals = true;
 				}
 			$this->buffer .= "\t\t\t</cella>\n";
 			}
@@ -1618,7 +1618,21 @@ class waTabella
 	*/	
 	protected function creaRigaTotali()
 		{
-		if (!$this->hasTotals)
+		if (!$this->_hasTotals)
+			{
+			// se la tabella è vuota, non sappiamo se vuole la riga dei totali o meno
+			foreach ($this->colonne as $col)
+				{
+				if ($col->totalizza)
+					{
+					$this->_hasTotals = true;
+					break;
+					}
+				}
+			
+			}
+			
+		if (!$this->_hasTotals)
 			return;
 			
 		$this->buffer .= "\t<watabella_riga_totali>\n";
