@@ -1,3 +1,6 @@
+2014-02-19 tag rel_3_0_25
+- aggiunta possibilita, in fase di edit, aggiungere la riga in fondo oltreche all'inizio della tabella
+
 2014-02-10 tag rel_3_0_24
 corretti 2 errori (2!) che impedivano alla tabella di avere la riga dei totali partendo da vuota
 
