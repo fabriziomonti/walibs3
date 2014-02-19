@@ -1,3 +1,6 @@
+2014-02-10 tag rel_3_0_24
+corretti 2 errori (2!) che impedivano alla tabella di avere la riga dei totali partendo da vuota
+
 2014-02-10 tag rel_3_0_23
 - piccola correzione su bottone
 
