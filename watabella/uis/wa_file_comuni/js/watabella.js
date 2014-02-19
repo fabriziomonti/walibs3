@@ -1387,8 +1387,10 @@ var watabella = new Class
 	/**
 	 * richiede al server la creazione di un record tramite RPC
 	 * 
+	 * @param {boolean} flagAppendiInFondo se true la riga viene aggiunta in 
+	 *		fondo alla tabella; altrimenti viene aggiunta come prima riga
 	 */
-	azione_NuovoSubito: function() 
+	azione_NuovoSubito: function(flagAppendiInFondo) 
 		{
 			
 		var idRiga;	// identificativo della riga che viene creata
@@ -1424,16 +1426,23 @@ var watabella = new Class
 			// ie 6/7 non supportano table-row....
 			nuova_riga.style.display = "";
 			}
-		
-		try
-			{
-			tbl.tBodies[0].insertBefore(nuova_riga, tbl.rows[idxRigaDaClonare + 1]);
-			}
-		catch(e)
+			
+		if (flagAppendiInFondo)
 			{
 			tbl.tBodies[0].appendChild(nuova_riga);
 			}
-		
+		else
+			{
+			try
+				{
+				tbl.tBodies[0].insertBefore(nuova_riga, tbl.rows[idxRigaDaClonare + 1]);
+				}
+			catch(e)
+				{
+				tbl.tBodies[0].appendChild(nuova_riga);
+				}
+			}
+			
 		new wariga(this, idRiga, {});
 		
 		return idRiga;
