@@ -1,3 +1,6 @@
+2014-02-20 tag rel_3_0_26
+- hanno corretto un baco in mysql (utf -> len x 3) per cui ho tolto il workaround relativo in wadocumentazione
+
 2014-02-19 tag rel_3_0_25
 - aggiunta possibilita, in fase di edit, aggiungere la riga in fondo oltreche all'inizio della tabella
 
