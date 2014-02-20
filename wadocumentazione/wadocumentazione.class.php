@@ -489,10 +489,10 @@ class waDocumentazione
 			$riga->inserisciValore("nome", $rs2Doc->nomeCampo($i));
 			$riga->inserisciValore("tipo", $rs2Doc->tipoCampo($i));
 			$riga->inserisciValore("tipoDB", $rs2Doc->tipoCampoDB($i));
-			$maxLen = ($dbconn2Doc->WADB_TIPODB == WADB_TIPODB_MYSQL && 
-						($rs2Doc->tipoCampo($i) == WADB_CONTENITORE || $rs2Doc->tipoCampo($i) == WADB_STRINGA) ?
-						$rs2Doc->lunghezzaMaxCampo($i) / 3 : $rs2Doc->lunghezzaMaxCampo($i));
-			$riga->inserisciValore("lunghezza", $maxLen);
+//			$maxLen = ($dbconn2Doc->WADB_TIPODB == WADB_TIPODB_MYSQL && 
+//						($rs2Doc->tipoCampo($i) == WADB_CONTENITORE || $rs2Doc->tipoCampo($i) == WADB_STRINGA) ?
+//						$rs2Doc->lunghezzaMaxCampo($i) / 3 : $rs2Doc->lunghezzaMaxCampo($i));
+			$riga->inserisciValore("lunghezza", $rs2Doc->lunghezzaMaxCampo($i));
 			$riga->inserisciValore("chiavePrimaria", $rs2Doc->nomeCampo($i) == $rs2Doc->chiavePrimaria() ? 1 : 0);
 			$riga->inserisciValore("posizione", $i);
 			$this->_salvaRigheDB($rs);
