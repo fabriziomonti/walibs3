@@ -321,6 +321,7 @@ class waConnessioneDB_mysqli extends waConnessioneDB
 		switch ($tipoDB)
 			{
 			case MYSQLI_TYPE_DATE: 
+			case MYSQLI_TYPE_NEWDATE: 
 				return $this->dataSql($valore);
 			
 			case MYSQLI_TYPE_TIME:
@@ -367,6 +368,7 @@ class waConnessioneDB_mysqli extends waConnessioneDB
 		switch ($tipoDB)
 			{
 			case MYSQLI_TYPE_DATE: 
+			case MYSQLI_TYPE_NEWDATE: 
 				if (empty($campo))
 					return null;
 				if ($campo == "0000-00-00")
@@ -501,6 +503,7 @@ class waConnessioneDB_mysqli extends waConnessioneDB
 				return WADB_CONTENITORE;
 				
 			case MYSQLI_TYPE_DATE: 
+			case MYSQLI_TYPE_NEWDATE: 
 				return WADB_DATA;
 			
 			case MYSQLI_TYPE_TIME:
