@@ -700,7 +700,7 @@ class waTabella
  								"<nome>$this->nome</nome>\n" .
  								"<uri>" . $this->dammiURI() . "</uri>\n" .
  								"<watabella_path>$this->_currPath</watabella_path>\n" .
- 								"<titolo>$this->titolo</titolo>\n" .
+ 								"<titolo>" . htmlspecialchars($this->titolo) . "</titolo>\n" .
  								"<selezione_esclusiva>" . ($this->selezioneEsclusiva ? 1 : 0) . "</selezione_esclusiva>\n" .
  								"<pagina_modulo>" . htmlspecialchars($this->paginaModulo) . "</pagina_modulo>\n";
 

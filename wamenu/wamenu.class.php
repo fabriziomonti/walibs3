@@ -170,7 +170,7 @@ class waMenu
     	$this->buffer .= "$tabs<wamenu_sezione id='$id'>\n".
     						"$tabs\t<url>$url</url>\n" .
     						"$tabs\t<finestra>$finestra</finestra>\n" .
-    						"$tabs\t<etichetta>$etichetta</etichetta>\n" .
+    						"$tabs\t<etichetta>" . htmlspecialchars($etichetta) . "</etichetta>\n" .
     						"$tabs\t<livello>$this->currLevel</livello>\n" .
     						"$tabs\t<selezionato>" . ($isSelected ? 1 : 0) . "</selezionato>\n";
     						
@@ -230,7 +230,7 @@ class waMenu
 		$this->buffer .= "$tabs<wamenu_voce>\n".
     						"$tabs\t<url>$url</url>\n" .
     						"$tabs\t<finestra>$finestra</finestra>\n" .
-    						"$tabs\t<etichetta>$etichetta</etichetta>\n" .
+    						"$tabs\t<etichetta>" . htmlspecialchars($etichetta) . "</etichetta>\n" .
     						"$tabs\t<selezionato>" . ($isSelected ? 1 : 0) . "</selezionato>\n" .
     					"$tabs</wamenu_voce>\n";
     						

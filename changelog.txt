@@ -1,3 +1,6 @@
+2014-02-23 tag rel_3_0_28
+- corretto possibilità di special chars in menu e titolo tabella
+
 2014-02-23 tag rel_3_0_27
 - aggiunto gestione tipo "newdate"....
 
