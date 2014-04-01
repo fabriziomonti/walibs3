@@ -498,7 +498,7 @@ class waModulo
 		
 		$retval = "<wamodulo_esito_rpc>$esito</wamodulo_esito_rpc>\n" .
 					"<wamodulo_messaggio_rpc>" . htmlspecialchars($messaggio) . "</wamodulo_messaggio_rpc>\n" .
-					"<wamodulo_dati_rpc>\n";
+					"<wamodulo_dati_rpc>";
 		
 		if (is_array($datiRisposta))
 			{

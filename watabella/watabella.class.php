@@ -1534,7 +1534,7 @@ class waTabella
 					{
 					$this->buffer .= "\t\t\t\t<opzioni>\n";
 					foreach ($col->inputOpzioni as $val => $text)
-						$this->buffer .= "\t\t\t\t\t<opzione val='$val'>$text</opzione>\n";
+						$this->buffer .= "\t\t\t\t\t<opzione val='$val'>" . htmlspecialchars($text). "</opzione>\n";
 					$this->buffer .= "\t\t\t\t</opzioni>\n";
 					}
 				$this->buffer .= "\t\t\t</input>\n";
@@ -2144,19 +2144,25 @@ class waTabella
 							{
 							$format->setNumFormat('DD/MM/YYYY');
 							$towrite = 25569 + $this->record->valore($col->nome) / 86400;	
+							$format->setAlign('center');
 							}
 						elseif ($this->righeDB->tipoCampo($col->nome) == WADB_DATAORA)
 							{
 							$format->setNumFormat('DD/MM/YYYY hh:mm');
 							$towrite = (25569 + ($this->record->valore($col->nome)  + 7200) / 86400);	
+							$format->setAlign('center');
 							}
 						elseif ($this->righeDB->tipoCampo($col->nome) == WADB_DECIMALE)
 							{
 							$format->setNumFormat('#,##0.00;-#,##0.00');
 							$towrite = $this->record->valore($col->nome);
+							$format->setAlign('right');
 							}
 						elseif ($this->righeDB->tipoCampo($col->nome) == WADB_INTERO)
+							{
 							$towrite = $this->record->valore($col->nome);
+							$format->setAlign('right');
+							}
 						else
 							$towrite = $this->record->valore($col->nome);
 
