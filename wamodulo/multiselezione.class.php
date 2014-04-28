@@ -244,6 +244,17 @@ class waMultiSelezione extends waControllo
 		return $this->valoreInput;
 		}
 	
+	//***************************************************************************
+	/**
+	* verificaObbligo
+	* @ignore
+	*
+	*/
+	function verificaObbligo()
+		{
+		return !$this->obbligatorio || !empty($this->valoreInput);
+		}
+
 	}	// fine classe waMultiSelezione
 //***************************************************************************
 //******* fine della gnola **************************************************
