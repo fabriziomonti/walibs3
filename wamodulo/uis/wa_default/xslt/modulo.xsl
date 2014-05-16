@@ -9,9 +9,8 @@
 	<link href='{wamodulo_path}/uis/wa_default/css/wamodulo.css' rel='stylesheet'/>
 	
 	<!-- inclusione delle classi che gestiscono i controlli	-->
-	<script type='text/Javascript' src='{wamodulo_path}/uis/wa_default/js/overlib.js'></script>
-	<script type='text/Javascript' src='{wamodulo_path}/uis/wa_default/js/calpop.js'></script><xsl:text>&#10;</xsl:text>
-	<script type='text/Javascript' src='{wamodulo_path}/uis/wa_default/js/moo1.2.js'></script><xsl:text>&#10;</xsl:text>
+	<script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/mootools/1.2.5/mootools-yui-compressed.js'></script><xsl:text>&#10;</xsl:text>
+	<!--script per la gestione dei singoli controlli-->
 	<script type='text/Javascript' src='{wamodulo_path}/uis/wa_default/js/modulo.js'></script><xsl:text>&#10;</xsl:text>
 	<script type='text/Javascript' src='{wamodulo_path}/uis/wa_default/js/controllo.js'></script><xsl:text>&#10;</xsl:text>
 	<script type='text/Javascript' src='{wamodulo_path}/uis/wa_default/js/areatesto.js'></script><xsl:text>&#10;</xsl:text>

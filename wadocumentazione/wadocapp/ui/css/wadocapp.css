@@ -88,9 +88,10 @@ form.wamodulo span
     border: none;
 	}
 	
-.defaultSkin .mceToolbar tr:hover
+form.watabella table td div.mce-btn button
 	{
-	background-color: #f0f0ee;
+	width: auto;
+	padding: 2px;
 	}
 	
 /* etichette e cornici */

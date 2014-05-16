@@ -99,13 +99,15 @@ $pagina->faiQualcosa();
 
 		<div>
 			P.S.: waTabella possiede al suo interno un meccanismo per esportare
-			le righe in formato CSV, XLS e PDF. Per effettuare l'esportazione in 
-			formato PDF viene utilizzata la famosa classe FPDF, estesa con 
-			l'implementazione di alcune funzioni utili (gestione input UTF8 e
-			"MultiLineRow"). Quindi, qualora la vostra applicazione dovesse
-			generare file in formato PDF e vogliate utilizzare FPDF e successive
-			modificazioni nostrane, non è necessario includere nuovamente il 
-			package: è già incluso nelle waLibs!
+			le righe in formato CSV, XLS e PDF. Per il formato XLS è necessario 
+			che siano in include_path le librerie di terze parti
+			<a href="https://phpexcel.codeplex.com/">PHPExcel</a>
+			o 
+			<a href="http://sourceforge.net/projects/excelwriterxml/">ExcelWriterXML</a>
+			oppure il pacchetto PEAR
+			<a href="http://pear.php.net/package/Spreadsheet_Excel_Writer/redirected">Spreadsheet_Excel_Writer</a>.
+			Per il formato PDF è necessario che siano in include_path la 
+			libreria di terze parti <a href="http://www.fpdf.org/">FPDF</a>.
 		</div>
 
 		<div>

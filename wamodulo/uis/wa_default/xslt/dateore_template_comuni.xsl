@@ -2,6 +2,16 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <!-- ********************************************************************** -->
+<!--  template per caricamento script javascript di terze parti             -->
+<!-- ********************************************************************** -->
+<xsl:template name="carica_script_terze_parti_date">
+	
+	<script type='text/Javascript' src='{/wamodulo/wamodulo_path}/uis/wa_default/js/third_party_libs/overlib/overlib.js'></script><xsl:text>&#10;</xsl:text>
+	<script type='text/Javascript' src='{/wamodulo/wamodulo_path}/uis/wa_default/js/third_party_libs/calpop/calpop.js'></script><xsl:text>&#10;</xsl:text>
+	
+</xsl:template>
+
+<!-- ********************************************************************** -->
 <!--  subroutine template creazione option per le date e le ore             -->
 <!-- ********************************************************************** -->
 <xsl:template name="option_loop">

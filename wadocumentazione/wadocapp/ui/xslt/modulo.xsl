@@ -10,8 +10,7 @@
 	<link href='{wamodulo_path}/uis/wa_default/css/wamodulo.css' rel='stylesheet'/>
 	
 	<!-- inclusione delle classi che gestiscono i controlli	-->
-	<script type='text/Javascript' src='{wamodulo_path}/uis/wa_default/js/overlib.js'></script>
-	<script type='text/Javascript' src='{wamodulo_path}/uis/wa_default/js/calpop.js'></script><xsl:text>&#10;</xsl:text>
+	<script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/mootools/1.2.5/mootools-yui-compressed.js'></script><xsl:text>&#10;</xsl:text>
 	<script type='text/Javascript' src='{wamodulo_path}/uis/wa_default/js/moo1.2.js'></script><xsl:text>&#10;</xsl:text>
 	<script type='text/Javascript' src='{wamodulo_path}/uis/wa_default/js/modulo.js'></script><xsl:text>&#10;</xsl:text>
 	<script type='text/Javascript' src='{wamodulo_path}/uis/wa_default/js/controllo.js'></script><xsl:text>&#10;</xsl:text>
@@ -34,7 +33,8 @@
 	<script type='text/Javascript' src='{wamodulo_path}/uis/wa_default/js/valuta.js'></script><xsl:text>&#10;</xsl:text>
 	
 	<!-- caricamento tinyMCE -->
-	<script type='text/javascript' src='{wamodulo_path}/../wadocumentazione/wadocapp/ui/js/tiny_mce/tiny_mce.js'></script><xsl:text>&#10;</xsl:text>
+	<!--<script type='text/javascript' src='{wamodulo_path}/../wadocumentazione/wadocapp/ui/js/tiny_mce/tiny_mce.js'></script><xsl:text>&#10;</xsl:text>-->
+	<script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/tinymce/4.0.21/tinymce.min.js'></script><xsl:text>&#10;</xsl:text>
 
  	<xsl:variable name="mysinistra">
 		<xsl:choose>

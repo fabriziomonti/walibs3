@@ -430,6 +430,10 @@ class waApplicazione
 	//***************************************************************************
 	/**
 	* invia un messaggio email
+	 * 
+	 * attenzione: necessita della directory della classe phpmailer ("phpmailer")
+	 * in include_path, oppure nella working directory dello script
+	 * 
 	* @param mixed $to destinatari/o; puo' essere un solo indirizzo email 
 	* (stringa) o 'n' indirizzi email (array di stringhe)
 	* @param string $oggetto subject del messaggio
@@ -455,7 +459,7 @@ class waApplicazione
 						$bcc = "", 
 						$allegati = "")
 		{
-		include_once dirname(__FILE__) . "/phpmailer/class.phpmailer.php";
+		include_once "phpmailer/class.phpmailer.php";
 		
 		$mail = new phpmailer(true);
 		$mail->CharSet = "UTF8";

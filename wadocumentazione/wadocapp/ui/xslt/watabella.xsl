@@ -15,12 +15,13 @@
 	<xsl:text>&#10;</xsl:text>
 	<link href='{watabella_path}/uis/wa_file_comuni/css/watabella.css' rel='stylesheet'/><xsl:text>&#10;</xsl:text>
 	
+	<script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/mootools/1.2.5/mootools-yui-compressed.js'></script><xsl:text>&#10;</xsl:text>
 	<script type='text/javascript' src='{watabella_path}/uis/wa_file_comuni/js/strmanage.js'></script><xsl:text>&#10;</xsl:text>
-	<script type='text/javascript' src='{watabella_path}/uis/wa_file_comuni/js/moo1.2.js'></script><xsl:text>&#10;</xsl:text>
 	<script type='text/javascript' src='{watabella_path}/uis/wa_file_comuni/js/watabella.js'></script><xsl:text>&#10;</xsl:text>
 
 	<!-- caricamento tinyMCE -->
-	<script type='text/javascript' src='{watabella_path}/../wadocumentazione/wadocapp/ui/js/tiny_mce/tiny_mce.js'></script><xsl:text>&#10;</xsl:text>
+	<!--<script type='text/javascript' src='{watabella_path}/../wadocumentazione/wadocapp/ui/js/tiny_mce/tiny_mce.js'></script><xsl:text>&#10;</xsl:text>-->
+	<script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/tinymce/4.0.21/tinymce.min.js'></script><xsl:text>&#10;</xsl:text>
 
  	<xsl:variable name="qoe">
 		<xsl:choose>
@@ -72,7 +73,7 @@
 				</xsl:if>
 				<xsl:if test="nome = 'Nuovo'">
 					<xsl:text>&#10;</xsl:text>
-					<button type='button' name='{nome}' id='{nome}' title='{etichetta}' value='{etichetta}' onclick='document.wapagina.azione_myNuovoSubito()'>
+					<button type='button' name='{nome}' id='{nome}' title='{etichetta}' value='{etichetta}' onclick='document.wapagina.azione_myNuovoSubito("{/watabella/nome}")'>
 						<xsl:value-of disable-output-escaping="yes" select="etichetta"/>
 					</button>
 				</xsl:if>
@@ -165,7 +166,7 @@
 						<xsl:value-of select="$alignment" />
 						<xsl:text>;</xsl:text>
 						<xsl:if test="input/tipo = 'areatesto'">
-							<xsl:text>padding: 0px; width: 381px;</xsl:text>
+							<xsl:text>padding: 0px; width: 400px;</xsl:text>
 						</xsl:if>
 					</xsl:attribute>
 					<xsl:choose>
@@ -258,7 +259,7 @@
 						<xsl:value-of select="$alignment" />
 						<xsl:text>;</xsl:text>
 						<xsl:if test="$col_info/input/tipo = 'areatesto'">
-							<xsl:text>padding: 0px; width: 381px;</xsl:text>
+							<xsl:text>padding: 0px; width: 400px;</xsl:text>
 						</xsl:if>
 					</xsl:attribute>
 					<xsl:choose>
@@ -461,9 +462,17 @@
 		</xsl:choose>	
 	</xsl:variable>
 	
-	<div style='margin: 0px; width: 381px;'>
-	<textarea name='{$colonna/nome}[{$id_riga}]'>
+	<div style='margin: 0px; width: 400px;'>
+	<textarea name='{$colonna/nome}[{$id_riga}]' id='{$colonna/nome}[{$id_riga}]'>
 		<xsl:attribute name='onblur'>return document.<xsl:value-of select="/watabella/nome" />.azione_ModificaSubito("<xsl:value-of select="$colonna/nome" />", "<xsl:value-of select="$id_riga" />")</xsl:attribute>
+		<xsl:if test="not($cella/../@id)">
+			<!--
+			solamente le righe visibili (cioè tutte tranne la prima che deve essere
+			clonata), fanno parte del selettore a cui deve essere agganciato
+			tinymce
+			-->
+			<xsl:attribute name='class'>invisibile</xsl:attribute>
+		</xsl:if>
 		<xsl:value-of select="$cella/valore" />
 	</textarea>
 	</div>

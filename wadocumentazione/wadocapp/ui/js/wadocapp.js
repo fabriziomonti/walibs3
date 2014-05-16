@@ -25,58 +25,68 @@ var wadocapp = new Class
 						forced_root_block : false,
 						force_br_newlines : true,
 						force_p_newlines : false,
-						theme : "advanced",
-						mode : "textareas",
-						plugins : "fullscreen",
-						theme_advanced_toolbar_location : "top",
-						theme_advanced_toolbar_align : "center",
-						theme_advanced_buttons3_add : "fullscreen",
-						theme_advanced_statusbar_location : "none",
+						selector : "textarea:not(.invisibile)",
+						plugins : "fullscreen, link, image, textcolor, emoticons, table, code, media, template, hr",
+						menu :	
+							{ 
+							edit   : {title : 'Edit'  , items : 'undo redo | cut copy paste pastetext | selectall'},
+							insert : {title : 'Insert', items : 'link image media | hr'},
+							format : {title : 'Format', items : 'bold italic underline strikethrough superscript subscript | formats removeformat'},
+							table  : {title : 'Table' , items : 'inserttable tableprops deletetable | cell row column'},
+							tools  : {title : 'Tools' , items : 'fullscreen code'}
+							},
+			
+						toolbar: "fontselect fontsizeselect bullist numlist outdent indent forecolor backcolor emoticons fullscreen",
+			
 						readonly : false,
+						statusbar : false,
+						setup: function(editor) 
+							{
+							editor.on('BeforeRenderUI', function(e) 
+								{
+								this.settings.width = this.getElement().style.width;
+								});
 
-						onchange_callback : "document.wapagina.tinyMCE_change"
+							editor.on('change', function(e) 
+								{
+								document.wapagina.tinyMCE_change(this);
+								}
+								);
+							}
+					
 						}
-					);
+					);		
+			
+			
 		},
 
 	//-------------------------------------------------------------------------
-	tinyMCE_change: function(instance) 
+	tinyMCE_change: function(editorInstance) 
 		{
 		// l'aggiornamento immediato avviene solo sulle tabelle, non sui moduli
 		if (document.watabella)
 			{
-			document.watabella.obj.elements[instance.editorId].value = instance.getBody().innerHTML;
-			document.watabella.obj.elements[instance.editorId].onblur();
+			var textarea = editorInstance.getElement();
+			textarea.value = editorInstance.getContent();
+			textarea.onblur();
 			}
 		},
 		
 	//-------------------------------------------------------------------------
 	// creazione dinamica di una nuova riga in una watabella ; a causa della 
 	// presenza di tinyMCE
-	// va gestita in un modo un po' particolare: occorre creare la riga,
-	// rimuovere gli attributi tinyMCE dalle textarea e poi aggiungere le 
-	// textarea a tinyMCE; sorry, non ho trovato un sistema meno incasinato...
-	azione_myNuovoSubito: function(textarea_array) 
+	// va gestita in un modo un po' particolare: tinymce va applicato al
+	// textarea dopo che è stato creato
+	azione_myNuovoSubito: function(nomeTbl) 
 		{
-			
-		var idRiga = this.tabella.azione_NuovoSubito();
+		var idRiga = this.tabelle[nomeTbl].azione_NuovoSubito();
 
-		for (var nomeTbl in this.tabelle)
+		for (var nomeCol in this.tabelle[nomeTbl].colonne)
 			{
-			for (var nomeCol in this.tabelle[nomeTbl].colonne)
+			if (this.tabelle[nomeTbl].colonne[nomeCol].tipo_input == 'areatesto')
 				{
-				if (this.tabelle[nomeTbl].colonne[nomeCol].tipo_input == 'areatesto')
-					{
-					var spanna = document.getElementById(nomeCol + '[' + idRiga + ']_parent');
-					var divva = spanna.parentNode;
-					divva.removeChild(spanna);
-					var ta = document.getElementById(nomeCol + '[' + idRiga + ']');
-					ta.style.display = "inline";
-					tinyMCE.execCommand("mceAddControl", true, nomeCol + '[' + idRiga + ']');		
-					}
+				tinyMCE.execCommand("mceAddEditor", true, nomeCol + '[' + idRiga + ']');
 				}
-				
-				
 			}
 			
 		return idRiga;

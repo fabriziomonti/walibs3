@@ -1,3 +1,14 @@
+2014-05-16 tag rel_3_1_0
+- cdnizzazione: rimossa (fin dove possibile) la presenza di librerie terze parti,
+	sia php che js:
+	- php: 
+		- phpmailer e fpdf devono trovarsi dentro direcory così chiamate in include_path
+		- analogo al punto precedente per PHPExcel e ExcelWriterXML
+		- analogo ai punti precedenti per i moduli PEAR (Spreadsheet)
+	- js: tutto cio' che è terze parti è in CDN, ad eccezione della gestione
+			del calendario delle date e di ddmx: è roba troppo vecchia che andrà
+			presto sostituita
+
 2014-02-23 tag rel_3_0_28
 - corretto possibilità di special chars in menu e titolo tabella
 

@@ -10,8 +10,8 @@
 	<html xmlns="http://www.w3.org/1999/xhtml">
 		<head>
 			<link href='{waapplicazione_path}/uis/wa_default/css/waapplicazione.css' rel='stylesheet'/><xsl:text>&#10;</xsl:text>
+			<script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/mootools/1.2.5/mootools-yui-compressed.js'></script><xsl:text>&#10;</xsl:text>
 			<script type='text/javascript' src='{waapplicazione_path}/uis/wa_default/js/strmanage.js'></script><xsl:text>&#10;</xsl:text>
-			<script type='text/javascript' src='{waapplicazione_path}/uis/wa_default/js/moo1.2.js'></script><xsl:text>&#10;</xsl:text>
 			<script type='text/javascript' src='{waapplicazione_path}/uis/wa_default/js/waapplicazione.js'></script><xsl:text>&#10;</xsl:text>
 			
 		    <title>

@@ -176,13 +176,20 @@ parametri HTTP/GET. Di seguito il dettaglio dei parametri previsti dal protocoll
 		<b>watbl_esporta_xls[</b><i>{@link waTabella::$nome nome_tabella}</i><b>]</b>: 
 		la classe genera un file in formato XLS (MS-Office 2003) di tutte le righe che
 		soddisfano le condizioni impostate ed invia il file al client. 
-		Richiede che sia installatto il pacchetto PEAR 
+		<br>
+		Necessita dei pacchetti <a href="https://phpexcel.codeplex.com/">PHPExcel</a>
+		o <a href="http://sourceforge.net/projects/excelwriterxml/">ExcelWriterXML</a>
+		oppure il pacchetto PEAR 
 		<a href="http://pear.php.net/package/Spreadsheet_Excel_Writer/redirected">Spreadsheet_Excel_Writer</a>
+		(in include_path, oppure nella working directory dello script)
 	</li>
 	<li>
 		<b>watbl_esporta_pdf[</b><i>{@link waTabella::$nome nome_tabella}</i><b>]</b>: 
 		la classe genera un file in formato PDF di tutte le righe che
-		soddisfano le condizioni impostate ed invia il file al client
+		soddisfano le condizioni impostate ed invia il file al client.
+		<br>
+		Necessita del pacchetto  <a href="http://www.fpdf.org/">FPDF</a>
+		(in include_path, oppure nella working directory dello script)
 	</li>
 
 </ul>

@@ -7,7 +7,7 @@
 * @license http://www.gnu.org/licenses/gpl.html GPLv3
 */
 
-include_once(dirname(__FILE__) . '/fpdf/fpdf.php');
+include_once('fpdf/fpdf.php');
 
 //******************************************************************************
 /**

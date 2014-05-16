@@ -7,7 +7,9 @@
 <!-- ********************************************************************** -->
 <xsl:template match="data" name="data">
 
+	
 	<xsl:call-template name="intestazione_controllo"/>
+	<xsl:call-template name="carica_script_terze_parti_date"/>
 	<xsl:call-template name="tendine_data"/>
 
 	<input type='hidden' name='pass_{@id}' value='{substring(valore, 1, 10)}' />

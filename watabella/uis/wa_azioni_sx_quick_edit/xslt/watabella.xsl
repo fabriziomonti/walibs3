@@ -14,9 +14,8 @@
 	<xsl:text>&#10;</xsl:text>
 	<link href='{watabella_path}/uis/wa_file_comuni/css/watabella.css' rel='stylesheet'/><xsl:text>&#10;</xsl:text>
 	
-	<!-- roba menu contestuale	(una parte...) -->
+	<script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/mootools/1.2.5/mootools-yui-compressed.js'></script><xsl:text>&#10;</xsl:text>
 	<script type='text/javascript' src='{watabella_path}/uis/wa_file_comuni/js/strmanage.js'></script><xsl:text>&#10;</xsl:text>
-	<script type='text/javascript' src='{watabella_path}/uis/wa_file_comuni/js/moo1.2.js'></script><xsl:text>&#10;</xsl:text>
 	<script type='text/javascript' src='{watabella_path}/uis/wa_file_comuni/js/watabella.js'></script><xsl:text>&#10;</xsl:text>
 
  	<xsl:variable name="qoe">

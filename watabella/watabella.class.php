@@ -2098,13 +2098,210 @@ class waTabella
 		
 	//***************************************************************************
 	/**
-	* esportaXLS
+	* esportaXLS 
 	* @ignore
 	*
 	*/
 	protected function esportaXLS()
 		{
-		require_once 'Spreadsheet/Excel/Writer.php';
+		// a seconda delle librerie che messe a disposizione dal sistema
+		// chiamiamo la migliore funzione disponibile
+		if (($found = @include ('PHPExcel/Classes/PHPExcel.php')))
+			{
+			$this->esportaXLS_5();
+			}
+		elseif (($found = @include ('ExcelWriterXML/ExcelWriterXML.php')))
+			{
+			$this->esportaXLS_XML();
+			}
+		elseif (($found = @include ('Spreadsheet/Excel/Writer.php')))
+			{
+			// in realta' e' una 5 taroccata che da dei problemi...
+			$this->esportaXLS_8();
+			}
+			
+		}
+		
+	
+	//***************************************************************************
+	/**
+	* esportaXLS_11 (PHPExcel)
+	* @ignore
+	*
+	*/
+	protected function esportaXLS_5()
+		{
+		date_default_timezone_set('UTC');
+		
+		$objPHPExcel = new PHPExcel();
+		$sheet = $objPHPExcel->setActiveSheetIndex(0);
+		
+		$colIdx = 0;
+		foreach ($this->colonne as $col)
+			{
+			if ($col->mostra)
+				{
+				$sheet->setCellValueByColumnAndRow($colIdx, 1, $col->etichetta);
+				$sheet->getStyleByColumnAndRow($colIdx, 1)->getFont()->setBold(true);
+				$colIdx++;
+				}
+			}
+
+		$rowIdx = 2;
+		// si legge da db a blocchi di 100 righe, in modo da non sforare il 
+		// memory limit
+		while ($this->leggiBloccoSuccessivoEsportazione())
+			{
+			foreach ($this->righeDB->righe as $this->record)
+				{
+				$colIdx = 0;
+				foreach ($this->colonne as $col)
+					{
+					if ($col->mostra)
+						{
+						if (!empty($col->funzioneCalcolo))
+							{
+							$sheet->setCellValueExplicitByColumnAndRow($colIdx, $rowIdx, call_user_func($col->funzioneCalcolo, $this));
+							}
+						elseif ($this->righeDB->tipoCampo($col->nome) == WADB_DATA && $this->record->valore($col->nome))
+							{
+							$sheet->setCellValueByColumnAndRow($colIdx, $rowIdx,  PHPExcel_Shared_Date::PHPToExcel($this->record->valore($col->nome)));
+							$sheet->getStyleByColumnAndRow($colIdx, $rowIdx)->getNumberFormat()->setFormatCode('dd/mm/yyyy');
+							}
+						elseif ($this->righeDB->tipoCampo($col->nome) == WADB_DATAORA && $this->record->valore($col->nome))
+							{
+							$sheet->setCellValueByColumnAndRow($colIdx, $rowIdx,  PHPExcel_Shared_Date::PHPToExcel($this->record->valore($col->nome)));
+							$sheet->getStyleByColumnAndRow($colIdx, $rowIdx)->getNumberFormat()->setFormatCode('dd/mm/yyyy h:mm');
+							}
+						elseif ($this->righeDB->tipoCampo($col->nome) == WADB_INTERO)
+							{
+							$sheet->setCellValueByColumnAndRow($colIdx, $rowIdx, $this->record->valore($col->nome));
+							}
+						elseif ($this->righeDB->tipoCampo($col->nome) == WADB_DECIMALE)
+							{
+							$sheet->setCellValueByColumnAndRow($colIdx, $rowIdx, $this->record->valore($col->nome));
+							}
+						else
+							{
+							$sheet->setCellValueExplicitByColumnAndRow($colIdx, $rowIdx, $this->record->valore($col->nome));
+							}
+
+						$colIdx++;
+						}
+					}
+				$rowIdx++;
+				}
+			}
+
+		// Redirect output to a client’s web browser (Excel5)
+		$filename = $this->soloLettereNumeri($this->titolo) . date("_YmdHis") . ".xls";
+		header('Content-Type: application/vnd.ms-excel');
+		header("Content-Disposition: attachment;filename=\"$filename\"");
+		header('Cache-Control: max-age=0');
+		// If you're serving to IE 9, then the following may be needed
+		header('Cache-Control: max-age=1');
+
+		// If you're serving to IE over SSL, then the following may be needed
+		header ('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+		header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
+		header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+		header ('Pragma: public'); // HTTP/1.0
+
+		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+		$objWriter->save('php://output');
+
+		exit();
+		}		
+		
+	//***************************************************************************
+	/**
+	* esportaXLS_XML (con ExcelWriterXML)
+	* @ignore
+	*
+	*/
+	protected function esportaXLS_XML()
+		{
+		$xml = new ExcelWriterXML($this->soloLettereNumeri($this->titolo) . date("_YmdHis") . ".xls");
+
+		$sheet = $xml->addSheet('Foglio 1');
+
+		$arraglio = array();
+		
+		$colIdx = 0;
+		$format = $xml->addStyle('StyleHeader');
+		$format->fontBold();
+		foreach ($this->colonne as $col)
+			{
+			if ($col->mostra)
+				{
+				$sheet->writeString(1, $colIdx, $col->etichetta, 'StyleHeader');
+				$colIdx++;
+				}
+			}
+
+		$dateFormat = $xml->addStyle('data');
+		$dateFormat->numberFormat("dd/mm/yyyy");
+		$dateTimeFormat = $xml->addStyle('data_ora');
+		$dateTimeFormat->numberFormat("dd/mm/yyyy\ hh:mm:ss");
+		$rowIdx = 2;
+		// si legge da db a blocchi di 100 righe, in modo da non sforare il 
+		// memory limit
+		while ($this->leggiBloccoSuccessivoEsportazione())
+			{
+			foreach ($this->righeDB->righe as $this->record)
+				{
+				$colIdx = 0;
+				foreach ($this->colonne as $col)
+					{
+					if ($col->mostra)
+						{
+						if (!empty($col->funzioneCalcolo))
+							{
+							$sheet->writeString($rowIdx, $colIdx, call_user_func($col->funzioneCalcolo, $this));
+							}
+						elseif ($this->righeDB->tipoCampo($col->nome) == WADB_DATA)
+							{
+							$sheet->writeDateTime($rowIdx, $colIdx, $sheet->convertMysqlDate($this->record->valore($col->nome, 1)), "data");
+							}
+						elseif ($this->righeDB->tipoCampo($col->nome) == WADB_DATAORA)
+							{
+							$sheet->writeDateTime($rowIdx, $colIdx, $sheet->convertMysqlDatetime($this->record->valore($col->nome, 1)), "data_ora");
+							}
+						elseif ($this->righeDB->tipoCampo($col->nome) == WADB_INTERO)
+							{
+							$sheet->writeNumber($rowIdx, $colIdx, $this->record->valore($col->nome));
+							}
+						elseif ($this->righeDB->tipoCampo($col->nome) == WADB_DECIMALE)
+							{
+							$sheet->writeNumber($rowIdx, $colIdx, $this->record->valore($col->nome));
+							}
+						else
+							{
+							$sheet->writeString($rowIdx, $colIdx, $this->record->valore($col->nome));
+							}
+
+						$colIdx++;
+						}
+					}
+				$rowIdx++;
+				}
+			}
+
+		$xml->sendHeaders();
+		$xml->writeData();			
+
+			
+		exit();
+		}		
+		
+	//***************************************************************************
+	/**
+	* esportaXLS_8 (usa vecchio modulo PEAR, che sembra dare problemi....)
+	* @ignore
+	*
+	*/
+	protected function esportaXLS_8()
+		{
 		
 		$workbook = new Spreadsheet_Excel_Writer();
 		$workbook->setVersion(8);

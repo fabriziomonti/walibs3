@@ -87,7 +87,6 @@
     <li><a href="../waApplicazione/waApplicazione.html#var$modalitaNavigazione">$modalitaNavigazione</a></li>
     <li><a href="../waApplicazione/waApplicazione.html#var$nome">$nome</a></li>
     <li><a href="../waApplicazione/waApplicazione.html#var$passwordSmtp">$passwordSmtp</a></li>
-    <li><a href="../waApplicazione/waApplicazione.html#var$waDoc">$waDoc</a></li>
     <li><a href="../waApplicazione/waApplicazione.html#var$portaSmtp">$portaSmtp</a></li>
     <li><a href="../waApplicazione/waApplicazione.html#var$serverSmtp">$serverSmtp</a></li>
     <li><a href="../waApplicazione/waApplicazione.html#var$sicurezzaSmtp">$sicurezzaSmtp</a></li>
@@ -97,6 +96,7 @@
     <li><a href="../waApplicazione/waApplicazione.html#var$usaSessione">$usaSessione</a></li>
     <li><a href="../waApplicazione/waApplicazione.html#var$utenteSmtp">$utenteSmtp</a></li>
     <li><a href="../waApplicazione/waApplicazione.html#var$versione">$versione</a></li>
+    <li><a href="../waApplicazione/waApplicazione.html#var$waDoc">$waDoc</a></li>
     <li><a href="../waApplicazione/waApplicazione.html#var$xslt">$xslt</a></li>
   </ul>
 </td>
@@ -429,30 +429,6 @@
 			</div><br />
 			<div class="top" style="margin-left: 4px;">[ <a href="#top">Top</a> ]</div>
 									<p></p>
-			<a name="var$waDoc"></a>
-				<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
-					<table width="100%" border="0" cellspacing="0" cellpadding="2">
-						<tr>
-							<td class="code">
-								<code>
-									$waDoc = <span class="value">&nbsp;null</span>										
-								</code>
-							</td>
-						</tr>
-					</table>
-			</td></tr></table><br />
-
-			<!--<p>[line 219]</p>-->
-			<div><p style="margin-top: -4px"><b>oggetto di classe waDocumentazione che provvede a creare la documentazione delle pagine visitate.</b></p></div><div><p>L'istanziazione dell'oggetto è a carico dell'applicazione; waApplicazione  si limita, qualora l'oggetto sia stato creato, ad effettuare le chiamate  di richiesta documentazione delle pagine visitate.  <br /><br />  Ovviamente l'oggetto deve essere istanziato solo in ambiente di sviluppo,  mai in produzione, per ovvi motivi di performance.  <br /><br />  Si noti che in fase di creazione dell'istanza occorre passare al  costruttore un file di configurazione waDB: questo potrà essere il  medesimo utilizzato dall'applicazione, ma in questo caso le tabelle di  documentazione verranno creato all'interno del DB designato dal file di  configurazione, ossia il medesimo dell'applicazione.</p></div>			<div class="tags">
-				<table border="0" cellspacing="0" cellpadding="0">
-					<tr>
-						<td><b>Tipo:</b>&nbsp;&nbsp;</td>
-						<td>waDocumentazione</td>
-					</tr>
-									</table>
-			</div><br />
-			<div class="top" style="margin-left: 4px;">[ <a href="#top">Top</a> ]</div>
-									<p></p>
 			<a name="var$portaSmtp"></a>
 				<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
 					<table width="100%" border="0" cellspacing="0" cellpadding="2">
@@ -664,6 +640,30 @@
 					<tr>
 						<td><b>Tipo:</b>&nbsp;&nbsp;</td>
 						<td>string</td>
+					</tr>
+									</table>
+			</div><br />
+			<div class="top" style="margin-left: 4px;">[ <a href="#top">Top</a> ]</div>
+									<p></p>
+			<a name="var$waDoc"></a>
+				<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code_border">
+					<table width="100%" border="0" cellspacing="0" cellpadding="2">
+						<tr>
+							<td class="code">
+								<code>
+									$waDoc = <span class="value">&nbsp;null</span>										
+								</code>
+							</td>
+						</tr>
+					</table>
+			</td></tr></table><br />
+
+			<!--<p>[line 219]</p>-->
+			<div><p style="margin-top: -4px"><b>oggetto di classe waDocumentazione che provvede a creare la documentazione delle pagine visitate.</b></p></div><div><p>L'istanziazione dell'oggetto è a carico dell'applicazione; waApplicazione  si limita, qualora l'oggetto sia stato creato, ad effettuare le chiamate  di richiesta documentazione delle pagine visitate.  <br /><br />  Ovviamente l'oggetto deve essere istanziato solo in ambiente di sviluppo,  mai in produzione, per ovvi motivi di performance.  <br /><br />  Si noti che in fase di creazione dell'istanza occorre passare al  costruttore un file di configurazione waDB: questo potrà essere il  medesimo utilizzato dall'applicazione, ma in questo caso le tabelle di  documentazione verranno creato all'interno del DB designato dal file di  configurazione, ossia il medesimo dell'applicazione.</p></div>			<div class="tags">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td><b>Tipo:</b>&nbsp;&nbsp;</td>
+						<td>waDocumentazione</td>
 					</tr>
 									</table>
 			</div><br />
@@ -881,7 +881,7 @@
 						</td></tr></table>
 			</td></tr></table><br />
 
-	<div><p style="margin-top: -4px"><b>invia un messaggio email</b></p></div>	<div class="tags">
+	<div><p style="margin-top: -4px"><b>invia un messaggio email</b></p></div><div><p>attenzione: necessita della directory della classe phpmailer (&quot;phpmailer&quot;)  in include_path, oppure nella working directory dello script</p></div>	<div class="tags">
 		<table border="0" cellspacing="0" cellpadding="0">
 							<tr>
 					<td><b>
@@ -1169,7 +1169,7 @@
 
         <div class="credit">
 		    <hr />
-		    Documentation generated on Thu, 21 Nov 2013 17:57:40 +0100 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.4</a>
+		    Documentation generated on Wed, 14 May 2014 19:46:55 +0200 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.4</a>
 	      </div>
       </td></tr></table>
     </td>

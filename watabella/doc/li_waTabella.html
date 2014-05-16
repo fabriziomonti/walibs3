@@ -50,6 +50,8 @@
 </a><br>
 <a href="waTabella/_watabella.inc.php.html">watabella.inc.php
 </a><br>
+<a href="waTabella/_watbl_pdf.old.php.html">watbl_pdf.old.php
+</a><br>
 <a href="waTabella/_ya_wam_pdf.php.html">ya_wam_pdf.php
 </a><br>
 <br />
@@ -237,13 +239,20 @@ parametri HTTP/GET. Di seguito il dettaglio dei parametri previsti dal protocoll
 		<b>watbl_esporta_xls[</b><i><a href="waTabella/waTabella.html#var$nome">nome_tabella</a></i><b>]</b>: 
 		la classe genera un file in formato XLS (MS-Office 2003) di tutte le righe che
 		soddisfano le condizioni impostate ed invia il file al client. 
-		Richiede che sia installatto il pacchetto PEAR 
+		<br>
+		Necessita dei pacchetti <a href="https://phpexcel.codeplex.com/">PHPExcel</a>
+		o <a href="http://sourceforge.net/projects/excelwriterxml/">ExcelWriterXML</a>
+		oppure il pacchetto PEAR 
 		<a href="http://pear.php.net/package/Spreadsheet_Excel_Writer/redirected">Spreadsheet_Excel_Writer</a>
+		(in include_path, oppure nella working directory dello script)
 	</li>
 	<li>
 		<b>watbl_esporta_pdf[</b><i><a href="waTabella/waTabella.html#var$nome">nome_tabella</a></i><b>]</b>: 
 		la classe genera un file in formato PDF di tutte le righe che
-		soddisfano le condizioni impostate ed invia il file al client
+		soddisfano le condizioni impostate ed invia il file al client.
+		<br>
+		Necessita del pacchetto  <a href="http://www.fpdf.org/">FPDF</a>
+		(in include_path, oppure nella working directory dello script)
 	</li>
 
 </ul>
@@ -385,7 +394,7 @@ Bicio, Boka.
 </HTML>
         <div class="credit">
 		    <hr />
-		    Documentation generated on Fri, 08 Mar 2013 12:10:28 +0100 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.4</a>
+		    Documentation generated on Wed, 14 May 2014 19:46:40 +0200 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.4</a>
 	      </div>
       </td></tr></table>
     </td>
