@@ -816,7 +816,7 @@ class waTabella
 		if ($keyword == "select")
 			$inizio = 0;
 		else
-			$inizio = stripos($sql, " $keyword ");
+			$inizio = strripos($sql, " $keyword ");
 		if ($inizio === false) 
 			return '';
 		$clauses = array("select", "from", "where", "group", "order", "limit");
@@ -827,7 +827,7 @@ class waTabella
 			}
 		for ($i += 1; $i < count($clauses); $i++)
 			{
-			$fine = stripos($sql, " $clauses[$i] ");
+			$fine = strripos($sql, " $clauses[$i] ");
 			if ($fine)
 				break;
 			}
