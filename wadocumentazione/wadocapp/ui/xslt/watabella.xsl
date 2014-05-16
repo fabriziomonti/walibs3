@@ -20,7 +20,6 @@
 	<script type='text/javascript' src='{watabella_path}/uis/wa_file_comuni/js/watabella.js'></script><xsl:text>&#10;</xsl:text>
 
 	<!-- caricamento tinyMCE -->
-	<!--<script type='text/javascript' src='{watabella_path}/../wadocumentazione/wadocapp/ui/js/tiny_mce/tiny_mce.js'></script><xsl:text>&#10;</xsl:text>-->
 	<script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/tinymce/4.0.21/tinymce.min.js'></script><xsl:text>&#10;</xsl:text>
 
  	<xsl:variable name="qoe">
