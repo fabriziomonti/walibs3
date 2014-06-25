@@ -1,3 +1,6 @@
+2014-06-25 tag rel_3_1_1
+- corretta gestione decimali valuta
+
 2014-05-16 tag rel_3_1_0
 - cdnizzazione: rimossa (fin dove possibile) la presenza di librerie terze parti,
 	sia php che js:
