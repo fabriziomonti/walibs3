@@ -1524,6 +1524,9 @@ class waTabella
 								"\t\t\t<link>" . ($col->link ? 1 : 0) . "</link>\n" .
 								"\t\t\t<ordinamento_rapido>" . $this->dammiDatiOrdinamentoRapido($col) ."</ordinamento_rapido>\n";
 			
+			if ($col->tipoCampo == WADB_DECIMALE)
+				$this->buffer .= "\t\t\t<nr_decimali>$col->nrDecimali</nr_decimali>\n";
+			
 			if ($col->inputTipo)
 				{
 				$this->buffer .= "\t\t\t<input>\n" .

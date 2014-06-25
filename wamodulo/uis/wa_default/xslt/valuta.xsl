@@ -8,6 +8,12 @@
 
 	<xsl:call-template name="intestazione_controllo"/>
 	<xsl:variable name="caratteri_max" select="nr_interi + floor(nr_interi div 3) + number(nr_interi mod 3 &gt; 0) + nr_decimali" />
+	<xsl:variable name="pattern_decimali">
+		<xsl:call-template name="str_repeat">
+			<xsl:with-param name="char">0</xsl:with-param>
+			<xsl:with-param name="count">7</xsl:with-param>
+		</xsl:call-template>
+	</xsl:variable>
 		
 	<input type='text' name='{@id}' maxlength='{$caratteri_max}' size='{$caratteri_max}'>
 		<xsl:attribute name='value'>
@@ -15,9 +21,9 @@
 			<!--<xsl:value-of select="number($caratteri_max)" />-->
 			<xsl:choose>
 				<xsl:when test="(valore = '' or valore = 0) and vuoto_se_zero = '1'" ></xsl:when>
-				<xsl:when test="(valore = '' or valore = 0) and vuoto_se_zero != '1'" >0,00</xsl:when>
+				<xsl:when test="(valore = '' or valore = 0) and vuoto_se_zero != '1'" >0,<xsl:value-of select="$pattern_decimali"/></xsl:when>
 				<xsl:otherwise>
-					<xsl:value-of select="format-number(number(valore),  '#.##0,00')"/>
+					<xsl:value-of select="format-number(number(valore), concat('#.##0,' , $pattern_decimali))"/>
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:attribute>
