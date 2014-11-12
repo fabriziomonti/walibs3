@@ -1,3 +1,6 @@
+2014-11-13 tag rel_3_1_3
+- corretto caricafile.xsl (erano rimasti dei doppi apici dannosi)
+
 2014-06-25 tag rel_3_1_2
 - corretta gestione decimali valuta
 
