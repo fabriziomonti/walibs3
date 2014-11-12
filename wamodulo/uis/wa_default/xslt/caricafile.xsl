@@ -98,7 +98,7 @@
 					</xsl:choose>
 				</elimina>
 			</xsl:when>
-			<xsl:otherwise>"__wamodulo_valore_non_ritornato__"</xsl:otherwise>
+			<xsl:otherwise>__wamodulo_valore_non_ritornato__</xsl:otherwise>
 		</xsl:choose>
 	</xsl:element>
 
