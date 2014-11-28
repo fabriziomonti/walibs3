@@ -122,8 +122,8 @@ class waConnessioneDB_mysql extends waConnessioneDB
 		{
 		$this->loggaQuery($sql);
 		$qid = @mysql_query($sql, $this->DBConn);
-		if ($qid === false)
-			return false;
+		if (is_bool($qid))
+			return $qid;
 		$retval = array();
 		while ($riga = @mysql_fetch_assoc($qid))
 			$retval[] = $riga;

@@ -1,3 +1,7 @@
+2014-11-28 tag rel_3_1_4
+- corretti driver mysql: c'era un warning al ritorno di una scrittura andata 
+bene (cercava di fetchare il risultato)
+
 2014-11-13 tag rel_3_1_3
 - corretto caricafile.xsl (erano rimasti dei doppi apici dannosi)
 
