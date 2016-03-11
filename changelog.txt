@@ -1,3 +1,6 @@
+2016-03-11 tag rel_3_1_5
+- modificato banner
+
 2014-11-28 tag rel_3_1_4
 - corretti driver mysql: c'era un warning al ritorno di una scrittura andata 
 bene (cercava di fetchare il risultato)
