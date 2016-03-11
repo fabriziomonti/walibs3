@@ -4,7 +4,7 @@
  * @package waModulo
  * @version 3.0
  * @author G. Di Bona, F.Monti
- * @copyright (c) 2007-2013 {@link http://www.webappls.com WebAppls S.p.A.} Bologna, Italy
+ * @copyright (c) 2007-2016 {@link http://www.webappls.com WebAppls} Bologna, Italy
  * @license http://www.gnu.org/licenses/gpl.html GPLv3
  */
 if (!defined('_WA_CAPTCHA'))
@@ -34,7 +34,7 @@ if (!defined('_WA_CAPTCHA'))
 	 * @package waModulo
 	 * @version 3.0
 	 * @author G.Di Bona, F.Monti
-	 * @copyright (c) 2007-2013 {@link http://www.webappls.com WebAppls S.p.A.} Bologna, Italy
+	 * @copyright (c) 2007-2016 {@link http://www.webappls.com WebAppls} Bologna, Italy
 	 * @license http://www.gnu.org/licenses/gpl.html GPLv3
 	 */
 	class waCaptcha extends waTesto
