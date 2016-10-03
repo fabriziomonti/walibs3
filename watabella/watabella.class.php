@@ -285,6 +285,14 @@ class waTabella
 	*/	
 	var $pdf_file_classe = '';
 	
+	/**
+	* ammette le subselect nella select clause o dopo (where, order by)
+	* per default nella select; non può ammetter entrambi i casi
+	*
+	* @var boolean
+	*/	
+	var $subselectStandard = true;
+	
 	//*************************************************************************
 	// protected
 
@@ -483,7 +491,10 @@ class waTabella
 
 		// creazione azioni standard
 		$this->aggiungiAzione('Nuovo');
-		$this->aggiungiAzione('Filtro');
+		if (!is_array($sqlOArray))
+			{
+			$this->aggiungiAzione('Filtro');
+			}
 		$this->aggiungiAzione('Vedi', true);
 		$this->aggiungiAzione('Modifica', true);
 		$this->aggiungiAzione('Elimina', true);
@@ -816,7 +827,7 @@ class waTabella
 		if ($keyword == "select")
 			$inizio = 0;
 		else
-			$inizio = strripos($sql, " $keyword ");
+			$inizio = $this->subselectStandard ? strripos($sql, " $keyword ") : stripos($sql, " $keyword ");
 		if ($inizio === false) 
 			return '';
 		$clauses = array("select", "from", "where", "group", "order", "limit");
@@ -827,7 +838,7 @@ class waTabella
 			}
 		for ($i += 1; $i < count($clauses); $i++)
 			{
-			$fine = strripos($sql, " $clauses[$i] ");
+			$fine = $this->subselectStandard ? strripos($sql, " $clauses[$i] ") : stripos($sql, " $clauses[$i] ");
 			if ($fine)
 				break;
 			}

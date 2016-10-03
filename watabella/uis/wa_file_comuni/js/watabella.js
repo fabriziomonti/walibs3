@@ -236,7 +236,6 @@ var wacolonna = new Class
 			if (giorno + "/" + mese + "/" + anno != ctrl.value)
 				return "id " + idRiga + " - " + this.etichetta + ": formato data non valido (gg/mm/aaaa)\n";
 			// se il campo e' stato modificato accendiamo il checkbox di modifica
-			// del record; la data nei "campi" e' in formato epoch php
 			if (data.getTime() != this.tabella.righe[idRiga].campi[this.nome] * 1000)
 				{
 				this.tabella.obj.elements["watbl_input_mod_chk[" + idRiga + "]"].checked = true;
@@ -962,7 +961,7 @@ var watabella = new Class
 	 */
 	azione_Elimina: function (idRiga)
 		{
-		if (confirm("Confermi eliminazione"))
+		if (confirm("Confermi eliminazione?"))
 			this.apriPagina (this.dammiUriModulo(this.opeElimina, idRiga));
 		},
 			

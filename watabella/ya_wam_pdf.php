@@ -129,8 +129,9 @@ class ya_wam_pdf extends FPDF
 				// ultima riga... eventualmente devo fare il bordo in basso
 				if (($i == $max - 1) && strpos(' ' . $border[$j], 'B')) $b[$j] .= 'B';
 				// creo la cella
-				if (is_array($align)) $this->Cell($w[$j], $h, $newRow[$j][$i], $b[$j], 0, $align[$j], $fill);
-				else $this->Cell($w[$j], $h, $newRow[$j][$i], $b[$j], 0, $align, $fill);
+				$myAlign = is_array($align) ? $align[$j] : $align;
+				$myFill= is_array($fill) ? $fill[$j] : $fill;
+				$this->Cell($w[$j], $h, $newRow[$j][$i], $b[$j], 0, $myAlign, $myFill);
 				}
 			$this->Ln();
 			$this->SetX($x);
